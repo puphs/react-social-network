@@ -1,0 +1,57 @@
+.dialogs {
+	display: grid;
+	grid-template-columns: 2fr 10fr;
+	padding-top: 32px;
+}
+
+.dialogItems {
+	max-width: 250px;
+}
+
+.dialog {
+	display: flex;
+	align-items: center;
+	min-width: 250px;
+	padding: 8px 8px 8px 32px;
+	color: white;
+}
+
+.avatar {
+	width: 48px;
+	height: 48px;
+	border-radius: 100%;
+}
+
+.name {
+	padding-left: 12px;
+	font-size: 20px;
+	line-height: 26px;
+}
+
+.dialog.active {
+	background-image: var(--gradient-main);
+	color: var(--color-text);
+}
+
+.messages {
+	padding: 0 32px 0 20px;
+}
+
+.message {
+}
+
+.message + .message {
+	margin-top: 8px;
+}
+
+.message_right {
+	text-align: right;
+}
+
+.text {
+	display: inline-block;
+	border-radius: 100px;
+	padding: 12px 14px;
+	background-image: var(--gradient-main);
+	color: var(--color-text);
+}
