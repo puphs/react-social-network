@@ -1,5 +1,5 @@
 import React from 'react';
-import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/store';
+import { addPostCreator, updateNewPostTextCreator } from '../../../redux/profileReducer';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 const MyPosts = (props) => {
@@ -11,14 +11,13 @@ const MyPosts = (props) => {
 
 	const postInputElementRef = React.createRef();
 
-	const updateNewPostText = () => {
-		const text = postInputElementRef.current.value;
-		props.dispatch(updateNewPostTextActionCreator(text));
+	const updateNewPostText = (e) => {
+		props.dispatch(updateNewPostTextCreator(e.target.value));
 	};
 
 	const addPost = () => {
 		// props.addPost();
-		props.dispatch(addPostActionCreator());
+		props.dispatch(addPostCreator());
 	};
 
 	return (
