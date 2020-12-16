@@ -2,11 +2,15 @@ import MyPosts from './MyPosts/MyPosts';
 import s from './Profile.module.css';
 import ProfileInfo from './ProfileInfo';
 
-const Profile = () => {
+const Profile = (props) => {
 	return (
 		<main className={s.profile}>
 			<ProfileInfo />
-			<MyPosts />
+			<MyPosts
+				newPostText={props.profilePage.newPostText}
+				posts={props.profilePage.posts}
+				dispatch={props.dispatch}
+			/>
 		</main>
 	);
 };

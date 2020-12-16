@@ -1,18 +1,43 @@
+import React from 'react';
+import { addPostActionCreator, updateNewPostTextActionCreator } from '../../../redux/store';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
+const MyPosts = (props) => {
+	let posts = props.posts ?? [];
 
-const MyPosts = () => {
+	const postElements = posts.map((data) => (
+		<Post message={data.message} likesCount={data.likesCount} />
+	));
+
+	const postInputElementRef = React.createRef();
+
+	const updateNewPostText = () => {
+		const text = postInputElementRef.current.value;
+		props.dispatch(updateNewPostTextActionCreator(text));
+	};
+
+	const addPost = () => {
+		// props.addPost();
+		props.dispatch(addPostActionCreator());
+	};
+
 	return (
 		<div className={s.myPosts}>
 			<div className={s.addPost}>
-				<textarea placeholder="Write something..." className={s.postTextArea}></textarea>
-				<button className={s.postBtn}>post</button>
+				<textarea
+					className={s.postTextArea + ' ' + 'textAreaBase'}
+					placeholder="Write something..."
+					ref={postInputElementRef}
+					value={props.newPostText}
+					onChange={updateNewPostText}
+				></textarea>
+				<button className={s.postBtn + ' ' + 'btnBase'} onClick={addPost}>
+					post
+				</button>
 			</div>
 			<div className={s.posts}>
 				<h2 className={s.postsHeader}>Posts</h2>
-				<Post message="Hello there" />
-				<Post message="It's my first post" likesCount="3" />
-				<Post />
+				{postElements}
 			</div>
 		</div>
 	);

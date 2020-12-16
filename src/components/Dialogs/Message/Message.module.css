@@ -1,0 +1,15 @@
+.message + .message {
+	margin-top: 8px;
+}
+
+.message_right {
+	text-align: right;
+}
+
+.text {
+	display: inline-block;
+	border-radius: 100px;
+	padding: 12px 14px;
+	background-image: var(--gradient-main);
+	color: var(--color-text);
+}

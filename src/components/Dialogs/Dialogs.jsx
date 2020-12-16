@@ -1,41 +1,40 @@
+import React from 'react';
 import s from './Dialogs.module.css';
-import { NavLink } from 'react-router-dom';
-
-const DialogItem = (props) => {
-	const path = '/dialogs/' + props.id;
-	return (
-		<NavLink className={s.dialog} to={path} activeClassName={s.active}>
-			<img
-				className={s.avatar}
-				src="https://img2.freepng.ru/20180319/pde/kisspng-computer-icons-icon-design-avatar-flat-face-icon-5ab06e33bee962.122118601521511987782.jpg"
-			/>
-			<div className={s.name}>{props.name}</div>
-		</NavLink>
-	);
-};
-
-const Message = (props) => {
-	let messageRight = '';
-	if (props.messageFromRight) messageRight = s.message_right;
-	return (
-		<div className={s.message + ' ' + messageRight}>
-			<div className={s.text}>{props.message}</div>
-		</div>
-	);
-};
+import DialogItem from './DialogItem/DialogItem';
+import Message from './Message/Message';
 
 const Dialogs = (props) => {
+	const dialogs = props.dialogsPage?.dialogs ?? [];
+	const messages = props.dialogsPage?.messages ?? [];
+
+	let dialogElements = dialogs.map((data) => <DialogItem name={data.name} id={data.id} />);
+	let messageElements = messages.map((data) => <Message message={data.message} />);
+
+	const messageInputElementRef = React.createRef();
+	const addMessage = () => {
+		props.addMessage();
+	};
+
+	const updateNewMessageText = () => {
+		const text = messageInputElementRef.current.value;
+		props.updateNewMessageText(text);
+	};
+
 	return (
 		<main className={s.dialogs}>
-			<div className={s.dialogItems}>
-				<DialogItem name="Dima" id="1" />
-				<DialogItem name="Sasha" id="2" />
-				<DialogItem name="Arnold" id="3" />
-				<DialogItem name="Dima" id="4" />
-			</div>
-			<div className={s.messages}>
-				<Message message="Hi" messageFromRight />
-				<Message message="Hello" />
+			<div className={s.dialogItems}>{dialogElements}</div>
+			<div className={s.dialogContainer}>
+				<div className={s.messages}>{messageElements}</div>
+				<textarea
+					className={s.messageTextArea + ' ' + 'textAreaBase'}
+					placeholder="Write a message..."
+					ref={messageInputElementRef}
+					value={props.dialogsPage.newMessageText}
+					onChange={updateNewMessageText}
+				></textarea>
+				<button className={s.sendBtn + ' ' + 'btnBase'} onClick={addMessage}>
+					send
+				</button>
 			</div>
 		</main>
 	);

@@ -26,7 +26,7 @@ body {
 	grid-gap: 10px;
 	grid-template-areas:
 		'h h'
-		'n c';
+		's c';
 }
 
 ul {
@@ -42,4 +42,31 @@ a {
 .content {
 	grid-area: 'c';
 	background-color: var(--color-primary);
+}
+
+.btnBase {
+	display: block;
+	width: 180px;
+	border-radius: 6px;
+	border: none;
+	padding: 10px 32px;
+	font-size: 18px;
+	line-height: 22px;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: white;
+	background-color: var(--color-secondary);
+	cursor: pointer;
+}
+
+.textAreaBase {
+	border-radius: 6px;
+	background-image: var(--gradient-main);
+	color: var(--color-text);
+	font-size: 16px;
+	line-height: 21px;
+	border: none;
+	width: 100%;
+	padding: 8px 12px;
+	resize: none;
 }
