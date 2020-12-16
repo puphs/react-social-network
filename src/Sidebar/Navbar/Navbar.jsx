@@ -3,7 +3,7 @@ import s from './Navbar.module.css';
 
 const Navbar = () => {
 	return (
-		<nav className={s.nav}>
+		<nav className={s.navbar}>
 			<ul>
 				<li className={s.item}>
 					<NavLink className={`${s.itemLink}`} to="/profile" activeClassName={s.itemLink_active}>

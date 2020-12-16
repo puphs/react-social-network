@@ -1,0 +1,14 @@
+.sidebar {
+	grid-area: s;
+	background-color: var(--color-primary);
+	padding: 16px;
+	min-width: 200px;
+}
+
+.itemLink_active {
+	color: white;
+}
+
+.bestFriends {
+	margin-top: 32px;
+}
