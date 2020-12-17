@@ -1,6 +1,6 @@
 import { Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
-import Dialogs from './components/Dialogs/Dialogs';
+import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Header from './components/Header/Header';
 import Sidebar from './Sidebar/Sidebar';
 import Profile from './components/Profile/Profile';
@@ -15,18 +15,8 @@ const App = (props) => {
 			<Sidebar />
 			<div className="content">
 				<Switch>
-					<Route
-						path="/profile"
-						render={() => (
-							<Profile profilePage={props.state.profilePage} dispatch={props.dispatch} />
-						)}
-					/>
-					<Route
-						path="/dialogs"
-						render={() => (
-							<Dialogs dialogsPage={props.state.dialogsPage} dispatch={props.dispatch} />
-						)}
-					/>
+					<Route path="/profile" render={() => <Profile />} />
+					<Route path="/dialogs" render={() => <DialogsContainer />} />
 					<Route path="/news" component={News} />
 					<Route path="/music" component={Music} />
 					<Route path="/settings" component={Settings} />
