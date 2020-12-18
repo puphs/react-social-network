@@ -5,7 +5,7 @@ const MyPosts = (props) => {
 	let posts = props.posts ?? [];
 
 	const postElements = posts.map((data) => (
-		<Post message={data.message} likesCount={data.likesCount} />
+		<Post key={data.id} message={data.message} likesCount={data.likesCount} />
 	));
 
 	const postInputElementRef = React.createRef();

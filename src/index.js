@@ -8,19 +8,16 @@ import { Provider } from 'react-redux';
 
 //addPost('Hi, guys!');
 
-export const renderEntireTree = () => {
-	ReactDOM.render(
-		<React.StrictMode>
-			<BrowserRouter>
-				<Provider store={store}>
-					<App />
-				</Provider>
-			</BrowserRouter>
-		</React.StrictMode>,
-		document.getElementById('root')
-	);
-};
-
+ReactDOM.render(
+	<React.StrictMode>
+		<BrowserRouter>
+			<Provider store={store}>
+				<App />
+			</Provider>
+		</BrowserRouter>
+	</React.StrictMode>,
+	document.getElementById('root')
+);
 // store.subscribeOnStateChanged(renderEntireTree);
-store.subscribe(renderEntireTree);
-renderEntireTree(store.getState());
+// store.subscribe(renderEntireTree);
+// renderEntireTree(store.getState());
