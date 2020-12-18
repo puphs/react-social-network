@@ -4,7 +4,7 @@ import App from './App';
 import './index.css';
 import store from './redux/reduxStore';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from './StoreContext';
+import { Provider } from 'react-redux';
 
 //addPost('Hi, guys!');
 
