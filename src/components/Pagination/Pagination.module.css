@@ -1,0 +1,23 @@
+.pagination {
+	margin-top: 16px;
+	margin: 16px auto 0;
+	display: flex;
+	justify-content: center;
+}
+
+.page {
+	/* min-width: 25px; */
+	text-align: center;
+	cursor: pointer;
+}
+.page + .page {
+	margin-left: 8px;
+}
+
+.dots {
+	margin: 0 8px;
+}
+
+.page_active {
+	font-weight: bold;
+}
