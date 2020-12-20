@@ -10,6 +10,7 @@
 	--color-primary-light: #d2e5e7;
 	--color-secondary: #2364aa;
 	--color-text: #075158;
+	--color-text-light: #3198a2;
 	--gradient-main: linear-gradient(-180deg, #83d6de, #91e1e9);
 }
 
@@ -46,7 +47,7 @@ a {
 
 .btnBase {
 	display: block;
-	width: 180px;
+	min-width: 180px;
 	border-radius: 6px;
 	border: none;
 	padding: 10px 32px;
@@ -69,4 +70,12 @@ a {
 	width: 100%;
 	padding: 8px 12px;
 	resize: none;
+}
+
+.gradientContainerBase {
+	color: var(--color-text);
+	background-image: var(--gradient-main);
+	box-shadow: 0px 3px 6px #00000029;
+	border-radius: 6px;
+	padding: 12px;
 }

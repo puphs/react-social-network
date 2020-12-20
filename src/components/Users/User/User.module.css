@@ -1,0 +1,48 @@
+.user {
+	display: flex;
+}
+
+.user + .user {
+	margin-top: 8px;
+}
+
+.avatarContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.avatarImg {
+	width: 72px;
+	height: 72px;
+	border-radius: 100%;
+}
+.followBtn {
+	margin-top: 6px;
+	font-size: 16px;
+	line-height: 19px;
+	padding: 8px 12px;
+	min-width: 100px;
+	text-transform: lowercase;
+}
+.aboutContainer {
+	padding-left: 8px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.name {
+	font-size: 22px;
+	line-height: 27px;
+	font-weight: bold;
+}
+.status {
+	margin-top: 4px;
+	font-size: 16px;
+	line-height: 18px;
+}
+.location {
+	color: var(--color-text-light);
+	font-size: 14px;
+	line-height: 19px;
+}
