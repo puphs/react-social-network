@@ -1,0 +1,10 @@
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.preloader {
+	width: 96px;
+	height: 96px;
+}
