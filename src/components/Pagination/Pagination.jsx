@@ -1,3 +1,4 @@
+import Preloader from '../Preloader/Preloader';
 import s from './Pagination.module.css';
 
 const Pagination = (props) => {

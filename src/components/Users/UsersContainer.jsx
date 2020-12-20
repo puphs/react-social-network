@@ -5,10 +5,11 @@ import React from 'react';
 import Preloader from './../Preloader/Preloader';
 
 import {
-	followUserToggleCreator,
-	setCurrentPageCreator,
-	setTotalUsersCountCreator,
-	setUsersCreator,
+	toggleFollowUser,
+	setCurrentPage,
+	setIsFetching,
+	setTotalUsersCount,
+	setUsers,
 } from '../../redux/usersReducer';
 
 class UsersContainer extends React.Component {
@@ -17,7 +18,9 @@ class UsersContainer extends React.Component {
 	}
 
 	componentDidMount() {
+		this.props.setIsFetching(true);
 		this.getUsers(this.props.currentPage, this.props.pageSize).then((response) => {
+			this.props.setIsFetching(false);
 			this.props.setUsers(response.data.items);
 			this.props.setTotalUsersCount(response.data.totalCount);
 		});
@@ -34,7 +37,9 @@ class UsersContainer extends React.Component {
 	};
 
 	setCurrentPage = (page) => {
+		this.props.setIsFetching(true);
 		this.getUsers(page, this.props.pageSize).then((response) => {
+			this.props.setIsFetching(false);
 			this.props.setUsers(response.data.items);
 		});
 		this.props.setCurrentPage(page);
@@ -43,14 +48,17 @@ class UsersContainer extends React.Component {
 	render() {
 		return (
 			<>
-				{this.props.isFetching && <Preloader />}
-				<Users
-					users={this.props.users}
-					totalUsersCount={this.props.totalUsersCount}
-					pageSize={this.props.pageSize}
-					currentPage={this.props.currentPage}
-					setCurrentPage={this.setCurrentPage}
-				/>
+				{this.props.isFetching ? (
+					<Preloader />
+				) : (
+					<Users
+						users={this.props.users}
+						totalUsersCount={this.props.totalUsersCount}
+						pageSize={this.props.pageSize}
+						currentPage={this.props.currentPage}
+						setCurrentPage={this.setCurrentPage}
+					/>
+				)}
 			</>
 		);
 	}
@@ -66,21 +74,10 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		toggleFollowUser: (userId) => {
-			dispatch(followUserToggleCreator(userId));
-		},
-		setUsers: (users) => {
-			dispatch(setUsersCreator(users));
-		},
-		setCurrentPage: (page) => {
-			dispatch(setCurrentPageCreator(page));
-		},
-		setTotalUsersCount: (count) => {
-			dispatch(setTotalUsersCountCreator(count));
-		},
-	};
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(UsersContainer);
+export default connect(mapStateToProps, {
+	toggleFollowUser,
+	setUsers,
+	setCurrentPage,
+	setTotalUsersCount,
+	setIsFetching,
+})(UsersContainer);

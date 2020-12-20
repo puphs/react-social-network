@@ -1,6 +1,6 @@
 import User from './User';
 import { connect } from 'react-redux';
-import { followUserToggleCreator } from '../../../redux/usersReducer';
+import { toggleFollowUser } from '../../../redux/usersReducer';
 
 const mapStateToProps = (state, props) => {
 	return {
@@ -8,14 +8,6 @@ const mapStateToProps = (state, props) => {
 	};
 };
 
-const mapDispatchToProps = (dispatch) => {
-	return {
-		toggleFollowUser: (userId) => {
-			dispatch(followUserToggleCreator(userId));
-		},
-	};
-};
-
-const UserContainer = connect(mapStateToProps, mapDispatchToProps)(User);
+const UserContainer = connect(mapStateToProps, { toggleFollowUser })(User);
 
 export default UserContainer;
