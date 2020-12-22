@@ -44,6 +44,7 @@ const Pagination = (props) => {
 			return (
 				<div
 					className={s.page + ' ' + (props.currentPage === page && s.page_active)}
+					key={page}
 					onClick={() => props.setCurrentPage(page)}
 				>
 					{page}

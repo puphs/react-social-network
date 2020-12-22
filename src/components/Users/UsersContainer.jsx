@@ -1,16 +1,9 @@
 import { connect } from 'react-redux';
 import Users from './Users';
-import Axios from 'axios';
 import React from 'react';
 import Preloader from './../Preloader/Preloader';
 
-import {
-	toggleFollowUser,
-	setCurrentPage,
-	setIsFetching,
-	setTotalUsersCount,
-	setUsers,
-} from '../../redux/usersReducer';
+import { setCurrentPage, getUsers } from '../../redux/usersReducer';
 
 class UsersContainer extends React.Component {
 	constructor(props) {
@@ -18,31 +11,14 @@ class UsersContainer extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.setIsFetching(true);
-		this.getUsers(this.props.currentPage, this.props.pageSize).then((response) => {
-			this.props.setIsFetching(false);
-			this.props.setUsers(response.data.items);
-			this.props.setTotalUsersCount(response.data.totalCount);
-		});
+		this.props.getUsers(this.props.currentPage, this.props.pageSize);
 	}
 
-	componentDidUpdate() {
-		// console.log('component update :>> ');
-	}
-
-	getUsers = (page, count) => {
-		return Axios.get(
-			`https://social-network.samuraijs.com/api/1.0/users?page=${page}&count=${count}`
-		);
-	};
+	componentDidUpdate() {}
 
 	setCurrentPage = (page) => {
-		this.props.setIsFetching(true);
-		this.getUsers(page, this.props.pageSize).then((response) => {
-			this.props.setIsFetching(false);
-			this.props.setUsers(response.data.items);
-		});
 		this.props.setCurrentPage(page);
+		this.props.getUsers(page, this.props.pageSize);
 	};
 
 	render() {
@@ -75,9 +51,6 @@ const mapStateToProps = (state) => {
 };
 
 export default connect(mapStateToProps, {
-	toggleFollowUser,
-	setUsers,
 	setCurrentPage,
-	setTotalUsersCount,
-	setIsFetching,
+	getUsers,
 })(UsersContainer);

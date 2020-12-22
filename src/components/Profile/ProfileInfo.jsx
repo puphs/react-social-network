@@ -1,15 +1,16 @@
 import s from './ProfileInfo.module.css';
+import userPhoto from '../../assets/images/user-photo.png';
+import Preloader from '../Preloader/Preloader';
 
 const ProfileInfo = (props) => {
+	const profile = props.profile;
+	if (!profile) return <Preloader />;
 	return (
 		<div className={s.profileInfo}>
-			<img
-				className={s.avatar}
-				src="https://img2.freepng.ru/20180319/pde/kisspng-computer-icons-icon-design-avatar-flat-face-icon-5ab06e33bee962.122118601521511987782.jpg"
-			/>
+			<img className={s.avatar} src={profile?.photos?.large ?? userPhoto} />
 			<div className={s.info}>
-				<div className={s.name}>Kevin</div>
-				<div className={s.about}>I like to play computer games</div>
+				<div className={s.name}>{profile?.fullName}</div>
+				<div className={s.about}>{profile?.aboutMe}</div>
 			</div>
 		</div>
 	);

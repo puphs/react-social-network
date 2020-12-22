@@ -24,6 +24,11 @@
 	min-width: 100px;
 	text-transform: lowercase;
 }
+
+.followBtn:disabled {
+	opacity: 0.8;
+}
+
 .aboutContainer {
 	padding-left: 8px;
 	display: flex;
@@ -32,6 +37,7 @@
 }
 
 .name {
+	color: var(--color-text);
 	font-size: 22px;
 	line-height: 27px;
 	font-weight: bold;

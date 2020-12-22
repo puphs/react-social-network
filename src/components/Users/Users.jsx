@@ -4,13 +4,9 @@ import Pagination from '../Pagination/Pagination';
 
 const Users = (props) => {
 	const userElements = props.users.map((user) => <UserContainer user={user} />);
-
 	return (
 		<div className={s.container}>
-			<div className={s.users}>
-				{/* <button onClick={loadUsers}>Get users</button> */}
-				{userElements}
-			</div>
+			<div className={s.users}>{userElements}</div>
 			<Pagination
 				currentPage={props.currentPage}
 				totalPagesCount={Math.ceil(props.totalUsersCount / props.pageSize)}

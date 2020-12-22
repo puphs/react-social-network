@@ -46,6 +46,7 @@ a {
 }
 
 .btnBase {
+	text-align: center;
 	display: block;
 	min-width: 180px;
 	border-radius: 6px;
