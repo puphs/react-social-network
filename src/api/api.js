@@ -18,8 +18,17 @@ export const usersApi = {
 	unfollowUser(userId) {
 		return getData(axiosInstance.delete(`follow/${userId}`));
 	},
+};
+
+export const profileApi = {
 	getProfile(userId) {
 		return getData(axiosInstance.get(`profile/${userId}`));
+	},
+	getStatus(userId) {
+		return getData(axiosInstance.get(`profile/status/${userId}`));
+	},
+	updateStatus(status) {
+		return getData(axiosInstance.put(`profile/status`, { status: status || '' }));
 	},
 };
 

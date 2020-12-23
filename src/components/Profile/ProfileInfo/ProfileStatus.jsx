@@ -4,7 +4,15 @@ import s from './ProfileStatus.module.css';
 class ProfileStatus extends React.Component {
 	state = {
 		editMode: false,
+		status: this.props.status,
 	};
+
+	componentDidUpdate(prevProps, prevState) {
+		if (prevProps.status !== this.props.status)
+			this.setState({
+				status: this.props.status,
+			});
+	}
 
 	onStatusTextClick = () => {
 		this.setState({
@@ -13,9 +21,15 @@ class ProfileStatus extends React.Component {
 	};
 
 	onStatusInputBlur = () => {
-		console.log('blur :>> ');
 		this.setState({
 			editMode: false,
+		});
+		this.props.updateStatus(this.state.status);
+	};
+
+	onStatusInputChange = (e) => {
+		this.setState({
+			status: e.currentTarget.value,
 		});
 	};
 
@@ -27,11 +41,12 @@ class ProfileStatus extends React.Component {
 						className={s.statusInput}
 						autoFocus={true}
 						onBlur={this.onStatusInputBlur}
-						value={this.props.status}
+						onChange={this.onStatusInputChange}
+						value={this.state.status}
 					/>
 				) : (
 					<div className={s.status} onDoubleClick={this.onStatusTextClick}>
-						{this.props.status}
+						{this.state.status || '--'}
 					</div>
 				)}
 			</div>

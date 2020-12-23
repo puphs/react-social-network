@@ -127,7 +127,7 @@ export const setFollowUser = (userId, follow) => {
 		dispatch(setFollowingInProgressUser(userId, true));
 
 		usersApi.unfollowUser(userId).then((data) => {
-			if (data.resultCode == 0) {
+			if (data.resultCode === 0) {
 				if (follow) dispatch(followUser(userId));
 				else dispatch(unfollowUser(userId));
 			}
