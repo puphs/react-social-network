@@ -2,21 +2,7 @@ import React from 'react';
 import { addMessage, updateNewMessageText } from '../../redux/dialogsReducer';
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
-
-// const DialogsContainers = (props) => {
-// 	return (
-// 		<StoreContext.Consumer>
-// 			{(store) => {
-// 				const state = props.store.getState();
-
-// 				const addMessage = () => {};
-// 				const updateNewMessageText = (text) => {};
-
-// 				return <Dialogs updateNewMessageText={updateNewMessageText} addMessage={addMessage} />;
-// 			}}
-// 		</StoreContext.Consumer>
-// 	);
-// };
+import { withAuthRedirect } from '../hoc/withAuthRedirect';
 
 const mapStateToProps = (state) => {
 	return {
@@ -26,9 +12,7 @@ const mapStateToProps = (state) => {
 	};
 };
 
-const DialogsContainer = connect(mapStateToProps, {
+export default connect(mapStateToProps, {
 	addMessage,
 	updateNewMessageText,
-})(Dialogs);
-
-export default DialogsContainer;
+})(withAuthRedirect(Dialogs));
