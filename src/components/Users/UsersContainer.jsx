@@ -4,6 +4,8 @@ import React from 'react';
 import Preloader from './../Preloader/Preloader';
 
 import { setCurrentPage, getUsers } from '../../redux/usersReducer';
+import { compose } from 'redux';
+import { withAuthRedirect } from '../hoc/withAuthRedirect';
 
 class UsersContainer extends React.Component {
 	constructor(props) {
@@ -49,8 +51,14 @@ const mapStateToProps = (state) => {
 		isFetching: state.usersPage.isFetching,
 	};
 };
-
-export default connect(mapStateToProps, {
+connect(mapStateToProps, {
 	setCurrentPage,
 	getUsers,
 })(UsersContainer);
+export default compose(
+	connect(mapStateToProps, {
+		setCurrentPage,
+		getUsers,
+	}),
+	withAuthRedirect
+)(UsersContainer);
