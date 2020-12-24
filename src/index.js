@@ -6,8 +6,6 @@ import store from './redux/reduxStore';
 import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
-//addPost('Hi, guys!');
-
 ReactDOM.render(
 	<React.StrictMode>
 		<BrowserRouter>
@@ -18,6 +16,3 @@ ReactDOM.render(
 	</React.StrictMode>,
 	document.getElementById('root')
 );
-// store.subscribeOnStateChanged(renderEntireTree);
-// store.subscribe(renderEntireTree);
-// renderEntireTree(store.getState());

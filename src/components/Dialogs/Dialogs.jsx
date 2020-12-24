@@ -2,7 +2,27 @@ import React from 'react';
 import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
-import { Redirect } from 'react-router-dom';
+import { Field, reduxForm } from 'redux-form';
+
+const AddMessageForm = (props) => {
+	return (
+		<form onSubmit={props.handleSubmit}>
+			<Field
+				className={s.messageTextArea + ' ' + 'textAreaBase'}
+				name={'messageText'}
+				placeholder="Write a message..."
+				value={props.newMessageText}
+				component={'textarea'}
+			/>
+
+			<button className={s.sendBtn + ' ' + 'btnBase'} name={'addMessageButton'}>
+				send
+			</button>
+		</form>
+	);
+};
+
+const AddMessageReduxForm = reduxForm({ form: 'addMessage' })(AddMessageForm);
 
 const Dialogs = (props) => {
 	let dialogElements = props.dialogs.map((data) => (
@@ -12,13 +32,8 @@ const Dialogs = (props) => {
 		<Message key={data.id} message={data.message} />
 	));
 
-	const messageInputElementRef = React.createRef();
-	const onAddMessage = () => {
-		props.addMessage();
-	};
-
-	const onUpdateNewMessageText = (e) => {
-		props.updateNewMessageText(e.target.value);
+	const onMessageSubmit = (formData) => {
+		console.log(formData.messageText);
 	};
 
 	return (
@@ -26,16 +41,7 @@ const Dialogs = (props) => {
 			<div className={s.dialogItems}>{dialogElements}</div>
 			<div className={s.dialogContainer}>
 				<div className={s.messages}>{messageElements}</div>
-				<textarea
-					className={s.messageTextArea + ' ' + 'textAreaBase'}
-					placeholder="Write a message..."
-					ref={messageInputElementRef}
-					value={props.newMessageText}
-					onChange={onUpdateNewMessageText}
-				></textarea>
-				<button className={s.sendBtn + ' ' + 'btnBase'} onClick={onAddMessage}>
-					send
-				</button>
+				<AddMessageReduxForm onSubmit={onMessageSubmit} />
 			</div>
 		</main>
 	);
