@@ -1,0 +1,30 @@
+.formControlTextAreaContainer {
+	position: relative;
+}
+
+.formControlInputContainer {
+}
+
+.error {
+}
+
+.error input,
+.error textarea {
+	border: 1px solid var(--color-error);
+}
+
+.errorText {
+	font-size: 14px;
+	line-height: 19px;
+	color: var(--color-error);
+}
+
+.textAreaErrorText {
+	position: absolute;
+	left: 0;
+	top: -19px;
+}
+
+.inputErrorText {
+	margin-bottom: 2px;
+}

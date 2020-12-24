@@ -33,7 +33,7 @@ const Dialogs = (props) => {
 	));
 
 	const onMessageSubmit = (formData) => {
-		console.log(formData.messageText);
+		props.addMessage(formData.messageText);
 	};
 
 	return (
