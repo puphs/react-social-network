@@ -7,6 +7,7 @@ import s from './Login.module.css';
 const LoginForm = (props) => {
 	return (
 		<div>
+			{props.error && <div className={s.errorText}>{props.error}</div>}
 			<form className={s.form} onSubmit={props.handleSubmit}>
 				<div className={s.formInput}>
 					<Field

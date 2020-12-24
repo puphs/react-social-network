@@ -38,3 +38,8 @@
 	margin-top: 20px;
 	width: 100%;
 }
+
+.errorText {
+	color: var(--color-error);
+	margin-bottom: 4px;
+}
