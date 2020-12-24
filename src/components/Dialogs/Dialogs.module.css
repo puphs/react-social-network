@@ -17,12 +17,9 @@
 	border-radius: 6px;
 	background-image: var(--gradient-main);
 	color: var(--color-text);
-	font-size: 16px;
-	line-height: 21px;
 	border: none;
 	width: 100%;
 	min-height: 100px;
-	padding: 8px 12px;
 	resize: none;
 }
 

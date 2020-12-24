@@ -2,7 +2,7 @@ import s from './Post.module.css';
 
 const Post = (props) => {
 	return (
-		<div className={s.post + ' ' + 'gradientContainerBase'}>
+		<div className={s.post + ' ' + 'roundBorderContainer'}>
 			<div className={s.avatar}>
 				<img
 					className={s.avatarImg}

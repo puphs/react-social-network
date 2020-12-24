@@ -1,13 +1,15 @@
 import { NavLink } from 'react-router-dom';
 import s from './LoginInfo.module.css';
+import userPhoto from '../../../assets/images/user-photo.png';
 
 const LoginInfo = (props) => {
 	return (
-		<div>
+		<div className={s.loginContainer}>
 			{props.isAuth ? (
-				<div>
+				<>
 					<div className={s.login}>{props.login}</div>
-				</div>
+					<img className={s.avatar} src={userPhoto}></img>
+				</>
 			) : (
 				<NavLink className="btnBase" to="/login">
 					Login

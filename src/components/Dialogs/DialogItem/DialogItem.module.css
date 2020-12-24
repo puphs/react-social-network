@@ -29,7 +29,7 @@
 }
 
 .dialog.active {
-	background-image: var(--gradient-main);
+	background-color: var(--color-primary-light);
 	color: var(--color-text);
 }
 
@@ -52,6 +52,4 @@
 	display: inline-block;
 	border-radius: 100px;
 	padding: 12px 14px;
-	background-image: var(--gradient-main);
-	color: var(--color-text);
 }

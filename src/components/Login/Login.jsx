@@ -5,24 +5,35 @@ const LoginForm = (props) => {
 	// console.log('renderForm :>> ');
 	return (
 		<div>
-			<form onSubmit={props.handleSubmit}>
-				<div>
-					<Field placeholder={'login'} name={'login'} component={'input'} />
-				</div>
-				<div>
-					<Field placeholder={'password'} name={'password'} component={'input'} />
-				</div>
-				<div>
+			<form className={s.form} onSubmit={props.handleSubmit}>
+				<Field
+					className={s.login + ' ' + s.formInput + ' ' + 'inputBase'}
+					placeholder={'Login'}
+					name={'login'}
+					component={'input'}
+				/>
+				<Field
+					className={s.password + ' ' + s.formInput + ' ' + 'inputBase'}
+					placeholder={'Password'}
+					name={'password'}
+					component={'input'}
+					type={'password'}
+				/>
+				<div className={s.formInput + ' ' + s.rememberMeContainer}>
 					<Field
-						placeholder={'password'}
+						className={s.rememberMe}
+						id={'rememberMe'}
 						name={'rememberMe'}
-						type={'checkbox'}
 						component={'input'}
+						type={'checkbox'}
 					/>
-					remember me
+					<label className={s.remembeMeLabel} for={'rememberMe'}>
+						Remember me
+					</label>
 				</div>
+
 				<div>
-					<button>login</button>
+					<button className={s.loginBtn + ' ' + 'btnBase'}>login</button>
 				</div>
 			</form>
 		</div>
@@ -36,10 +47,10 @@ const Login = (props) => {
 		console.log(formData);
 	};
 	return (
-		<>
-			<h1>login</h1>
+		<div className={s.container}>
+			<h1 className={s.loginHeader}>Login</h1>
 			<LoginReduxForm />
-		</>
+		</div>
 	);
 };
 

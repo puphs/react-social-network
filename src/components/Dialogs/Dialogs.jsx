@@ -8,7 +8,7 @@ const AddMessageForm = (props) => {
 	return (
 		<form onSubmit={props.handleSubmit}>
 			<Field
-				className={s.messageTextArea + ' ' + 'textAreaBase'}
+				className={s.messageTextArea + ' ' + 'inputBase'}
 				name={'messageText'}
 				placeholder="Write a message..."
 				value={props.newMessageText}

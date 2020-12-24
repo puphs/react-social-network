@@ -10,6 +10,5 @@
 	display: inline-block;
 	border-radius: 100px;
 	padding: 12px 14px;
-	background-image: var(--gradient-main);
-	color: var(--color-text);
+	background-color: var(--color-primary-light);
 }

@@ -1,5 +1,6 @@
 import React from 'react';
 import s from './ProfileStatus.module.css';
+import editIcon from '../../../assets/icons/edit.svg';
 
 class ProfileStatus extends React.Component {
 	state = {
@@ -14,7 +15,7 @@ class ProfileStatus extends React.Component {
 			});
 	}
 
-	onStatusTextClick = () => {
+	onEditBtnClick = () => {
 		this.setState({
 			editMode: true,
 		});
@@ -24,7 +25,7 @@ class ProfileStatus extends React.Component {
 		this.setState({
 			editMode: false,
 		});
-		this.props.updateStatus(this.state.status);
+		if (this.state.status != this.props.status) this.props.updateStatus(this.state.status);
 	};
 
 	onStatusInputChange = (e) => {
@@ -45,9 +46,10 @@ class ProfileStatus extends React.Component {
 						value={this.state.status}
 					/>
 				) : (
-					<div className={s.status} onDoubleClick={this.onStatusTextClick}>
-						{this.state.status || '--'}
-					</div>
+					<>
+						<div className={s.status}>{this.state.status || '--'}</div>
+						<button className={s.editBtn} onClick={this.onEditBtnClick}></button>
+					</>
 				)}
 			</div>
 		);

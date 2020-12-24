@@ -6,9 +6,9 @@
 }
 
 .page {
-	/* min-width: 25px; */
 	text-align: center;
 	cursor: pointer;
+	color: var(--color-text-dark);
 }
 .page + .page {
 	margin-left: 8px;
@@ -19,5 +19,6 @@
 }
 
 .page_active {
+	color: var(--color-text);
 	font-weight: bold;
 }

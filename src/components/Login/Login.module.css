@@ -1,0 +1,40 @@
+.container {
+	padding: 32px;
+}
+.loginHeader {
+	margin: 0 0 24px 0;
+}
+
+.form {
+	width: 50%;
+	display: flex;
+	flex-direction: column;
+	color: var(--color-text-dark);
+}
+
+.formInput + .formInput {
+	margin-top: 8px;
+}
+
+.rememberMeContainer {
+	display: flex;
+	align-items: center;
+}
+
+.rememberMe {
+	position: relative;
+	top: 3px;
+	padding: 0;
+	margin: 0 8px 0 0;
+}
+.rememberMeLabel {
+	padding: 0;
+	margin: 0;
+	font-size: 16px;
+	line-height: 21px;
+}
+
+.loginBtn {
+	margin-top: 20px;
+	width: 100%;
+}

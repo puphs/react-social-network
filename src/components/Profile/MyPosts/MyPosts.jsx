@@ -7,7 +7,7 @@ const AddPostForm = (props) => {
 	return (
 		<form onSubmit={props.handleSubmit}>
 			<Field
-				className={s.postTextArea + ' ' + 'textAreaBase'}
+				className={s.postTextArea + ' ' + 'inputBase'}
 				name={'postText'}
 				placeholder="Write something..."
 				component={'textarea'}

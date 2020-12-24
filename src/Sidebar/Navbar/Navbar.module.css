@@ -6,9 +6,9 @@
 	font-size: 20px;
 	line-height: 26px;
 	text-transform: lowercase;
-	color: var(--color-primary-light);
+	color: var(--color-text-dark);
 }
 
 .itemLink_active {
-	color: white;
+	color: var(--color-text);
 }

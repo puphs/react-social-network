@@ -6,24 +6,26 @@
 }
 
 :root {
-	--color-primary: #1dabb8;
-	--color-primary-light: #d2e5e7;
-	--color-secondary: #2364aa;
-	--color-text: #075158;
-	--color-text-light: #3198a2;
-	--gradient-main: linear-gradient(-180deg, #83d6de, #91e1e9);
+	--color-primary: #333333;
+	--color-primary-light: #444444;
+	--color-secondary: #222226;
+	--color-text: #ffffff;
+	--color-text-dark: #a1a7aa;
 }
 
 body {
 	font-family: 'Roboto';
+	color: var(--color-text);
+	background-color: var(--color-secondary);
 }
 
 .container {
 	max-width: 960px;
 	margin: 0 auto;
 	display: grid;
-	grid-template-rows: 0fr 1fr;
-	grid-template-columns: 2fr 10fr;
+	min-height: 100vh;
+	grid-template-rows: 0fr 2fr;
+	grid-template-columns: 2fr 8fr;
 	grid-gap: 10px;
 	grid-template-areas:
 		'h h'
@@ -57,13 +59,13 @@ a {
 	font-weight: bold;
 	text-transform: uppercase;
 	color: white;
-	background-color: var(--color-secondary);
+	background-color: var(--color-primary-light);
 	cursor: pointer;
 }
 
-.textAreaBase {
+.inputBase {
 	border-radius: 6px;
-	background-image: var(--gradient-main);
+	background-color: var(--color-primary-light);
 	color: var(--color-text);
 	font-size: 16px;
 	line-height: 21px;
@@ -73,9 +75,9 @@ a {
 	resize: none;
 }
 
-.gradientContainerBase {
+.roundBorderContainer {
 	color: var(--color-text);
-	background-image: var(--gradient-main);
+	background-color: var(--color-primary-light);
 	box-shadow: 0px 3px 6px #00000029;
 	border-radius: 6px;
 	padding: 12px;

@@ -14,7 +14,7 @@ const User = (props) => {
 	};
 
 	return (
-		<div className={s.user + ' ' + 'gradientContainerBase'}>
+		<div className={s.user + ' ' + 'roundBorderContainer'}>
 			<div className={s.avatarContainer}>
 				<NavLink to={userProfileLink}>
 					<img className={s.avatarImg} src={user.photos.small ?? userPhoto} alt="" />

@@ -7,6 +7,18 @@
 	justify-content: space-between;
 }
 
+.loginContainer {
+	display: flex;
+	align-items: center;
+}
+
+.avatar {
+	width: 52px;
+	height: 52px;
+	margin-left: 8px;
+	border-radius: 100%;
+}
+
 .title {
 	text-transform: uppercase;
 	font-size: 47px;
