@@ -7,6 +7,7 @@ import { setCurrentPage, loadUsers } from '../../redux/usersReducer';
 import { compose } from 'redux';
 import {
 	getCurrentPage,
+	getFilteredUsers,
 	getIsFetching,
 	getPageSize,
 	getTotalUsersCount,

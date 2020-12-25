@@ -1,4 +1,11 @@
+import { createSelector } from 'reselect';
+
 export const getUsers = (state) => state.usersPage.users;
+
+// test reselect lib
+export const getFilteredUsers = createSelector(getUsers, (users) => {
+	return users.filter((user) => user.name.length <= 5);
+});
 
 export const getPageSize = (state) => state.usersPage.pageSize;
 
