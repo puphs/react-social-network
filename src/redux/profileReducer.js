@@ -60,9 +60,9 @@ export const setStatus = (status) => ({
 	status,
 });
 
-export const getProfile = (userId) => {
+export const loadProfile = (userId) => {
 	return (dispatch) => {
-		profileApi.getProfile(userId).then((data) => {
+		profileApi.loadProfile(userId).then((data) => {
 			dispatch(setProfile(data));
 		});
 	};
