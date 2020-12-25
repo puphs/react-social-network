@@ -59,6 +59,5 @@ export default compose(
 	connect(mapStateToProps, {
 		setCurrentPage,
 		getUsers,
-	}),
-	withAuthRedirect
+	})
 )(UsersContainer);
