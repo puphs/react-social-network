@@ -34,8 +34,6 @@ const MyPosts = (props) => {
 	));
 
 	const onPostSubmit = (formData) => {
-		console.log(formData);
-
 		props.addPost(formData.postText);
 	};
 
