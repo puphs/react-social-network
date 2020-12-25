@@ -9,7 +9,7 @@ const axiosInstance = axios.create({
 const getData = (promise) => promise.then((response) => response.data);
 
 export const usersApi = {
-	getUsers(page, count) {
+	loadUsers(page, count) {
 		return getData(axiosInstance.get(`users?page=${page}&count=${count}`));
 	},
 	followUser(userId) {
@@ -21,7 +21,7 @@ export const usersApi = {
 };
 
 export const profileApi = {
-	getProfile(userId) {
+	loadProfile(userId) {
 		return getData(axiosInstance.get(`profile/${userId}`));
 	},
 	getStatus(userId) {

@@ -1,7 +1,6 @@
 import { usersApi } from '../api/api';
 
-const FOLLOW_USER = 'FOLLOW_USER';
-const UNFOLLOW_USER = 'UNFOLLOW_USER';
+const SET_FOLLOW_USER = 'SET_FOLLOW_USER';
 const SET_USERS = 'SET_USERS';
 const SET_CURRENT_PAGE = 'SET_CURRENT_PAGE';
 const SET_TOTAL_USERS_COUNT_CREATOR = 'SET_TOTAL_USERS_COUNT_CREATOR';
@@ -19,22 +18,12 @@ const initialState = {
 
 const usersReducer = (state = initialState, action) => {
 	switch (action.type) {
-		case FOLLOW_USER:
+		case SET_FOLLOW_USER:
 			return {
 				...state,
 				users: state.users.map((user) => {
 					if (user.id === action.id) {
-						return { ...user, followed: true };
-					}
-					return user;
-				}),
-			};
-		case UNFOLLOW_USER:
-			return {
-				...state,
-				users: state.users.map((user) => {
-					if (user.id === action.id) {
-						return { ...user, followed: false };
+						return { ...user, followed: action.follow };
 					}
 					return user;
 				}),
@@ -76,13 +65,10 @@ const usersReducer = (state = initialState, action) => {
 
 export default usersReducer;
 
-export const followUser = (id) => ({
-	type: FOLLOW_USER,
-	id,
-});
-export const unfollowUser = (id) => ({
-	type: UNFOLLOW_USER,
-	id,
+export const setFollowUser = (userId, follow) => ({
+	type: SET_FOLLOW_USER,
+	id: userId,
+	follow,
 });
 
 export const setUsers = (users) => ({
@@ -111,10 +97,10 @@ export const setFollowingInProgressUser = (userId, isFollowingInProgress) => ({
 	isFollowingInProgress,
 });
 
-export const getUsers = (page, pageSize) => {
+export const loadUsers = (page, pageSize) => {
 	return (dispatch) => {
 		dispatch(setIsFetching(true));
-		usersApi.getUsers(page, pageSize).then((data) => {
+		usersApi.loadUsers(page, pageSize).then((data) => {
 			dispatch(setIsFetching(false));
 			dispatch(setUsers(data.items));
 			dispatch(setTotalUsersCount(data.totalCount));
@@ -122,15 +108,21 @@ export const getUsers = (page, pageSize) => {
 	};
 };
 
-export const setFollowUser = (userId, follow) => {
+export const followUser = (userId) => {
 	return (dispatch) => {
 		dispatch(setFollowingInProgressUser(userId, true));
+		usersApi.followUser(userId).then(() => {
+			dispatch(setFollowUser(userId, true));
+			dispatch(setFollowingInProgressUser(userId, false));
+		});
+	};
+};
 
-		usersApi.unfollowUser(userId).then((data) => {
-			if (data.resultCode === 0) {
-				if (follow) dispatch(followUser(userId));
-				else dispatch(unfollowUser(userId));
-			}
+export const unfollowUser = (userId) => {
+	return (dispatch) => {
+		dispatch(setFollowingInProgressUser(userId, true));
+		usersApi.unfollowUser(userId).then(() => {
+			dispatch(setFollowUser(userId, false));
 			dispatch(setFollowingInProgressUser(userId, false));
 		});
 	};

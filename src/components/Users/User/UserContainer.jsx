@@ -1,17 +1,16 @@
 import React from 'react';
 import User from './User';
-import { setFollowUser } from '../../../redux/usersReducer';
+import { followUser, unfollowUser } from '../../../redux/usersReducer';
 import { connect } from 'react-redux';
-import usersApi from '../../../api/api';
 
 class UserContainer extends React.Component {
 	followUser = (userId) => {
-		this.props.setFollowUser(userId, true);
+		this.props.followUser(userId);
 		// this.props.followUser(userId);
 	};
 
 	unfollowUser = (userId) => {
-		this.props.setFollowUser(userId, false);
+		this.props.unfollowUser(userId);
 	};
 
 	render() {
@@ -34,4 +33,4 @@ const mapStateToProps = (state, props) => {
 	};
 };
 
-export default connect(mapStateToProps, { setFollowUser })(UserContainer);
+export default connect(mapStateToProps, { followUser, unfollowUser })(UserContainer);
