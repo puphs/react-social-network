@@ -27,30 +27,28 @@ export const setAuthUserData = (id, email, login, isAuth) => ({
 	data: { id, email, login, isAuth },
 });
 
-export const getAuthUserData = () => (dispatch) => {
-	return authApi.auth().then((data) => {
-		if (data.resultCode === 0) {
-			const { id, email, login } = data.data;
-			dispatch(setAuthUserData(id, email, login, true));
-		}
-	});
+export const getAuthUserData = () => async (dispatch) => {
+	const data = await authApi.auth();
+	if (data.resultCode === 0) {
+		const { id, email, login } = data.data;
+		dispatch(setAuthUserData(id, email, login, true));
+	}
 };
 
-export const login = (email, password, rememberMe) => (dispatch) => {
-	authApi.login(email, password, rememberMe).then((data) => {
-		if (data.resultCode === 0) {
-			dispatch(getAuthUserData());
-		} else {
-			const errorText = data.messages.length > 0 ? data.messages[0] : 'Error happened';
-			return dispatch(stopSubmit('login', { _error: errorText }));
-		}
-	});
+export const login = (email, password, rememberMe) => async (dispatch) => {
+	const data = await authApi.login(email, password, rememberMe);
+	console.log(data);
+	if (data.resultCode === 0) {
+		dispatch(getAuthUserData());
+	} else {
+		const errorText = data.messages.length > 0 ? data.messages[0] : 'Error happened';
+		dispatch(stopSubmit('login', { _error: errorText }));
+	}
 };
 
-export const logout = () => (dispatch) => {
-	authApi.logout().then((data) => {
-		if (data.resultCode === 0) {
-			dispatch(setAuthUserData(null, null, null, false));
-		}
-	});
+export const logout = () => async (dispatch) => {
+	const data = await authApi.logout();
+	if (data.resultCode === 0) {
+		dispatch(setAuthUserData(null, null, null, false));
+	}
 };

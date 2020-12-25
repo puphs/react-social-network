@@ -22,10 +22,7 @@ export const setInitialized = () => ({
 	type: SET_INITIALIZED,
 });
 
-export const initialize = () => {
-	return (dispatch) => {
-		Promise.all([dispatch(getAuthUserData())]).then(() => {
-			dispatch(setInitialized());
-		});
-	};
+export const initialize = () => async (dispatch) => {
+	await Promise.all([dispatch(getAuthUserData())]);
+	dispatch(setInitialized());
 };

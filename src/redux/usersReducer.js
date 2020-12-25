@@ -97,33 +97,27 @@ export const setFollowingInProgressUser = (userId, isFollowingInProgress) => ({
 	isFollowingInProgress,
 });
 
-export const loadUsers = (page, pageSize) => {
-	return (dispatch) => {
-		dispatch(setIsFetching(true));
-		usersApi.loadUsers(page, pageSize).then((data) => {
-			dispatch(setIsFetching(false));
-			dispatch(setUsers(data.items));
-			dispatch(setTotalUsersCount(data.totalCount));
-		});
-	};
+export const loadUsers = (page, pageSize) => async (dispatch) => {
+	dispatch(setIsFetching(true));
+
+	const data = await usersApi.loadUsers(page, pageSize);
+	dispatch(setIsFetching(false));
+	dispatch(setUsers(data.items));
+	dispatch(setTotalUsersCount(data.totalCount));
 };
 
-export const followUser = (userId) => {
-	return (dispatch) => {
-		dispatch(setFollowingInProgressUser(userId, true));
-		usersApi.followUser(userId).then(() => {
-			dispatch(setFollowUser(userId, true));
-			dispatch(setFollowingInProgressUser(userId, false));
-		});
-	};
+export const followUser = (userId) => async (dispatch) => {
+	dispatch(setFollowingInProgressUser(userId, true));
+
+	const data = await usersApi.followUser(userId);
+	dispatch(setFollowUser(userId, true));
+	dispatch(setFollowingInProgressUser(userId, false));
 };
 
-export const unfollowUser = (userId) => {
-	return (dispatch) => {
-		dispatch(setFollowingInProgressUser(userId, true));
-		usersApi.unfollowUser(userId).then(() => {
-			dispatch(setFollowUser(userId, false));
-			dispatch(setFollowingInProgressUser(userId, false));
-		});
-	};
+export const unfollowUser = (userId) => async (dispatch) => {
+	dispatch(setFollowingInProgressUser(userId, true));
+
+	const data = await usersApi.unfollowUser(userId);
+	dispatch(setFollowUser(userId, false));
+	dispatch(setFollowingInProgressUser(userId, false));
 };
