@@ -73,22 +73,22 @@ export const setFollowUser = (userId, follow) => ({
 
 export const setUsers = (users) => ({
 	type: SET_USERS,
-	users: users,
+	users,
 });
 
 export const setCurrentPage = (page) => ({
 	type: SET_CURRENT_PAGE,
-	page: page,
+	page,
 });
 
 export const setTotalUsersCount = (count) => ({
 	type: SET_TOTAL_USERS_COUNT_CREATOR,
-	count: count,
+	count,
 });
 
 export const setIsFetching = (isFetching) => ({
 	type: SET_IS_FETCHING,
-	isFetching: isFetching,
+	isFetching,
 });
 
 export const setFollowingInProgressUser = (userId, isFollowingInProgress) => ({
