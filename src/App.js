@@ -34,8 +34,8 @@ class App extends React.Component {
 						<Route path="/news" render={() => withSuspense(News)} />
 						<Route path="/music" render={() => withSuspense(Music)} />
 						<Route path="/settings" render={() => withSuspense(Settings)} />
-						<Route path="/users" render={UsersContainer} />
-						<Route path="/login" render={LoginContainer} />
+						<Route path="/users" render={() => <UsersContainer />} />
+						<Route path="/login" render={() => <LoginContainer />} />
 						{/* <Redirect from="/" to="/profile" /> */}
 					</Switch>
 				</div>
