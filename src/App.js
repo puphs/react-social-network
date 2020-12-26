@@ -1,12 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
-import DialogsContainer from './components/Dialogs/DialogsContainer';
 import Header from './components/Header/Header';
 import Sidebar from './Sidebar/Sidebar';
-import News from './components/News/News';
-import Music from './components/Music/Music';
-import Settings from './components/Settings/Settings';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import LoginContainer from './components/Login/LoginContainer';
@@ -14,7 +10,13 @@ import { connect, Provider } from 'react-redux';
 import { initialize } from './redux/appReducer';
 import Preloader from './components/Preloader/Preloader';
 import store from './redux/reduxStore';
+import { withSuspense } from './components/hoc/withSuspense';
 
+// lazy loading
+const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
+const News = React.lazy(() => import('./components/News/News'));
+const Music = React.lazy(() => import('./components/Music/Music'));
+const Settings = React.lazy(() => import('./components/Settings/Settings'));
 class App extends React.Component {
 	componentDidMount() {
 		this.props.initialize();
@@ -28,12 +30,12 @@ class App extends React.Component {
 				<div className="content">
 					<Switch>
 						<Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-						<Route path="/dialogs" render={() => <DialogsContainer />} />
-						<Route path="/news" component={News} />
-						<Route path="/music" component={Music} />
-						<Route path="/settings" component={Settings} />
-						<Route path="/users" component={UsersContainer} />
-						<Route path="/login" component={LoginContainer} />
+						<Route path="/dialogs" render={() => withSuspense(DialogsContainer)} />
+						<Route path="/news" render={() => withSuspense(News)} />
+						<Route path="/music" render={() => withSuspense(Music)} />
+						<Route path="/settings" render={() => withSuspense(Settings)} />
+						<Route path="/users" render={UsersContainer} />
+						<Route path="/login" render={LoginContainer} />
 						{/* <Redirect from="/" to="/profile" /> */}
 					</Switch>
 				</div>
