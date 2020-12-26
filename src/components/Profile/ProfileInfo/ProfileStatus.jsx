@@ -26,7 +26,7 @@ class ProfileStatus extends React.Component {
 		});
 		if (this.state.status != this.props.status) this.props.updateStatus(this.state.status);
 	};
-
+	
 	onStatusInputChange = (e) => {
 		this.setState({
 			status: e.currentTarget.value,
@@ -46,7 +46,7 @@ class ProfileStatus extends React.Component {
 					/>
 				) : (
 					<>
-						<div className={s.status}>{this.state.status || '--'}</div>
+						<div className={s.status}>{this.state.status || ''}</div>
 						<button className={s.editBtn} onClick={this.onEditBtnClick}></button>
 					</>
 				)}

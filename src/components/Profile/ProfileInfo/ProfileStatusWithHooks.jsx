@@ -34,7 +34,7 @@ const ProfileStatusWithHooks = (props) => {
 				/>
 			) : (
 				<>
-					<div className={s.status}>{props.status || '--'}</div>
+					<div className={s.status}>{props.status || ''}</div>
 					<button className={s.editBtn} onClick={onEditBtnClick}></button>
 				</>
 			)}
