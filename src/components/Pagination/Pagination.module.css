@@ -2,11 +2,12 @@
 	margin-top: 16px;
 	margin: 16px auto 0;
 	display: flex;
-	color: var(--color-text-dark);
 	justify-content: center;
 }
 
 .page {
+	color: var(--color-text-dark);
+	text-decoration: none;
 	text-align: center;
 	cursor: pointer;
 }

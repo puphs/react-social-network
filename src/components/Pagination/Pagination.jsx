@@ -1,10 +1,16 @@
+import { NavLink } from 'react-router-dom';
 import s from './Pagination.module.css';
 
-const Pagination = ({ maxVisiblePagesCount, totalPagesCount, currentPage, setCurrentPage }) => {
-	maxVisiblePagesCount = Math.max(maxVisiblePagesCount || 9, 9);
+const Pagination = ({
+	maxVisiblePagesCount,
+	totalPagesCount,
+	currentPage,
+	setCurrentPage,
+	basePath,
+}) => {
+	maxVisiblePagesCount = maxVisiblePagesCount || 9;
 	let pagesCount = Math.min(totalPagesCount, maxVisiblePagesCount);
 	pagesCount = pagesCount >= 0 ? pagesCount : 0;
-
 	const firstPage = 1;
 	const lastPage = totalPagesCount;
 
@@ -12,7 +18,6 @@ const Pagination = ({ maxVisiblePagesCount, totalPagesCount, currentPage, setCur
 
 	let leftFreeSpace = Math.min(currentPage - firstPage - 1, maxSideVisible);
 	let rightFreeSpace = Math.min(totalPagesCount - 1 - currentPage, maxSideVisible);
-
 	let fromPage = Math.max(
 		currentPage - leftFreeSpace + rightFreeSpace - maxSideVisible,
 		firstPage + 1
@@ -25,7 +30,6 @@ const Pagination = ({ maxVisiblePagesCount, totalPagesCount, currentPage, setCur
 			(1 - (maxVisiblePagesCount % 2)),
 		lastPage - 1
 	);
-
 	let pages = [firstPage];
 	if (fromPage !== firstPage + 1) pages.push('...');
 	for (let i = fromPage; i <= toPage; i++) {
@@ -41,17 +45,17 @@ const Pagination = ({ maxVisiblePagesCount, totalPagesCount, currentPage, setCur
 			return <div className={s.dots}>...</div>;
 		} else if (typeof page === 'number') {
 			return (
-				<div
+				<NavLink
 					className={s.page + ' ' + (currentPage === page && s.page_active)}
+					to={basePath + page}
 					key={page}
-					onClick={() => setCurrentPage(page)}
+					// onClick={() => setCurrentPage(page)}
 				>
 					{page}
-				</div>
+				</NavLink>
 			);
 		}
 	});
-
 	return <div className={s.pagination}>{pagesElements}</div>;
 };
 

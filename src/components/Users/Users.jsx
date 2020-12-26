@@ -12,6 +12,7 @@ const Users = ({ users, currentPage, totalUsersCount, pageSize, setCurrentPage }
 				totalPagesCount={Math.ceil(totalUsersCount / pageSize)}
 				setCurrentPage={setCurrentPage}
 				maxVisiblePagesCount={9}
+				basePath={'users?page='}
 			/>
 		</div>
 	);

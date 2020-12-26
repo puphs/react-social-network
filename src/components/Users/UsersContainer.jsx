@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import Users from './Users';
-import React from 'react';
+import React, { memo } from 'react';
 import Preloader from './../Preloader/Preloader';
 
 import { setCurrentPage, loadUsers } from '../../redux/usersReducer';
@@ -12,6 +12,7 @@ import {
 	getTotalUsersCount,
 	getUsers,
 } from '../../redux/usersSelectors';
+import { withRouter } from 'react-router-dom';
 
 class UsersContainer extends React.Component {
 	constructor(props) {
@@ -19,10 +20,24 @@ class UsersContainer extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.loadUsers(this.props.currentPage, this.props.pageSize);
+		this.setCurrentPage(
+			this.getPageFromLocationOrNull(this.props.location) ?? this.props.currentPage
+		);
+
+		this.unlisten = this.props.history.listen((location, action) => {
+			this.setCurrentPage(this.getPageFromLocationOrNull(location) ?? this.props.currentPage);
+		});
 	}
 
-	componentDidUpdate() {}
+	componentWillUnmount() {
+		this.unlisten();
+	}
+
+	getPageFromLocationOrNull = (location) => {
+		let page = parseInt(new URLSearchParams(location.search).get('page'));
+		if (isNaN(page) || !page) return null;
+		return page;
+	};
 
 	setCurrentPage = (page) => {
 		this.props.setCurrentPage(page);
@@ -61,5 +76,7 @@ export default compose(
 	connect(mapStateToProps, {
 		setCurrentPage,
 		loadUsers,
-	})
+	}),
+	withRouter,
+	memo
 )(UsersContainer);
