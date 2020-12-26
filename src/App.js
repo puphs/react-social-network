@@ -1,5 +1,5 @@
-import React, { Suspense } from 'react';
-import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
+import React from 'react';
+import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
 import Sidebar from './Sidebar/Sidebar';
@@ -52,11 +52,11 @@ const AppContainer = connect(mapStateToProps, { initialize })(App);
 const MainApp = () => {
 	return (
 		<React.StrictMode>
-			<BrowserRouter>
+			<HashRouter>
 				<Provider store={store}>
 					<AppContainer />
 				</Provider>
-			</BrowserRouter>
+			</HashRouter>
 		</React.StrictMode>
 	);
 };

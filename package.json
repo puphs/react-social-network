@@ -2,7 +2,7 @@
 	"name": "first-app",
 	"version": "0.1.0",
 	"private": true,
-	"homepage": "http://puphs.github.io/react-social-network"
+	"homepage": "https://puphs.github.io/react-social-network",
 	"dependencies": {
 		"@testing-library/jest-dom": "^5.11.6",
 		"@testing-library/react": "^11.2.2",
