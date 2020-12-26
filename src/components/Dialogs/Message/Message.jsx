@@ -1,11 +1,11 @@
 import s from './Message.module.css';
 
-const Message = (props) => {
+const Message = ({ message, messageFromRight }) => {
 	let messageRight = '';
-	if (props.messageFromRight) messageRight = s.message_right;
+	if (messageFromRight) messageRight = s.message_right;
 	return (
 		<div className={s.message + ' ' + messageRight}>
-			<div className={s.text}>{props.message}</div>
+			<div className={s.text}>{message}</div>
 		</div>
 	);
 };

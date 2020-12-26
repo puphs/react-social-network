@@ -1,12 +1,10 @@
 import s from './BestFriends.module.css';
+import userPhoto from '../../assets/images/user-photo.png';
 
 const BestFriendItem = (props) => {
 	return (
 		<div className={s.item}>
-			<img
-				className={s.avatar}
-				src="https://img2.freepng.ru/20180319/pde/kisspng-computer-icons-icon-design-avatar-flat-face-icon-5ab06e33bee962.122118601521511987782.jpg"
-			></img>
+			<img className={s.avatar} src={userPhoto}></img>
 		</div>
 	);
 };

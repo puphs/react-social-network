@@ -19,8 +19,8 @@ class UserContainer extends React.Component {
 				user={this.props.user}
 				followUser={this.followUser}
 				unfollowUser={this.unfollowUser}
-				setFollowingInProgressUser={this.props.setFollowingInProgressUser}
 				followingInProgressUsers={this.props.followingInProgressUsers}
+				isAuth={this.props.isAuth}
 			/>
 		);
 	}
@@ -30,6 +30,7 @@ const mapStateToProps = (state, props) => {
 	return {
 		user: props.user,
 		followingInProgressUsers: state.usersPage.followingInProgressUsers,
+		isAuth: state.auth.isAuth,
 	};
 };
 

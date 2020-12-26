@@ -2,14 +2,13 @@ import s from './User.module.css';
 import userPhoto from '../../../assets/images/user-photo.png';
 import { NavLink } from 'react-router-dom';
 
-const User = (props) => {
-	const user = props.user;
+const User = ({ user, followUser, unfollowUser, followingInProgressUsers, isAuth }) => {
 	const userProfileLink = '/profile/' + user.id;
 	const onFollowBtnClick = () => {
 		if (user.followed) {
-			props.unfollowUser(user.id);
+			unfollowUser(user.id);
 		} else {
-			props.followUser(user.id);
+			followUser(user.id);
 		}
 	};
 
@@ -19,13 +18,16 @@ const User = (props) => {
 				<NavLink to={userProfileLink}>
 					<img className={s.avatarImg} src={user.photos.small ?? userPhoto} alt="" />
 				</NavLink>
-				<button
-					className={s.followBtn + ' ' + 'btnBase'}
-					disabled={props.followingInProgressUsers.has(user.id)}
-					onClick={onFollowBtnClick}
-				>
-					{user.followed ? 'unfollow' : 'follow'}
-				</button>
+
+				{isAuth && (
+					<button
+						className={s.followBtn + ' ' + 'btnBase'}
+						disabled={followingInProgressUsers.has(user.id)}
+						onClick={onFollowBtnClick}
+					>
+						{user.followed ? 'unfollow' : 'follow'}
+					</button>
+				)}
 			</div>
 
 			<div className={s.aboutContainer}>

@@ -1,25 +1,24 @@
-import Preloader from '../Preloader/Preloader';
 import s from './Pagination.module.css';
 
-const Pagination = (props) => {
-	const maxVisiblePagesCount = Math.max(props.maxVisiblePagesCount || 9, 9);
-	let pagesCount = Math.min(props.totalPagesCount, maxVisiblePagesCount);
+const Pagination = ({ maxVisiblePagesCount, totalPagesCount, currentPage, setCurrentPage }) => {
+	maxVisiblePagesCount = Math.max(maxVisiblePagesCount || 9, 9);
+	let pagesCount = Math.min(totalPagesCount, maxVisiblePagesCount);
 	pagesCount = pagesCount >= 0 ? pagesCount : 0;
 
 	const firstPage = 1;
-	const lastPage = props.totalPagesCount;
+	const lastPage = totalPagesCount;
 
 	const maxSideVisible = Math.floor((maxVisiblePagesCount - 2) * 0.5);
 
-	let leftFreeSpace = Math.min(props.currentPage - firstPage - 1, maxSideVisible);
-	let rightFreeSpace = Math.min(props.totalPagesCount - 1 - props.currentPage, maxSideVisible);
+	let leftFreeSpace = Math.min(currentPage - firstPage - 1, maxSideVisible);
+	let rightFreeSpace = Math.min(totalPagesCount - 1 - currentPage, maxSideVisible);
 
 	let fromPage = Math.max(
-		props.currentPage - leftFreeSpace + rightFreeSpace - maxSideVisible,
+		currentPage - leftFreeSpace + rightFreeSpace - maxSideVisible,
 		firstPage + 1
 	);
 	let toPage = Math.min(
-		props.currentPage +
+		currentPage +
 			rightFreeSpace -
 			leftFreeSpace +
 			maxSideVisible -
@@ -43,9 +42,9 @@ const Pagination = (props) => {
 		} else if (typeof page === 'number') {
 			return (
 				<div
-					className={s.page + ' ' + (props.currentPage === page && s.page_active)}
+					className={s.page + ' ' + (currentPage === page && s.page_active)}
 					key={page}
-					onClick={() => props.setCurrentPage(page)}
+					onClick={() => setCurrentPage(page)}
 				>
 					{page}
 				</div>

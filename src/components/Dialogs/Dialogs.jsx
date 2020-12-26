@@ -4,14 +4,14 @@ import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import { Field, reduxForm } from 'redux-form';
 
-const AddMessageForm = (props) => {
+const AddMessageForm = ({ handleSubmit, newMessageText }) => {
 	return (
-		<form onSubmit={props.handleSubmit}>
+		<form onSubmit={handleSubmit}>
 			<Field
 				className={s.messageTextArea + ' ' + 'inputBase'}
 				name={'messageText'}
 				placeholder="Write a message..."
-				value={props.newMessageText}
+				// value={newMessageText}
 				component={'textarea'}
 			/>
 
@@ -24,16 +24,14 @@ const AddMessageForm = (props) => {
 
 const AddMessageReduxForm = reduxForm({ form: 'addMessage' })(AddMessageForm);
 
-const Dialogs = (props) => {
-	let dialogElements = props.dialogs.map((data) => (
+const Dialogs = ({ dialogs, messages, addMessage }) => {
+	let dialogElements = dialogs.map((data) => (
 		<DialogItem key={data.id} name={data.name} id={data.id} />
 	));
-	let messageElements = props.messages.map((data) => (
-		<Message key={data.id} message={data.message} />
-	));
+	let messageElements = messages.map((data) => <Message key={data.id} message={data.message} />);
 
 	const onMessageSubmit = (formData) => {
-		props.addMessage(formData.messageText);
+		addMessage(formData.messageText);
 	};
 
 	return (

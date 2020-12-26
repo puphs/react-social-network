@@ -4,11 +4,11 @@ import { required } from '../../utils/validators/validators';
 import { Input } from '../FormControls/FormControls';
 import s from './Login.module.css';
 
-const LoginForm = (props) => {
+const LoginForm = ({ handleSubmit, error }) => {
 	return (
 		<div>
-			{props.error && <div className={s.errorText}>{props.error}</div>}
-			<form className={s.form} onSubmit={props.handleSubmit}>
+			{error && <div className={s.errorText}>{error}</div>}
+			<form className={s.form} onSubmit={handleSubmit}>
 				<div className={s.formInput}>
 					<Field
 						className={s.login + ' ' + s.formInput + ' ' + 'inputBase'}
@@ -52,13 +52,13 @@ const LoginForm = (props) => {
 
 const LoginReduxForm = reduxForm({ form: 'login' })(LoginForm);
 
-const Login = (props) => {
+const Login = ({ login, isAuth }) => {
 	const onSubmit = (formData) => {
 		const { email, password, rememberMe } = formData;
-		props.login(email, password, rememberMe);
+		login(email, password, rememberMe);
 	};
 
-	if (props.isAuth) return <Redirect to="/profile" />;
+	if (isAuth) return <Redirect to="/profile" />;
 
 	return (
 		<div className={s.container}>

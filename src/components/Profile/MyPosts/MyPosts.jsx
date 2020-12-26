@@ -7,9 +7,9 @@ import { TextArea } from '../../FormControls/FormControls';
 
 const maxLength10 = maxLengthCreator(10);
 
-const AddPostForm = (props) => {
+const AddPostForm = ({ handleSubmit }) => {
 	return (
-		<form onSubmit={props.handleSubmit}>
+		<form onSubmit={handleSubmit}>
 			<Field
 				className={s.postTextArea + ' ' + 'inputBase'}
 				name={'postText'}
@@ -26,15 +26,15 @@ const AddPostForm = (props) => {
 
 const AddPostReduxForm = reduxForm({ form: 'addPost' })(AddPostForm);
 
-const MyPosts = (props) => {
-	let posts = props.posts ?? [];
+const MyPosts = ({ posts, addPost }) => {
+	posts = posts ?? [];
 
 	const postElements = posts.map((data) => (
 		<Post key={data.id} message={data.message} likesCount={data.likesCount} />
 	));
 
 	const onPostSubmit = (formData) => {
-		props.addPost(formData.postText);
+		addPost(formData.postText);
 	};
 
 	return (

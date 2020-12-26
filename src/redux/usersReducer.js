@@ -106,18 +106,23 @@ export const loadUsers = (page, pageSize) => async (dispatch) => {
 	dispatch(setTotalUsersCount(data.totalCount));
 };
 
-export const followUser = (userId) => async (dispatch) => {
+const followUnfollowUser = async (dispatch, userId, follow) => {
 	dispatch(setFollowingInProgressUser(userId, true));
 
-	const data = await usersApi.followUser(userId);
-	dispatch(setFollowUser(userId, true));
+	if (follow) {
+		await usersApi.followUser(userId);
+	} else {
+		await usersApi.unfollowUser(userId);
+	}
+	dispatch(setFollowUser(userId, follow));
+
 	dispatch(setFollowingInProgressUser(userId, false));
 };
 
-export const unfollowUser = (userId) => async (dispatch) => {
-	dispatch(setFollowingInProgressUser(userId, true));
+export const followUser = (userId) => (dispatch) => {
+	followUnfollowUser(dispatch, userId, true);
+};
 
-	const data = await usersApi.unfollowUser(userId);
-	dispatch(setFollowUser(userId, false));
-	dispatch(setFollowingInProgressUser(userId, false));
+export const unfollowUser = (userId) => (dispatch) => {
+	followUnfollowUser(dispatch, userId, false);
 };

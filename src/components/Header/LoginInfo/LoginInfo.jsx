@@ -2,17 +2,17 @@ import { NavLink } from 'react-router-dom';
 import s from './LoginInfo.module.css';
 import userPhoto from '../../../assets/images/user-photo.png';
 
-const LoginInfo = (props) => {
+const LoginInfo = ({ login, isAuth, logout }) => {
 	const onLogoutBtnClick = () => {
-		props.logout();
+		logout();
 	};
 
 	return (
 		<div className={s.loginContainer}>
-			{props.isAuth ? (
+			{isAuth ? (
 				<>
 					<div className={s.nameAndLogout}>
-						<div className={s.login}>{props.login}</div>
+						<div className={s.login}>{login}</div>
 						<button className={s.logoutBtn} onClick={onLogoutBtnClick}>
 							Logout
 						</button>

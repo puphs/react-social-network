@@ -2,13 +2,13 @@
 	margin-top: 16px;
 	margin: 16px auto 0;
 	display: flex;
+	color: var(--color-text-dark);
 	justify-content: center;
 }
 
 .page {
 	text-align: center;
 	cursor: pointer;
-	color: var(--color-text-dark);
 }
 .page + .page {
 	margin-left: 8px;
@@ -19,6 +19,6 @@
 }
 
 .page_active {
-	color: var(--color-text);
 	font-weight: bold;
+	color: var(--color-text);
 }
