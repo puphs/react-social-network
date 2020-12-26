@@ -1,0 +1,2 @@
+(this["webpackJsonpfirst-app"]=this["webpackJsonpfirst-app"]||[]).push([[6],{301:function(t,s,n){t.exports={settings:"Settings_settings__3yAb_"}},304:function(t,s,n){"use strict";n.r(s);var i=n(0),e=n(301),a=n.n(e);s.default=function(t){return Object(i.jsx)("main",{className:a.a.settings,children:"Settings"})}}}]);
+//# sourceMappingURL=6.85ad9e84.chunk.js.map
