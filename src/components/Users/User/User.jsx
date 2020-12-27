@@ -35,12 +35,11 @@ const User = ({ user, followUser, unfollowUser, followingInProgressUsers, isAuth
 					<NavLink to={userProfileLink} className={s.name}>
 						{user.name}
 					</NavLink>
-					<div className={s.status}>{user.status}</div>
-				</div>
-				<div className={s.aboutBottom}>
-					<div className={s.location}>
-						{'user.location.country'}, {'user.location.city'}
-					</div>
+					{user.status ? (
+						<div className={s.status}>{user.status}</div>
+					) : (
+						<div className={s.status + ' ' + s.status_empty}>No status</div>
+					)}
 				</div>
 			</div>
 		</div>
