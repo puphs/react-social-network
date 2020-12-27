@@ -1,3 +1,4 @@
+import { stopSubmit } from 'redux-form';
 import { profileApi } from '../api/api';
 
 const ADD_POST = 'ADD_POST';
@@ -101,5 +102,12 @@ export const updateAvatar = (avatar) => async (dispatch) => {
 	const data = await profileApi.updateAvatar(avatar);
 	if (data.resultCode === 0) {
 		dispatch(updateProfilePhotos(data.data));
+	}
+};
+
+export const updateProfile = (profile) => async (dispatch) => {
+	const data = await profileApi.updateProfile(profile);
+	if (data.resultCode === 0) {
+		dispatch(loadProfile(profile.userId));
 	}
 };

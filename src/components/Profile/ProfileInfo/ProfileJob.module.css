@@ -1,0 +1,53 @@
+.job {
+}
+
+.jobQuestions {
+	font-size: 17px;
+	line-height: 23px;
+}
+.jobQuestionItem + .jobQuestionItem {
+	margin-top: 6px;
+}
+
+.jobQuestionItem {
+	display: flex;
+	align-items: center;
+	color: var(--color-text-dark);
+}
+
+.jobQuestion {
+	min-width: 148px;
+	align-self: flex-start;
+	word-wrap: break-word;
+}
+
+.jobAnswer {
+	color: var(--color-text);
+}
+
+.editBtn,
+.saveBtn {
+	margin-top: 16px;
+}
+
+.jobAnswerInputContainer {
+	flex-grow: 1;
+}
+.jobAnswerInput {
+	resize: none;
+	width: 100%;
+	margin: 0;
+	font-size: 17px;
+	line-height: 23px;
+	color: var(--color-text);
+	padding: 0px 4px;
+	border: none;
+	background-color: var(--color-primary-light);
+	border-radius: 3px;
+}
+
+.jobAnswerCheckbox {
+	flex-grow: 0;
+	width: 12px;
+	height: 12px;
+}

@@ -83,3 +83,8 @@ a {
 	border-radius: 6px;
 	padding: 12px;
 }
+
+input[type='checkbox'] {
+	top: 2px;
+	position: relative;
+}

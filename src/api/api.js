@@ -39,6 +39,9 @@ export const profileApi = {
 			})
 		);
 	},
+	updateProfile(profile) {
+		return getData(axiosInstance.put('/profile', profile));
+	},
 };
 
 export const authApi = {

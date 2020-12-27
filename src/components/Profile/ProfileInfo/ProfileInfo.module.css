@@ -1,5 +1,10 @@
 .profileInfo {
 	display: flex;
+	flex-direction: column;
+}
+
+.avatarAndMainInfo {
+	display: flex;
 }
 
 .avatarContainer {
@@ -28,7 +33,7 @@
 	opacity: 0;
 }
 
-.info {
+.mainInfo {
 	padding-left: 22px;
 }
 
@@ -36,4 +41,8 @@
 	font-size: 24px;
 	line-height: 29px;
 	font-weight: bold;
+}
+
+.job {
+	padding-top: 12px;
 }
