@@ -42,3 +42,7 @@
 	color: var(--color-error);
 	margin-bottom: 4px;
 }
+
+.captcha {
+	margin-top: 8px;
+}

@@ -48,16 +48,23 @@ export const authApi = {
 	auth() {
 		return getData(axiosInstance.get('auth/me'));
 	},
-	login(email, password, rememberMe) {
+	login(email, password, rememberMe, captcha) {
 		return getData(
 			axiosInstance.post('auth/login', {
 				email,
 				password,
 				rememberMe,
+				captcha,
 			})
 		);
 	},
 	logout() {
 		return getData(axiosInstance.delete('auth/login'));
+	},
+};
+
+export const securityApi = {
+	getCaptchaUrl() {
+		return getData(axiosInstance.get('security/get-captcha-url'));
 	},
 };

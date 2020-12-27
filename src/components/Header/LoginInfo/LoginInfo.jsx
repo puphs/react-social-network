@@ -18,7 +18,7 @@ const LoginInfo = ({ login, authProfile, isAuth, logout }) => {
 						</button>
 					</div>
 					<NavLink to={'/profile'}>
-						<img className={s.avatar} src={authProfile.photos.small || userPhoto}></img>
+						<img className={s.avatar} src={authProfile?.photos?.small || userPhoto}></img>
 					</NavLink>
 				</>
 			) : (
