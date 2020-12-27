@@ -2,10 +2,30 @@
 	display: flex;
 }
 
+.avatarContainer {
+	position: relative;
+}
+
 .avatar {
 	width: 128px;
 	height: 128px;
 	border-radius: 100%;
+}
+
+.avatarUpload {
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 24px;
+	height: 24px;
+	mask: url('../../../assets/icons/camera.svg');
+	mask-size: cover;
+	background-color: var(--color-text);
+}
+
+.avatarUploadInput {
+	cursor: pointer;
+	opacity: 0;
 }
 
 .info {

@@ -5,6 +5,7 @@ const DELETE_POST = 'DELETE_POST';
 const SET_PROFILE = 'SET_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const UPDATE_NEW_STATUS_TEXT = 'UPDATE_NEW_STATUS_TEXT';
+const UPDATE_PROFILE_PHOTOS = 'UPDATE_PROFILE_PHOTOS';
 
 const initialState = {
 	posts: [{ id: 1, message: 'Hello, my friend', likesCount: 32 }],
@@ -45,6 +46,11 @@ const profileReducer = (state = initialState, action) => {
 				...state,
 				newStatusText: action.text,
 			};
+		case UPDATE_PROFILE_PHOTOS:
+			return {
+				...state,
+				profile: { ...state.profile, photos: action.photos },
+			};
 		default:
 			return state;
 	}
@@ -69,6 +75,10 @@ export const setStatus = (status) => ({
 	type: SET_STATUS,
 	status,
 });
+export const updateProfilePhotos = (photos) => ({
+	type: UPDATE_PROFILE_PHOTOS,
+	photos,
+});
 
 export const loadProfile = (userId) => async (dispatch) => {
 	const data = await profileApi.loadProfile(userId);
@@ -84,5 +94,12 @@ export const updateStatus = (status) => async (dispatch) => {
 	const data = await profileApi.updateStatus(status);
 	if (data.resultCode === 0) {
 		dispatch(setStatus(status));
+	}
+};
+
+export const updateAvatar = (avatar) => async (dispatch) => {
+	const data = await profileApi.updateAvatar(avatar);
+	if (data.resultCode === 0) {
+		dispatch(updateProfilePhotos(data.data));
 	}
 };

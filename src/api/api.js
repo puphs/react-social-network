@@ -30,6 +30,15 @@ export const profileApi = {
 	updateStatus(status) {
 		return getData(axiosInstance.put(`profile/status`, { status: status || '' }));
 	},
+	updateAvatar(avatarFile) {
+		const formData = new FormData();
+		formData.append('image', avatarFile);
+		return getData(
+			axiosInstance.put('/profile/photo', formData, {
+				headers: { 'Content-Type': 'multipart/form-data' },
+			})
+		);
+	},
 };
 
 export const authApi = {
