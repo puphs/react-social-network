@@ -2,7 +2,7 @@ import { NavLink } from 'react-router-dom';
 import s from './LoginInfo.module.css';
 import userPhoto from '../../../assets/images/user-photo.png';
 
-const LoginInfo = ({ login, isAuth, logout }) => {
+const LoginInfo = ({ login, authProfile, isAuth, logout }) => {
 	const onLogoutBtnClick = () => {
 		logout();
 	};
@@ -17,7 +17,7 @@ const LoginInfo = ({ login, isAuth, logout }) => {
 							Logout
 						</button>
 					</div>
-					<img className={s.avatar} src={userPhoto}></img>
+					<img className={s.avatar} src={authProfile.photos.small || userPhoto}></img>
 				</>
 			) : (
 				<NavLink className="btnBase" to="/login">

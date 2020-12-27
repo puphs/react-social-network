@@ -11,6 +11,7 @@ class LoginInfoContainer extends React.Component {
 
 const mapStateToProps = (state) => ({
 	login: state.auth.login,
+	authProfile: state.auth.authProfile,
 	isAuth: state.auth.isAuth,
 });
 
