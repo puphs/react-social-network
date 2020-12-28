@@ -36,7 +36,7 @@ class App extends React.Component {
 						<Route path="/settings" render={() => withSuspense(Settings)} />
 						<Route path="/users:page?" render={() => <UsersContainer />} />
 						<Route path="/login" render={() => <LoginContainer />} />
-						{/* <Redirect from="/" to="/profile" /> */}
+						<Redirect from="/" to="/profile" />
 					</Switch>
 				</div>
 			</div>
