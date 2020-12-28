@@ -12,7 +12,7 @@ import {
 	getTotalUsersCount,
 	getUsers,
 } from '../../redux/usersSelectors';
-import { withRouter } from 'react-router-dom';
+import { Redirect, withRouter } from 'react-router-dom';
 
 class UsersContainer extends React.Component {
 	constructor(props) {
@@ -45,20 +45,20 @@ class UsersContainer extends React.Component {
 	};
 
 	render() {
+		if (this.props.isFetching) {
+			return <Preloader />;
+		}
+		if (!this.getPageFromLocationOrNull(this.props.location)) {
+			return <Redirect to={`/users?page=${this.props.currentPage}`} />;
+		}
 		return (
-			<>
-				{this.props.isFetching ? (
-					<Preloader />
-				) : (
-					<Users
-						users={this.props.users}
-						totalUsersCount={this.props.totalUsersCount}
-						pageSize={this.props.pageSize}
-						currentPage={this.props.currentPage}
-						setCurrentPage={this.setCurrentPage}
-					/>
-				)}
-			</>
+			<Users
+				users={this.props.users}
+				totalUsersCount={this.props.totalUsersCount}
+				pageSize={this.props.pageSize}
+				currentPage={this.props.currentPage}
+				setCurrentPage={this.setCurrentPage}
+			/>
 		);
 	}
 }
