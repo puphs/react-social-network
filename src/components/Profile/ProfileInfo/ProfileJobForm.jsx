@@ -39,7 +39,7 @@ const ProfileJobForm = ({ handleSubmit }) => {
 					</div>
 				</div>
 			</div>
-			<button class={s.saveBtn + ' ' + 'btnBase'}>Save</button>
+			<button className={s.saveBtn + ' ' + 'btnBase'}>Save</button>
 		</form>
 	);
 };

@@ -22,7 +22,7 @@ const ProfileJob = ({ profile, onEditBtnClick, isMyProfile }) => {
 				)}
 			</div>
 			{isMyProfile && (
-				<button class={s.editBtn + ' ' + 'btnBase'} onClick={onEditBtnClick}>
+				<button className={s.editBtn + ' ' + 'btnBase'} onClick={onEditBtnClick}>
 					Edit
 				</button>
 			)}
