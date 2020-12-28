@@ -1,0 +1,21 @@
+.errorContainer {
+	width: 250px;
+	padding: 8px 12px;
+	background-color: var(--color-primary-light);
+	position: fixed;
+	top: 8px;
+	left: calc(50% - 250px / 2);
+	border-radius: 6px;
+	text-align: center;
+	border: 1px solid var(--color-error);
+	transition: 0.5s;
+}
+
+.errorMessage {
+	color: var(--color-error);
+}
+
+.errorContainer_hidden {
+	top: -500px;
+	transition: 0.5s;
+}

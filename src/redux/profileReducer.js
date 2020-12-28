@@ -1,5 +1,5 @@
-import { stopSubmit } from 'redux-form';
 import { profileApi } from '../api/api';
+import { showAndHideError } from './appReducer';
 
 const ADD_POST = 'ADD_POST';
 const DELETE_POST = 'DELETE_POST';
@@ -95,6 +95,8 @@ export const updateStatus = (status) => async (dispatch) => {
 	const data = await profileApi.updateStatus(status);
 	if (data.resultCode === 0) {
 		dispatch(setStatus(status));
+	} else {
+		dispatch(showAndHideError(data.messages[0]));
 	}
 };
 
@@ -102,6 +104,8 @@ export const updateAvatar = (avatar) => async (dispatch) => {
 	const data = await profileApi.updateAvatar(avatar);
 	if (data.resultCode === 0) {
 		dispatch(updateProfilePhotos(data.data));
+	} else {
+		dispatch(showAndHideError(data.messages[0]));
 	}
 };
 
@@ -109,5 +113,7 @@ export const updateProfile = (profile) => async (dispatch) => {
 	const data = await profileApi.updateProfile(profile);
 	if (data.resultCode === 0) {
 		dispatch(loadProfile(profile.userId));
+	} else {
+		dispatch(showAndHideError(data.messages[0]));
 	}
 };

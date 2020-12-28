@@ -7,10 +7,11 @@ import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import LoginContainer from './components/Login/LoginContainer';
 import { connect, Provider } from 'react-redux';
-import { initialize } from './redux/appReducer';
+import { initialize, showAndHideError, showError } from './redux/appReducer';
 import Preloader from './components/Preloader/Preloader';
 import store from './redux/reduxStore';
 import { withSuspense } from './components/hoc/withSuspense';
+import ErrorNotification from './components/ErrorNotification/ErrorNotification';
 
 // lazy loading
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
@@ -27,6 +28,7 @@ class App extends React.Component {
 			<div className="container">
 				<Header />
 				<Sidebar />
+				<ErrorNotification />
 				<div className="content">
 					<Switch>
 						<Route path="/profile/:userId?" render={() => <ProfileContainer />} />
@@ -47,7 +49,7 @@ class App extends React.Component {
 const mapStateToProps = (state) => ({
 	initialized: state.app.initialized,
 });
-const AppContainer = connect(mapStateToProps, { initialize })(App);
+const AppContainer = connect(mapStateToProps, { initialize, showAndHideError })(App);
 
 const MainApp = () => {
 	return (

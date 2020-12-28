@@ -24,7 +24,6 @@ const ProfileInfo = ({
 
 	const onProfileJobFormSubmit = (formData) => {
 		setEditMode(false);
-		console.log(formData);
 		updateProfile({
 			...profile,
 			...formData,

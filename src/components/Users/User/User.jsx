@@ -22,7 +22,7 @@ const User = ({ user, followUser, unfollowUser, followingInProgressUsers, isAuth
 
 				{isAuth && (
 					<button
-						className={cn(s.followBtn, 'btnBase')}
+						className={cn(s.followBtn, 'btnBase', 'shadowBase')}
 						disabled={followingInProgressUsers.has(user.id)}
 						onClick={onFollowBtnClick}
 					>
