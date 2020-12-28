@@ -32,7 +32,7 @@ class App extends React.Component {
 				<div className="content">
 					<Switch>
 						<Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-						<Route path="/dialogs" render={() => withSuspense(DialogsContainer)} />
+						<Route path="/dialogs/:dialog?" render={() => withSuspense(DialogsContainer)} />
 						<Route path="/news" render={() => withSuspense(News)} />
 						<Route path="/music" render={() => withSuspense(Music)} />
 						<Route path="/settings" render={() => withSuspense(Settings)} />

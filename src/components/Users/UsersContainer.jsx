@@ -33,8 +33,8 @@ class UsersContainer extends React.Component {
 		this.unlisten();
 	}
 
-	getPageFromLocationOrNull = (location) => {
-		let page = parseInt(new URLSearchParams(location.search).get('page'));
+	getPageFromLocationOrNull = () => {
+		let page = parseInt(new URLSearchParams(this.props.location.search).get('page'));
 		if (isNaN(page) || !page) return null;
 		return page;
 	};

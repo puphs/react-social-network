@@ -26,11 +26,11 @@ const AddPostForm = ({ handleSubmit }) => {
 
 const AddPostReduxForm = reduxForm({ form: 'addPost' })(AddPostForm);
 
-const MyPosts = ({ posts, addPost }) => {
+const MyPosts = ({ posts, addPost, profile }) => {
 	posts = posts ?? [];
 
 	const postElements = posts.map((data) => (
-		<Post key={data.id} message={data.message} likesCount={data.likesCount} />
+		<Post key={data.id} message={data.message} likesCount={data.likesCount} profile={profile} />
 	));
 
 	const onPostSubmit = (formData) => {

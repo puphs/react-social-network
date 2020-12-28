@@ -13,7 +13,7 @@ const Profile = (props) => {
 				updateProfile={props.updateProfile}
 				isMyProfile={props.isMyProfile}
 			/>
-			<MyPostsContainer />
+			{props.isMyProfile && <MyPostsContainer />}
 		</main>
 	);
 };

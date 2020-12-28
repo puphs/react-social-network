@@ -5,7 +5,7 @@ import Message from './Message/Message';
 import { Field, reduxForm } from 'redux-form';
 import cn from 'classnames';
 
-const AddMessageForm = ({ handleSubmit, newMessageText }) => {
+const AddMessageForm = ({ handleSubmit }) => {
 	return (
 		<form onSubmit={handleSubmit}>
 			<Field

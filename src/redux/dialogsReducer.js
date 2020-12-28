@@ -1,4 +1,5 @@
 const ADD_MESSAGE = 'ADD_MESSAGE';
+const SET_CURRENT_DIALOG = 'SET_CURRENT_DIALOG';
 
 const initialState = {
 	dialogs: [
@@ -12,6 +13,7 @@ const initialState = {
 		{ id: 2, message: 'Hello' },
 	],
 	newMessageText: '',
+	currentDialog: 1,
 };
 
 const dialogsReducer = (state = initialState, action) => {
@@ -25,6 +27,11 @@ const dialogsReducer = (state = initialState, action) => {
 				...state,
 				messages: [...state.messages, newMesssage],
 			};
+		case SET_CURRENT_DIALOG:
+			return {
+				...state,
+				currentDialog: action.dialog,
+			};
 		default:
 			return state;
 	}
@@ -34,5 +41,9 @@ export default dialogsReducer;
 
 export const addMessage = (message) => ({
 	type: ADD_MESSAGE,
-	message: message,
+	message,
+});
+export const setCurrentDialog = (dialog) => ({
+	type: SET_CURRENT_DIALOG,
+	dialog,
 });
