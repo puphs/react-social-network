@@ -1,7 +1,8 @@
 import { Field, reduxForm } from 'redux-form';
 import { required } from '../../../utils/validators/validators';
-import { Input, TextArea } from '../../FormControls/FormControls';
+import { TextArea } from '../../FormControls/FormControls';
 import s from './ProfileJob.module.css';
+import cn from 'classnames';
 
 const ProfileJobForm = ({ handleSubmit }) => {
 	return (
@@ -21,7 +22,7 @@ const ProfileJobForm = ({ handleSubmit }) => {
 				<div className={s.jobQuestionItem}>
 					<span className={s.jobQuestion}>Looking for a job:</span>
 					<Field
-						className={s.jobAnswerInput + ' ' + s.jobAnswerCheckbox}
+						className={cn(s.jobAnswerInput, s.jobAnswerCheckbox)}
 						name={'lookingForAJob'}
 						component={'input'}
 						type={'checkbox'}
@@ -39,7 +40,7 @@ const ProfileJobForm = ({ handleSubmit }) => {
 					</div>
 				</div>
 			</div>
-			<button className={s.saveBtn + ' ' + 'btnBase'}>Save</button>
+			<button className={cn(s.saveBtn, 'btnBase')}>Save</button>
 		</form>
 	);
 };

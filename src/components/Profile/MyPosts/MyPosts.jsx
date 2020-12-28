@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import { maxLengthCreator, required } from '../../../utils/validators/validators';
+import cn from 'classnames';
 
 const maxLength10 = maxLengthCreator(10);
 
@@ -10,13 +11,13 @@ const AddPostForm = ({ handleSubmit }) => {
 	return (
 		<form onSubmit={handleSubmit}>
 			<Field
-				className={s.postTextArea + ' ' + 'inputBase'}
+				className={cn(s.postTextArea, 'inputBase')}
 				name={'postText'}
 				placeholder="Write something..."
 				validate={[required, maxLength10]}
 				component={'textarea'}
 			></Field>
-			<button className={s.postBtn + ' ' + 'btnBase'} name={'addPostButton'}>
+			<button className={cn(s.postBtn, 'btnBase')} name={'addPostButton'}>
 				post
 			</button>
 		</form>

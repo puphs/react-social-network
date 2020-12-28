@@ -3,6 +3,7 @@ import { Field, reduxForm } from 'redux-form';
 import { required } from '../../utils/validators/validators';
 import { Input } from '../FormControls/FormControls';
 import s from './Login.module.css';
+import cn from 'classnames';
 
 const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
 	return (
@@ -11,7 +12,7 @@ const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
 			<form className={s.form} onSubmit={handleSubmit}>
 				<div className={s.formInput}>
 					<Field
-						className={s.login + ' ' + s.formInput + ' ' + 'inputBase'}
+						className={cn(s.login, s.formInput, 'inputBase')}
 						placeholder={'Email'}
 						name={'email'}
 						component={Input}
@@ -20,7 +21,7 @@ const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
 				</div>
 				<div className={s.formInput}>
 					<Field
-						className={s.password + ' ' + 'inputBase'}
+						className={(s.password, 'inputBase')}
 						placeholder={'Password'}
 						name={'password'}
 						type={'password'}
@@ -29,7 +30,7 @@ const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
 					/>
 				</div>
 
-				<div className={s.formInput + ' ' + s.rememberMeContainer}>
+				<div className={cn(s.formInput, s.rememberMeContainer)}>
 					<Field
 						className={s.rememberMe}
 						id={'rememberMe'}
@@ -47,7 +48,7 @@ const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
 						<img src={captchaUrl} />
 						<div>
 							<Field
-								className={s.captcha + ' ' + 'inputBase'}
+								className={(s.captcha, 'inputBase')}
 								placeholder={'Please enter captcha'}
 								name={'captcha'}
 								component={Input}
@@ -58,7 +59,7 @@ const LoginForm = ({ handleSubmit, error, captchaUrl }) => {
 				)}
 
 				<div>
-					<button className={s.loginBtn + ' ' + 'btnBase'}>login</button>
+					<button className={cn(s.loginBtn, 'btnBase')}>login</button>
 				</div>
 			</form>
 		</div>

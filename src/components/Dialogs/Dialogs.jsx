@@ -3,19 +3,20 @@ import s from './Dialogs.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import { Field, reduxForm } from 'redux-form';
+import cn from 'classnames';
 
 const AddMessageForm = ({ handleSubmit, newMessageText }) => {
 	return (
 		<form onSubmit={handleSubmit}>
 			<Field
-				className={s.messageTextArea + ' ' + 'inputBase'}
+				className={cn(s.messageTextArea, 'inputBase')}
 				name={'messageText'}
 				placeholder="Write a message..."
 				// value={newMessageText}
 				component={'textarea'}
 			/>
 
-			<button className={s.sendBtn + ' ' + 'btnBase'} name={'addMessageButton'}>
+			<button className={cn(s.sendBtn, 'btnBase')} name={'addMessageButton'}>
 				send
 			</button>
 		</form>

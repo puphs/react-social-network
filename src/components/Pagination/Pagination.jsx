@@ -1,13 +1,8 @@
 import { NavLink } from 'react-router-dom';
 import s from './Pagination.module.css';
+import cn from 'classnames';
 
-const Pagination = ({
-	maxVisiblePagesCount,
-	totalPagesCount,
-	currentPage,
-	setCurrentPage,
-	basePath,
-}) => {
+const Pagination = ({ maxVisiblePagesCount, totalPagesCount, currentPage, basePath }) => {
 	maxVisiblePagesCount = maxVisiblePagesCount || 9;
 	let pagesCount = Math.min(totalPagesCount, maxVisiblePagesCount);
 	pagesCount = pagesCount >= 0 ? pagesCount : 0;
@@ -46,7 +41,7 @@ const Pagination = ({
 		} else if (typeof page === 'number') {
 			return (
 				<NavLink
-					className={s.page + ' ' + (currentPage === page && s.page_active)}
+					className={cn(s.page, currentPage === page && s.page_active)}
 					to={basePath + page}
 					key={page}
 					// onClick={() => setCurrentPage(page)}

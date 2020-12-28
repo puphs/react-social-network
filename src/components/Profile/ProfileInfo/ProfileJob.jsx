@@ -1,4 +1,5 @@
 import s from './ProfileJob.module.css';
+import cn from 'classnames';
 
 const ProfileJob = ({ profile, onEditBtnClick, isMyProfile }) => {
 	return (
@@ -22,7 +23,7 @@ const ProfileJob = ({ profile, onEditBtnClick, isMyProfile }) => {
 				)}
 			</div>
 			{isMyProfile && (
-				<button className={s.editBtn + ' ' + 'btnBase'} onClick={onEditBtnClick}>
+				<button className={cn(s.editBtn, 'btnBase')} onClick={onEditBtnClick}>
 					Edit
 				</button>
 			)}

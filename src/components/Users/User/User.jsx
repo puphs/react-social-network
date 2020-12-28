@@ -1,6 +1,7 @@
 import s from './User.module.css';
 import userPhoto from '../../../assets/images/user-photo.png';
 import { NavLink } from 'react-router-dom';
+import cn from 'classnames';
 
 const User = ({ user, followUser, unfollowUser, followingInProgressUsers, isAuth }) => {
 	const userProfileLink = '/profile/' + user.id;
@@ -13,7 +14,7 @@ const User = ({ user, followUser, unfollowUser, followingInProgressUsers, isAuth
 	};
 
 	return (
-		<div className={s.user + ' ' + 'roundBorderContainer'}>
+		<div className={cn(s.user, 'roundBorderContainer')}>
 			<div className={s.avatarContainer}>
 				<NavLink to={userProfileLink}>
 					<img className={s.avatarImg} src={user.photos.small ?? userPhoto} alt="" />
@@ -21,7 +22,7 @@ const User = ({ user, followUser, unfollowUser, followingInProgressUsers, isAuth
 
 				{isAuth && (
 					<button
-						className={s.followBtn + ' ' + 'btnBase'}
+						className={cn(s.followBtn, 'btnBase')}
 						disabled={followingInProgressUsers.has(user.id)}
 						onClick={onFollowBtnClick}
 					>
@@ -38,7 +39,7 @@ const User = ({ user, followUser, unfollowUser, followingInProgressUsers, isAuth
 					{user.status ? (
 						<div className={s.status}>{user.status}</div>
 					) : (
-						<div className={s.status + ' ' + s.status_empty}>No status</div>
+						<div className={cn(s.status, s.status_empty)}>No status</div>
 					)}
 				</div>
 			</div>
