@@ -11,6 +11,7 @@ import Profile from './Profile';
 import { withRouter } from 'react-router-dom';
 import { withAuthRedirect } from '../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import Preloader from '../Preloader/Preloader';
 
 class ProfileContainer extends React.Component {
 	updateProfile = () => {
@@ -30,6 +31,7 @@ class ProfileContainer extends React.Component {
 	}
 
 	render() {
+		if (this.props.isFetching) return <Preloader />;
 		return (
 			<Profile
 				profile={this.props.profile}
@@ -47,6 +49,7 @@ const mapStateToProps = (state) => ({
 	profile: state.profilePage.profile,
 	status: state.profilePage.status,
 	authorizedUserId: state.auth.id,
+	isFetching: state.profilePage.isFetching,
 });
 
 export default compose(

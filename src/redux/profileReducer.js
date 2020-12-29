@@ -7,12 +7,14 @@ const SET_PROFILE = 'SET_PROFILE';
 const SET_STATUS = 'SET_STATUS';
 const UPDATE_NEW_STATUS_TEXT = 'UPDATE_NEW_STATUS_TEXT';
 const UPDATE_PROFILE_PHOTOS = 'UPDATE_PROFILE_PHOTOS';
+const SET_IS_FETCHING = 'SET_IS_FETCHING';
 
 const initialState = {
 	posts: [{ id: 1, message: 'Hello, my friend', likesCount: 32 }],
 	newPostText: '',
 	profile: null,
 	status: '',
+	isFetching: false,
 };
 
 const profileReducer = (state = initialState, action) => {
@@ -52,6 +54,11 @@ const profileReducer = (state = initialState, action) => {
 				...state,
 				profile: { ...state.profile, photos: action.photos },
 			};
+		case SET_IS_FETCHING:
+			return {
+				...state,
+				isFetching: action.isFetching,
+			};
 		default:
 			return state;
 	}
@@ -80,10 +87,16 @@ export const updateProfilePhotos = (photos) => ({
 	type: UPDATE_PROFILE_PHOTOS,
 	photos,
 });
+export const setIsFetching = (isFetching) => ({
+	type: SET_IS_FETCHING,
+	isFetching,
+});
 
 export const loadProfile = (userId) => async (dispatch) => {
+	dispatch(setIsFetching(true));
 	const data = await profileApi.loadProfile(userId);
 	dispatch(setProfile(data));
+	dispatch(setIsFetching(false));
 };
 
 export const getStatus = (userId) => async (dispatch) => {
