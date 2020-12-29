@@ -1,5 +1,6 @@
 import { profileApi } from '../api/api';
 import { showAndHideError } from './appReducer';
+import { updateAuthProfilePhotos } from './authReducer';
 
 const ADD_POST = 'ADD_POST';
 const DELETE_POST = 'DELETE_POST';
@@ -27,7 +28,7 @@ const profileReducer = (state = initialState, action) => {
 			};
 			return {
 				...state,
-				posts: [...state.posts, newPost],
+				posts: [newPost, ...state.posts],
 			};
 		case DELETE_POST:
 			return {
@@ -113,10 +114,11 @@ export const updateStatus = (status) => async (dispatch) => {
 	}
 };
 
-export const updateAvatar = (avatar) => async (dispatch) => {
+export const updateAvatar = (avatar) => async (dispatch, getState) => {
 	const data = await profileApi.updateAvatar(avatar);
 	if (data.resultCode === 0) {
-		dispatch(updateProfilePhotos(data.data));
+		dispatch(updateProfilePhotos(data.data.photos));
+		dispatch(updateAuthProfilePhotos(data.data.photos));
 	} else {
 		dispatch(showAndHideError(data.messages[0]));
 	}

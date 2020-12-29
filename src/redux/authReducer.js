@@ -3,6 +3,7 @@ import { authApi, profileApi, securityApi } from '../api/api';
 
 const SET_USER_DATA = 'SET_USER_DATA';
 const SET_AUTH_PROFILE = 'SET_AUTH_PROFILE';
+const UPDATE_AUTH_PROFILE_PHOTOTS = 'UPDATE_AUTH_PROFILE_PHOTOTS';
 const SET_CAPTCHA_URL = 'SET_CAPTCHA_URL';
 
 const initialState = {
@@ -23,6 +24,8 @@ const authReducer = (state = initialState, action) => {
 			return { ...state, authProfile: action.authProfile };
 		case SET_CAPTCHA_URL:
 			return { ...state, captchaUrl: action.captchaUrl };
+		case UPDATE_AUTH_PROFILE_PHOTOTS:
+			return { ...state, authProfile: { ...state.authProfile, photos: action.photos } };
 		default:
 			return state;
 	}
@@ -37,6 +40,10 @@ export const setAuthUserData = (id, email, login, isAuth) => ({
 export const setAuthProfile = (authProfile) => ({
 	type: SET_AUTH_PROFILE,
 	authProfile,
+});
+export const updateAuthProfilePhotos = (photos) => ({
+	type: UPDATE_AUTH_PROFILE_PHOTOTS,
+	photos,
 });
 export const setCaptchaUrl = (captchaUrl) => ({
 	type: SET_CAPTCHA_URL,
