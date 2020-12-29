@@ -1,9 +1,9 @@
 import { reduxForm, reset } from 'redux-form';
 
-const withFormReset = (Form, formName, onSubmit, ...props) => {
+const withFormReset = (Form, formName, onSubmit, shouldResetForm, ...props) => {
 	const handleSubmit = (formData, dispatch) => {
 		onSubmit(formData, dispatch);
-		dispatch(reset(formName));
+		if (shouldResetForm(formData)) dispatch(reset(formName));
 	};
 
 	const ReduxForm = reduxForm({ form: formName })(Form);

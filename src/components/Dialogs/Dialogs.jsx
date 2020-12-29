@@ -30,8 +30,12 @@ const Dialogs = ({ dialogs, messages, addMessage }) => {
 	));
 	let messageElements = messages.map((data) => <Message key={data.id} message={data.message} />);
 
+	const shouldResetForm = (formData) => {
+		return formData.messageText && formData.messageText.trim();
+	};
+
 	const onMessageSubmit = (formData) => {
-		addMessage(formData.messageText);
+		if (formData.messageText && formData.messageText.trim()) addMessage(formData.messageText);
 	};
 
 	return (
@@ -39,7 +43,7 @@ const Dialogs = ({ dialogs, messages, addMessage }) => {
 			<div className={s.dialogItems}>{dialogElements}</div>
 			<div className={s.dialogContainer}>
 				<div className={s.messages}>{messageElements}</div>
-				{withFormReset(AddMessageForm, 'addMessage', onMessageSubmit)}
+				{withFormReset(AddMessageForm, 'addMessage', onMessageSubmit, shouldResetForm)}
 			</div>
 		</main>
 	);

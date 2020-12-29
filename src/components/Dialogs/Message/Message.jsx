@@ -2,7 +2,7 @@ import s from './Message.module.css';
 import cn from 'classnames';
 
 const Message = ({ message, messageFromRight }) => {
-	let messageRight = '';
+	let messageRight = messageFromRight && s.message_right;
 	if (messageFromRight) messageRight = s.message_right;
 	return (
 		<div className={cn(s.message, messageRight)}>

@@ -32,13 +32,19 @@ const MyPosts = ({ posts, addPost, profile }) => {
 		<Post key={data.id} message={data.message} likesCount={data.likesCount} profile={profile} />
 	));
 
-	const onPostSubmit = (formData, dispatch) => {
-		addPost(formData.postText);
+	const shouldResetForm = (formData) => {
+		return formData.postText && formData.postText.trim();
+	};
+
+	const onPostSubmit = (formData) => {
+		if (formData.postText && formData.postText.trim()) addPost(formData.postText);
 	};
 
 	return (
 		<div className={s.myPosts}>
-			<div className={s.addPost}>{withFormReset(AddPostForm, 'addPost', onPostSubmit)}</div>
+			<div className={s.addPost}>
+				{withFormReset(AddPostForm, 'addPost', onPostSubmit, shouldResetForm)}
+			</div>
 			<div className={s.posts}>
 				<h2 className={s.postsHeader}>Posts</h2>
 				{postElements}
