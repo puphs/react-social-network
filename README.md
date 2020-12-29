@@ -9,7 +9,7 @@ This learning project is a social network built with React library. Not all func
 * Edit status, job information in profile
 * Change profile avatar
 * Follow/unfollow other users
-* View other information about other users
+* View information about other users
 
 # Used libraries
 * [React](https://reactjs.org) (also: [React Redux](https://react-redux.js.org))
@@ -21,5 +21,5 @@ This learning project is a social network built with React library. Not all func
 * [SamuraiJS Social Network](https://docs.google.com/document/d/1ZSXmTzkgq_Kj1VbWuq8fTv_DPD95GFDvPZgqFeIYGoM)
 
 # How you can try it
-You can test it at [Github Pages](https://puphs.github.io/react-social-network/#/) (Not all functionality will work without an account)</br>
+You can test it at [Github Pages](https://puphs.github.io/react-social-network/#/) (Not all functionality will work without an account)<br/>
 You can write me **puph.dev@gmail.com** to get credentials to account on social network
