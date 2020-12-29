@@ -3,7 +3,7 @@ import UserContainer from './User/UserContainer';
 import Pagination from '../Pagination/Pagination';
 
 const Users = ({ users, currentPage, totalUsersCount, pageSize, setCurrentPage }) => {
-	const userElements = users.map((user) => <UserContainer user={user} />);
+	const userElements = users.map((user) => <UserContainer user={user} key={user.id} />);
 	return (
 		<div className={s.container}>
 			<div className={s.users}>{userElements}</div>

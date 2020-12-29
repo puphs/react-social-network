@@ -35,9 +35,16 @@ const Pagination = ({ maxVisiblePagesCount, totalPagesCount, currentPage, basePa
 	}
 	pages.push(lastPage);
 
+	let dotsNextKey = -10;
 	const pagesElements = pages.map((page) => {
+		const dotsKey = dotsNextKey;
+		dotsNextKey--;
 		if (page === '...') {
-			return <div className={s.dots}>...</div>;
+			return (
+				<div className={s.dots} key={dotsKey}>
+					...
+				</div>
+			);
 		} else if (typeof page === 'number') {
 			return (
 				<NavLink
