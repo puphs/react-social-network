@@ -8,12 +8,12 @@ import { Redirect, withRouter } from 'react-router-dom';
 
 class DialogsContainer extends React.Component {
 	componentDidMount() {
-		const dialog = getDialogFromParamsOrNull() ?? 1;
+		const dialog = this.getDialogFromParamsOrNull() ?? 1;
 		this.props.setCurrentDialog(dialog);
 	}
 
 	componentDidUpdate() {
-		const dialog = getDialogFromParamsOrNull() ?? 1;
+		const dialog = this.getDialogFromParamsOrNull() ?? 1;
 		if (dialog !== this.props.currentDialog) {
 			this.props.setCurrentDialog(dialog);
 		}
