@@ -14,6 +14,14 @@ const ProfileStatusWithHooks = (props) => {
 	};
 
 	const onStatusInputBlur = () => {
+		finishEditing();
+	};
+
+	const onStatusInputKeyPress = (e) => {
+		if (e.key === 'Enter') finishEditing();
+	};
+
+	const finishEditing = () => {
 		setEditMode(false);
 		props.updateStatus(status);
 	};
@@ -29,6 +37,7 @@ const ProfileStatusWithHooks = (props) => {
 					className={s.statusInput}
 					autoFocus={true}
 					onBlur={onStatusInputBlur}
+					onKeyPress={onStatusInputKeyPress}
 					onChange={onStatusInputChange}
 					value={status}
 				/>
