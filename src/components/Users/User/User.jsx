@@ -41,11 +41,11 @@ const User = ({ user, followUser, unfollowUser, followingInProgressUsers, isAuth
 					)}
 				</div>
 
-				{isAuth && (
+				{/* {isAuth && (
 					<NavLink className={cn(s.chatBtn, s.btnShadow, 'btnBase')} to={`/dialogs/${user.id}`}>
 						chat
 					</NavLink>
-				)}
+				)} */}
 			</div>
 		</div>
 	);
