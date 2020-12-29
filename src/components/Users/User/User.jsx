@@ -15,14 +15,13 @@ const User = ({ user, followUser, unfollowUser, followingInProgressUsers, isAuth
 
 	return (
 		<div className={cn(s.user, 'roundBorderContainer')}>
-			<div className={s.avatarContainer}>
-				<NavLink to={userProfileLink}>
+			<div className={s.avatarAndFollowBtn}>
+				<NavLink to={userProfileLink} className={s.userProfileLink}>
 					<img className={s.avatarImg} src={user.photos.small ?? userPhoto} alt="" />
 				</NavLink>
-
 				{isAuth && (
 					<button
-						className={cn(s.followBtn, 'btnBase', 'shadowBase')}
+						className={cn(s.followBtn, s.btnShadow, 'btnBase')}
 						disabled={followingInProgressUsers.has(user.id)}
 						onClick={onFollowBtnClick}
 					>
@@ -30,9 +29,8 @@ const User = ({ user, followUser, unfollowUser, followingInProgressUsers, isAuth
 					</button>
 				)}
 			</div>
-
-			<div className={s.aboutContainer}>
-				<div className={s.aboutTop}>
+			<div className={s.infoAndChatBtn}>
+				<div className={s.info}>
 					<NavLink to={userProfileLink} className={s.name}>
 						{user.name}
 					</NavLink>
@@ -42,6 +40,12 @@ const User = ({ user, followUser, unfollowUser, followingInProgressUsers, isAuth
 						<div className={cn(s.status, s.status_empty)}>No status</div>
 					)}
 				</div>
+
+				{isAuth && (
+					<NavLink className={cn(s.chatBtn, s.btnShadow, 'btnBase')} to={`/dialogs/${user.id}`}>
+						chat
+					</NavLink>
+				)}
 			</div>
 		</div>
 	);
