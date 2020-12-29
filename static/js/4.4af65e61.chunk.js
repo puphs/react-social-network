@@ -1,0 +1,2 @@
+(this["webpackJsonpfirst-app"]=this["webpackJsonpfirst-app"]||[]).push([[4],{305:function(s,i,c){s.exports={music:"Music_music__ZBWLx"}},308:function(s,i,c){"use strict";c.r(i);var t=c(0),n=c(305),u=c.n(n);i.default=function(s){return Object(t.jsx)("main",{className:u.a.music,children:"Music"})}}}]);
+//# sourceMappingURL=4.4af65e61.chunk.js.map
