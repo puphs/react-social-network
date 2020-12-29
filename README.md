@@ -22,4 +22,4 @@ This learning project is a social network built with React library. Not all func
 
 # How you can try it
 You can test it at [Github Pages](https://puphs.github.io/react-social-network/#/) (Not all functionality will work without an account)<br/>
-You can write me **puph.dev@gmail.com** to get credentials to account on social network
+You can write me **puphs.dev@gmail.com** to get credentials to account on social network
