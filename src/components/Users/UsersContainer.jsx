@@ -23,14 +23,11 @@ class UsersContainer extends React.Component {
 		this.setCurrentPage(
 			this.getPageFromLocationOrNull(this.props.location) ?? this.props.currentPage
 		);
-
-		this.unlisten = this.props.history.listen((location, action) => {
-			this.setCurrentPage(this.getPageFromLocationOrNull(location) ?? this.props.currentPage);
-		});
 	}
 
-	componentWillUnmount() {
-		this.unlisten();
+	componentDidUpdate(prevProps) {
+		const page = this.getPageFromLocationOrNull(this.props.location) ?? 1;
+		if (page !== this.props.currentPage) this.setCurrentPage(page);
 	}
 
 	getPageFromLocationOrNull = () => {
