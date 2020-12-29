@@ -4,6 +4,7 @@ import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import { Field, reduxForm } from 'redux-form';
 import cn from 'classnames';
+import withFormReset from '../hoc/withFormReset';
 
 const AddMessageForm = ({ handleSubmit }) => {
 	return (
@@ -23,8 +24,6 @@ const AddMessageForm = ({ handleSubmit }) => {
 	);
 };
 
-const AddMessageReduxForm = reduxForm({ form: 'addMessage' })(AddMessageForm);
-
 const Dialogs = ({ dialogs, messages, addMessage }) => {
 	let dialogElements = dialogs.map((data) => (
 		<DialogItem key={data.id} name={data.name} id={data.id} />
@@ -40,7 +39,7 @@ const Dialogs = ({ dialogs, messages, addMessage }) => {
 			<div className={s.dialogItems}>{dialogElements}</div>
 			<div className={s.dialogContainer}>
 				<div className={s.messages}>{messageElements}</div>
-				<AddMessageReduxForm onSubmit={onMessageSubmit} />
+				{withFormReset(AddMessageForm, 'addMessage', onMessageSubmit)}
 			</div>
 		</main>
 	);

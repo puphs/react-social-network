@@ -1,9 +1,10 @@
 import React from 'react';
-import { Field, reduxForm } from 'redux-form';
+import { Field, reduxForm, reset } from 'redux-form';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import { maxLengthCreator, required } from '../../../utils/validators/validators';
 import cn from 'classnames';
+import withFormReset from '../../hoc/withFormReset';
 
 const maxLength10 = maxLengthCreator(10);
 
@@ -24,8 +25,6 @@ const AddPostForm = ({ handleSubmit }) => {
 	);
 };
 
-const AddPostReduxForm = reduxForm({ form: 'addPost' })(AddPostForm);
-
 const MyPosts = ({ posts, addPost, profile }) => {
 	posts = posts ?? [];
 
@@ -33,15 +32,13 @@ const MyPosts = ({ posts, addPost, profile }) => {
 		<Post key={data.id} message={data.message} likesCount={data.likesCount} profile={profile} />
 	));
 
-	const onPostSubmit = (formData) => {
+	const onPostSubmit = (formData, dispatch) => {
 		addPost(formData.postText);
 	};
 
 	return (
 		<div className={s.myPosts}>
-			<div className={s.addPost}>
-				<AddPostReduxForm onSubmit={onPostSubmit} />
-			</div>
+			<div className={s.addPost}>{withFormReset(AddPostForm, 'addPost', onPostSubmit)}</div>
 			<div className={s.posts}>
 				<h2 className={s.postsHeader}>Posts</h2>
 				{postElements}
