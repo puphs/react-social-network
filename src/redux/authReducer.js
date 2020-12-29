@@ -1,10 +1,10 @@
 import { stopSubmit } from 'redux-form';
 import { authApi, profileApi, securityApi } from '../api/api';
 
-const SET_USER_DATA = 'SET_USER_DATA';
-const SET_AUTH_PROFILE = 'SET_AUTH_PROFILE';
-const UPDATE_AUTH_PROFILE_PHOTOTS = 'UPDATE_AUTH_PROFILE_PHOTOTS';
-const SET_CAPTCHA_URL = 'SET_CAPTCHA_URL';
+const SET_USER_DATA = 'auth/SET_USER_DATA';
+const SET_AUTH_PROFILE = 'auth/SET_AUTH_PROFILE';
+const UPDATE_AUTH_PROFILE_PHOTOTS = 'auth/UPDATE_AUTH_PROFILE_PHOTOTS';
+const SET_CAPTCHA_URL = 'auth/SET_CAPTCHA_URL';
 
 const initialState = {
 	id: null,

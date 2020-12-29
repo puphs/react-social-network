@@ -1,8 +1,8 @@
 import { getAuthUserData } from './authReducer';
 
-const SET_INITIALIZED = 'SET_INITIALIZED';
-const SHOW_ERROR = 'SHOW_ERROR';
-const HIDE_ERROR = 'HIDE_ERROR';
+const SET_INITIALIZED = 'app/SET_INITIALIZED';
+const SHOW_ERROR = 'app/SHOW_ERROR';
+const HIDE_ERROR = 'app/HIDE_ERROR';
 
 const initialState = {
 	initialized: false,

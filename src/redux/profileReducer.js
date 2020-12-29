@@ -2,13 +2,13 @@ import { profileApi } from '../api/api';
 import { showAndHideError } from './appReducer';
 import { updateAuthProfilePhotos } from './authReducer';
 
-const ADD_POST = 'ADD_POST';
-const DELETE_POST = 'DELETE_POST';
-const SET_PROFILE = 'SET_PROFILE';
-const SET_STATUS = 'SET_STATUS';
-const UPDATE_NEW_STATUS_TEXT = 'UPDATE_NEW_STATUS_TEXT';
-const UPDATE_PROFILE_PHOTOS = 'UPDATE_PROFILE_PHOTOS';
-const SET_IS_FETCHING = 'SET_IS_FETCHING';
+const ADD_POST = 'profile/ADD_POST';
+const DELETE_POST = 'profile/DELETE_POST';
+const SET_PROFILE = 'profile/SET_PROFILE';
+const SET_STATUS = 'profile/SET_STATUS';
+const UPDATE_NEW_STATUS_TEXT = 'profile/UPDATE_NEW_STATUS_TEXT';
+const UPDATE_PROFILE_PHOTOS = 'profile/UPDATE_PROFILE_PHOTOS';
+const SET_IS_FETCHING = 'profile/SET_IS_FETCHING';
 
 const initialState = {
 	posts: [{ id: 1, message: 'Hello, my friend', likesCount: 32 }],

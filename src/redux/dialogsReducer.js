@@ -1,5 +1,5 @@
-const ADD_MESSAGE = 'ADD_MESSAGE';
-const SET_CURRENT_DIALOG = 'SET_CURRENT_DIALOG';
+const ADD_MESSAGE = 'dialogs/ADD_MESSAGE';
+const SET_CURRENT_DIALOG = 'dialogs/SET_CURRENT_DIALOG';
 
 const initialState = {
 	dialogs: [
