@@ -44,6 +44,16 @@ export const profileApi = {
 	},
 };
 
+export const dialogsApi = {
+	loadDialogs() {
+		return getData(axiosInstance.get('/dialogs'));
+	},
+
+	startChatting(userId) {
+		return getData(axiosInstance.put(`/dialogs/${userId}`));
+	},
+};
+
 export const authApi = {
 	auth() {
 		return getData(axiosInstance.get('auth/me'));

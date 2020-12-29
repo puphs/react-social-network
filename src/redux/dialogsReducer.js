@@ -1,5 +1,8 @@
+import { dialogsApi } from '../api/api';
+
 const ADD_MESSAGE = 'dialogs/ADD_MESSAGE';
 const SET_CURRENT_DIALOG = 'dialogs/SET_CURRENT_DIALOG';
+const SET_DIALOGS = 'dialogs/SET_DIALOGS';
 
 const initialState = {
 	dialogs: [
@@ -32,6 +35,11 @@ const dialogsReducer = (state = initialState, action) => {
 				...state,
 				currentDialog: action.dialog,
 			};
+		case SET_DIALOGS:
+			return {
+				...state,
+				dialogs: action.dialogs,
+			};
 		default:
 			return state;
 	}
@@ -47,3 +55,20 @@ export const setCurrentDialog = (dialog) => ({
 	type: SET_CURRENT_DIALOG,
 	dialog,
 });
+export const setDialogs = (dialogs) => ({
+	type: SET_DIALOGS,
+	dialogs,
+});
+
+export const loadDialogs = () => async (dispatch) => {
+	const data = await dialogsApi.loadDialogs();
+	if (data.resultCode === 0) {
+		dispatch(setDialogs(data.dialogs));
+	}
+};
+
+export const startChatting = (userId) => async (dispatch) => {
+	const data = await dialogsApi.startChatting(userId);
+	if (data.resultCode === 0) {
+	}
+};

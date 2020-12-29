@@ -1,5 +1,10 @@
 import React from 'react';
-import { addMessage, setCurrentDialog } from '../../redux/dialogsReducer';
+import {
+	addMessage,
+	loadDialogs,
+	setCurrentDialog,
+	startChatting,
+} from '../../redux/dialogsReducer';
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
 import { withAuthRedirect } from '../hoc/withAuthRedirect';
@@ -8,14 +13,16 @@ import { Redirect, withRouter } from 'react-router-dom';
 
 class DialogsContainer extends React.Component {
 	componentDidMount() {
+		// this.props.loadDialogs();
+
 		const dialog = this.getDialogFromParamsOrNull() ?? 1;
-		this.props.setCurrentDialog(dialog);
+		this.setCurrentDialog(dialog);
 	}
 
 	componentDidUpdate() {
 		const dialog = this.getDialogFromParamsOrNull() ?? 1;
 		if (dialog !== this.props.currentDialog) {
-			this.props.setCurrentDialog(dialog);
+			this.setCurrentDialog(dialog);
 		}
 	}
 
@@ -23,6 +30,11 @@ class DialogsContainer extends React.Component {
 		let dialog = parseInt(this.props.match.params.dialog);
 		if (isNaN(dialog)) return null;
 		return dialog;
+	};
+
+	setCurrentDialog = (dialog) => {
+		this.props.setCurrentDialog(dialog);
+		// this.props.startChatting(dialog);
 	};
 
 	render() {
@@ -44,6 +56,8 @@ export default compose(
 	connect(mapStateToProps, {
 		addMessage,
 		setCurrentDialog,
+		// loadDialogs,
+		// startChatting,
 	}),
 	withRouter,
 	withAuthRedirect
