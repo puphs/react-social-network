@@ -1,11 +1,22 @@
 import { NavLink } from 'react-router-dom';
 import s from './Pagination.module.css';
 import cn from 'classnames';
+import { Fragment } from 'react';
 
-const Pagination = ({ maxVisiblePagesCount, totalPagesCount, currentPage, basePath }) => {
+type PropsType = {
+	maxVisiblePagesCount: number;
+	totalPagesCount: number;
+	currentPage: number;
+	basePath: string;
+};
+
+const Pagination: React.FC<PropsType> = ({
+	maxVisiblePagesCount,
+	totalPagesCount,
+	currentPage,
+	basePath,
+}) => {
 	maxVisiblePagesCount = maxVisiblePagesCount || 9;
-	let pagesCount = Math.min(totalPagesCount, maxVisiblePagesCount);
-	pagesCount = pagesCount >= 0 ? pagesCount : 0;
 	const firstPage = 1;
 	const lastPage = totalPagesCount;
 
@@ -26,37 +37,36 @@ const Pagination = ({ maxVisiblePagesCount, totalPagesCount, currentPage, basePa
 		lastPage - 1
 	);
 	let pages = [firstPage];
-	if (fromPage !== firstPage + 1) pages.push('...');
+	let dotsIndexes = new Set();
+	if (fromPage !== firstPage + 1) {
+		dotsIndexes.add(1);
+	}
 	for (let i = fromPage; i <= toPage; i++) {
 		pages.push(i);
 	}
 	if (toPage !== lastPage - 1) {
-		pages.push('...');
+		dotsIndexes.add(toPage);
 	}
 	pages.push(lastPage);
 
-	let dotsNextKey = -10;
 	const pagesElements = pages.map((page) => {
-		const dotsKey = dotsNextKey;
-		dotsNextKey--;
-		if (page === '...') {
-			return (
-				<div className={s.dots} key={dotsKey}>
-					...
-				</div>
-			);
-		} else if (typeof page === 'number') {
-			return (
-				<NavLink
-					className={cn(s.page, currentPage === page && s.page_active)}
-					to={basePath + page}
-					key={page}
-					// onClick={() => setCurrentPage(page)}
-				>
-					{page}
-				</NavLink>
-			);
-		}
+		const dots = <div className={s.dots}>...</div>;
+
+		const pageLink = (
+			<NavLink
+				key={page}
+				className={cn(s.page, currentPage === page && s.page_active)}
+				to={basePath + page}
+			>
+				{page}
+			</NavLink>
+		);
+		return (
+			<Fragment key={page}>
+				{pageLink}
+				{dotsIndexes.has(page) && dots}
+			</Fragment>
+		);
 	});
 	return <div className={s.pagination}>{pagesElements}</div>;
 };
