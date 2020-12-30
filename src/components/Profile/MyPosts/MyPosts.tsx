@@ -1,14 +1,19 @@
 import React from 'react';
-import { Field, reduxForm, reset } from 'redux-form';
+import { Field } from 'redux-form';
 import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import { maxLengthCreator, required } from '../../../utils/validators/validators';
 import cn from 'classnames';
 import withFormReset from '../../hoc/withFormReset';
+import { PostType, ProfileType } from '../../../types/types';
 
 const maxLength10 = maxLengthCreator(10);
 
-const AddPostForm = ({ handleSubmit }) => {
+type AddFormPropsType = {
+	handleSubmit: any;
+};
+
+const AddPostForm: React.FC<AddFormPropsType> = ({ handleSubmit }) => {
 	return (
 		<form onSubmit={handleSubmit}>
 			<Field
@@ -24,19 +29,23 @@ const AddPostForm = ({ handleSubmit }) => {
 		</form>
 	);
 };
-
-const MyPosts = ({ posts, addPost, profile }) => {
+type MyPostsPropsType = {
+	posts: Array<PostType>;
+	addPost: any;
+	profile: ProfileType;
+};
+const MyPosts: React.FC<MyPostsPropsType> = ({ posts, addPost, profile }) => {
 	posts = posts ?? [];
 
 	const postElements = posts.map((data) => (
 		<Post key={data.id} message={data.message} likesCount={data.likesCount} profile={profile} />
 	));
 
-	const shouldResetForm = (formData) => {
+	const shouldResetForm = (formData: any) => {
 		return formData.postText && formData.postText.trim();
 	};
 
-	const onPostSubmit = (formData) => {
+	const onPostSubmit = (formData: any) => {
 		if (formData.postText && formData.postText.trim()) addPost(formData.postText);
 	};
 
