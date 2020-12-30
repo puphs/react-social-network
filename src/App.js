@@ -12,6 +12,7 @@ import Preloader from './components/Preloader/Preloader';
 import store from './redux/reduxStore';
 import { withSuspense } from './components/hoc/withSuspense';
 import ErrorNotification from './components/ErrorNotification/ErrorNotification';
+import Login from './components/Login/Login';
 
 // lazy loading
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
@@ -37,7 +38,7 @@ class App extends React.Component {
 						<Route path="/music" render={() => withSuspense(Music)} />
 						<Route path="/settings" render={() => withSuspense(Settings)} />
 						<Route path="/users:page?" render={() => <UsersContainer />} />
-						<Route path="/login" render={() => <LoginContainer />} />
+						<Route path="/login" render={() => <Login />} />
 						<Redirect from="/" to="/profile" />
 					</Switch>
 				</div>

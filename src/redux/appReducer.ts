@@ -1,7 +1,5 @@
-import { ThunkAction } from 'redux-thunk';
 import { ThunkType } from '../types/types';
 import { getAuthUserData } from './authReducer';
-import { AppStateType } from './reduxStore';
 
 const SET_INITIALIZED = 'app/SET_INITIALIZED';
 const SHOW_ERROR = 'app/SHOW_ERROR';

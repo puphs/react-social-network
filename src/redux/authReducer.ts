@@ -106,7 +106,7 @@ export const login = (
 	email: string,
 	password: string,
 	rememberMe: boolean,
-	captcha: string
+	captcha: string | null
 ): ThunkType<ActionTypes | FormAction> => async (dispatch) => {
 	const data = await authApi.login(email, password, rememberMe, captcha);
 	if (data.resultCode === ResultCode.Success) {
