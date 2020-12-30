@@ -1,5 +1,5 @@
 import { profileApi } from '../api/api';
-import { PhotosType, PostType, ProfileType } from '../types/types';
+import { PhotosType, PostType, ProfileType, ThunkType } from '../types/types';
 import { showAndHideError } from './appReducer';
 import { updateAuthProfilePhotos } from './authReducer';
 
@@ -19,7 +19,15 @@ const initialState = {
 	isFetching: false as boolean,
 };
 
-const profileReducer = (state = initialState, action: any): InitialStateType => {
+type ActionTypes =
+	| SetIsFetchingActionType
+	| UpdateProfilePhotosActionType
+	| SetStatusActionType
+	| SetProfileActionType
+	| DeletePostActionType
+	| AddPostActionType;
+
+const profileReducer = (state = initialState, action: ActionTypes): InitialStateType => {
 	switch (action.type) {
 		case ADD_POST:
 			let newPost = {
@@ -117,19 +125,19 @@ export const setIsFetching = (isFetching: boolean): SetIsFetchingActionType => (
 	isFetching,
 });
 
-export const loadProfile = (userId: number) => async (dispatch: any) => {
+export const loadProfile = (userId: number): ThunkType<ActionTypes> => async (dispatch) => {
 	dispatch(setIsFetching(true));
 	const data = await profileApi.loadProfile(userId);
 	dispatch(setProfile(data));
 	dispatch(setIsFetching(false));
 };
 
-export const getStatus = (userId: number) => async (dispatch: any) => {
+export const getStatus = (userId: number): ThunkType<ActionTypes> => async (dispatch) => {
 	const data = await profileApi.getStatus(userId);
 	dispatch(setStatus(data));
 };
 
-export const updateStatus = (status: string) => async (dispatch: any) => {
+export const updateStatus = (status: string): ThunkType<ActionTypes> => async (dispatch) => {
 	const data = await profileApi.updateStatus(status);
 	if (data.resultCode === 0) {
 		dispatch(setStatus(status));
@@ -138,7 +146,7 @@ export const updateStatus = (status: string) => async (dispatch: any) => {
 	}
 };
 
-export const updateAvatar = (avatar: string) => async (dispatch: any, getState: any) => {
+export const updateAvatar = (avatar: string): ThunkType<ActionTypes | any> => async (dispatch) => {
 	const data = await profileApi.updateAvatar(avatar);
 	if (data.resultCode === 0) {
 		dispatch(updateProfilePhotos(data.data.photos));
@@ -148,7 +156,7 @@ export const updateAvatar = (avatar: string) => async (dispatch: any, getState: 
 	}
 };
 
-export const updateProfile = (profile: ProfileType) => async (dispatch: any) => {
+export const updateProfile = (profile: ProfileType): ThunkType<ActionTypes> => async (dispatch) => {
 	const data = await profileApi.updateProfile(profile);
 	if (data.resultCode === 0) {
 		dispatch(loadProfile(profile.userId));

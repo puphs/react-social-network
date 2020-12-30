@@ -1,5 +1,5 @@
 import { dialogsApi } from '../api/api';
-import { DialogType, MessageType } from '../types/types';
+import { DialogType, MessageType, ThunkType } from '../types/types';
 
 const ADD_MESSAGE = 'dialogs/ADD_MESSAGE';
 const SET_CURRENT_DIALOG = 'dialogs/SET_CURRENT_DIALOG';
@@ -21,7 +21,9 @@ const initialState = {
 	currentDialog: 1 as number,
 };
 
-const dialogsReducer = (state = initialState, action: any): InitialStateType => {
+type ActionTypes = SetDialogsActionType | SetCurrentDialogActionType | AddMessageActionType;
+
+const dialogsReducer = (state = initialState, action: ActionTypes): InitialStateType => {
 	switch (action.type) {
 		case ADD_MESSAGE:
 			let newMesssage = {
@@ -76,14 +78,14 @@ export const setDialogs = (dialogs: Array<DialogType>): SetDialogsActionType => 
 	dialogs,
 });
 
-export const loadDialogs = () => async (dispatch: any) => {
+export const loadDialogs = (): ThunkType<ActionTypes> => async (dispatch) => {
 	const data = await dialogsApi.loadDialogs();
 	if (data.resultCode === 0) {
 		dispatch(setDialogs(data.dialogs));
 	}
 };
 
-export const startChatting = (userId: number) => async (dispatch: any) => {
+export const startChatting = (userId: number): ThunkType<ActionTypes> => async (dispatch) => {
 	const data = await dialogsApi.startChatting(userId);
 	if (data.resultCode === 0) {
 	}
