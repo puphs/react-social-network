@@ -1,8 +1,11 @@
 import { dialogsApi } from '../api/api';
+import { DialogType, MessageType } from '../types/types';
 
 const ADD_MESSAGE = 'dialogs/ADD_MESSAGE';
 const SET_CURRENT_DIALOG = 'dialogs/SET_CURRENT_DIALOG';
 const SET_DIALOGS = 'dialogs/SET_DIALOGS';
+
+export type InitialStateType = typeof initialState;
 
 const initialState = {
 	dialogs: [
@@ -10,16 +13,15 @@ const initialState = {
 		{ id: 2, name: 'Petya' },
 		{ id: 3, name: 'Sasha' },
 		{ id: 4, name: 'Oleg' },
-	],
+	] as Array<DialogType>,
 	messages: [
 		{ id: 1, message: 'Hi' },
 		{ id: 2, message: 'Hello' },
-	],
-	newMessageText: '',
-	currentDialog: 1,
+	] as Array<MessageType>,
+	currentDialog: 1 as number,
 };
 
-const dialogsReducer = (state = initialState, action) => {
+const dialogsReducer = (state = initialState, action: any): InitialStateType => {
 	switch (action.type) {
 		case ADD_MESSAGE:
 			let newMesssage = {
@@ -47,27 +49,41 @@ const dialogsReducer = (state = initialState, action) => {
 
 export default dialogsReducer;
 
-export const addMessage = (message) => ({
+type AddMessageActionType = {
+	type: typeof ADD_MESSAGE;
+	message: string;
+};
+export const addMessage = (message: string): AddMessageActionType => ({
 	type: ADD_MESSAGE,
 	message,
 });
-export const setCurrentDialog = (dialog) => ({
+
+type SetCurrentDialogActionType = {
+	type: typeof SET_CURRENT_DIALOG;
+	dialog: number;
+};
+export const setCurrentDialog = (dialog: number): SetCurrentDialogActionType => ({
 	type: SET_CURRENT_DIALOG,
 	dialog,
 });
-export const setDialogs = (dialogs) => ({
+
+type SetDialogsActionType = {
+	type: typeof SET_DIALOGS;
+	dialogs: Array<DialogType>;
+};
+export const setDialogs = (dialogs: Array<DialogType>): SetDialogsActionType => ({
 	type: SET_DIALOGS,
 	dialogs,
 });
 
-export const loadDialogs = () => async (dispatch) => {
+export const loadDialogs = () => async (dispatch: any) => {
 	const data = await dialogsApi.loadDialogs();
 	if (data.resultCode === 0) {
 		dispatch(setDialogs(data.dialogs));
 	}
 };
 
-export const startChatting = (userId) => async (dispatch) => {
+export const startChatting = (userId: number) => async (dispatch: any) => {
 	const data = await dialogsApi.startChatting(userId);
 	if (data.resultCode === 0) {
 	}

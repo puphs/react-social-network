@@ -1,4 +1,5 @@
 import { usersApi } from '../api/api';
+import { UserType } from '../types/types';
 
 const SET_FOLLOW_USER = 'users/SET_FOLLOW_USER';
 const SET_USERS = 'users/SET_USERS';
@@ -7,16 +8,20 @@ const SET_TOTAL_USERS_COUNT_CREATOR = 'users/SET_TOTAL_USERS_COUNT_CREATOR';
 const SET_IS_FETCHING = 'users/SET_IS_FETCHING';
 const SET_FOLLOWING_IN_PROGRESS_USER = 'users/SET_FOLLOWING_IN_PROGRESS_USER';
 
+export type InitialStatType = typeof initialState;
+
 const initialState = {
-	users: [],
-	pageSize: 3,
-	totalUsersCount: 0,
-	currentPage: 1,
-	isFetching: false,
-	followingInProgressUsers: new Set(),
+	users: [] as Array<UserType>,
+	pageSize: 3 as number,
+	totalUsersCount: 0 as number,
+	currentPage: 1 as number,
+
+	isFetching: false as boolean,
+	// set of ids of users we are following at the moment
+	followingInProgressUsers: new Set() as Set<number>,
 };
 
-const usersReducer = (state = initialState, action) => {
+const usersReducer = (state = initialState, action: any) => {
 	switch (action.type) {
 		case SET_FOLLOW_USER:
 			return {
@@ -65,39 +70,68 @@ const usersReducer = (state = initialState, action) => {
 
 export default usersReducer;
 
-export const setFollowUser = (userId, follow) => ({
+type SetFollowUserActionType = {
+	type: typeof SET_FOLLOW_USER;
+	id: number;
+	follow: boolean;
+};
+export const setFollowUser = (userId: number, follow: boolean): SetFollowUserActionType => ({
 	type: SET_FOLLOW_USER,
 	id: userId,
 	follow,
 });
 
-export const setUsers = (users) => ({
+type SetUsersActionType = {
+	type: typeof SET_USERS;
+	users: Array<UserType>;
+};
+export const setUsers = (users: Array<UserType>): SetUsersActionType => ({
 	type: SET_USERS,
 	users,
 });
 
-export const setCurrentPage = (page) => ({
+type SetCurrentPageActionType = {
+	type: typeof SET_CURRENT_PAGE;
+	page: number;
+};
+export const setCurrentPage = (page: number): SetCurrentPageActionType => ({
 	type: SET_CURRENT_PAGE,
 	page,
 });
 
-export const setTotalUsersCount = (count) => ({
+type SetTotalUsersCountActionType = {
+	type: typeof SET_TOTAL_USERS_COUNT_CREATOR;
+	count: number;
+};
+export const setTotalUsersCount = (count: number): SetTotalUsersCountActionType => ({
 	type: SET_TOTAL_USERS_COUNT_CREATOR,
 	count,
 });
 
-export const setIsFetching = (isFetching) => ({
+type SetIsFetchingActionType = {
+	type: typeof SET_IS_FETCHING;
+	isFetching: boolean;
+};
+export const setIsFetching = (isFetching: boolean): SetIsFetchingActionType => ({
 	type: SET_IS_FETCHING,
 	isFetching,
 });
 
-export const setFollowingInProgressUser = (userId, isFollowingInProgress) => ({
+type SetFollowingInProgressUserActionType = {
+	type: typeof SET_FOLLOWING_IN_PROGRESS_USER;
+	userId: number;
+	isFollowingInProgress: boolean;
+};
+export const setFollowingInProgressUser = (
+	userId: number,
+	isFollowingInProgress: boolean
+): SetFollowingInProgressUserActionType => ({
 	type: SET_FOLLOWING_IN_PROGRESS_USER,
 	userId,
 	isFollowingInProgress,
 });
 
-export const loadUsers = (page, pageSize) => async (dispatch) => {
+export const loadUsers = (page: number, pageSize: number) => async (dispatch: any) => {
 	dispatch(setIsFetching(true));
 
 	const data = await usersApi.loadUsers(page, pageSize);
@@ -106,7 +140,7 @@ export const loadUsers = (page, pageSize) => async (dispatch) => {
 	dispatch(setTotalUsersCount(data.totalCount));
 };
 
-const followUnfollowUser = async (dispatch, userId, follow) => {
+const followUnfollowUser = async (dispatch: any, userId: number, follow: boolean) => {
 	dispatch(setFollowingInProgressUser(userId, true));
 
 	if (follow) {
@@ -119,10 +153,10 @@ const followUnfollowUser = async (dispatch, userId, follow) => {
 	dispatch(setFollowingInProgressUser(userId, false));
 };
 
-export const followUser = (userId) => (dispatch) => {
+export const followUser = (userId: number) => (dispatch: any) => {
 	followUnfollowUser(dispatch, userId, true);
 };
 
-export const unfollowUser = (userId) => (dispatch) => {
+export const unfollowUser = (userId: number) => (dispatch: any) => {
 	followUnfollowUser(dispatch, userId, false);
 };

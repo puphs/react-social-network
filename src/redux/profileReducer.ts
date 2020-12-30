@@ -1,4 +1,5 @@
 import { profileApi } from '../api/api';
+import { PhotosType, PostType, ProfileType } from '../types/types';
 import { showAndHideError } from './appReducer';
 import { updateAuthProfilePhotos } from './authReducer';
 
@@ -6,19 +7,19 @@ const ADD_POST = 'profile/ADD_POST';
 const DELETE_POST = 'profile/DELETE_POST';
 const SET_PROFILE = 'profile/SET_PROFILE';
 const SET_STATUS = 'profile/SET_STATUS';
-const UPDATE_NEW_STATUS_TEXT = 'profile/UPDATE_NEW_STATUS_TEXT';
 const UPDATE_PROFILE_PHOTOS = 'profile/UPDATE_PROFILE_PHOTOS';
 const SET_IS_FETCHING = 'profile/SET_IS_FETCHING';
 
+export type InitialStateType = typeof initialState;
+
 const initialState = {
-	posts: [{ id: 1, message: 'Hello, my friend', likesCount: 32 }],
-	newPostText: '',
-	profile: null,
-	status: '',
-	isFetching: false,
+	posts: [{ id: 1, message: 'Hello, my friend', likesCount: 32 }] as Array<PostType>,
+	profile: null as ProfileType | null,
+	status: '' as string,
+	isFetching: false as boolean,
 };
 
-const profileReducer = (state = initialState, action) => {
+const profileReducer = (state = initialState, action: any): InitialStateType => {
 	switch (action.type) {
 		case ADD_POST:
 			let newPost = {
@@ -45,15 +46,10 @@ const profileReducer = (state = initialState, action) => {
 				...state,
 				status: action.status,
 			};
-		case UPDATE_NEW_STATUS_TEXT:
-			return {
-				...state,
-				newStatusText: action.text,
-			};
 		case UPDATE_PROFILE_PHOTOS:
 			return {
 				...state,
-				profile: { ...state.profile, photos: action.photos },
+				profile: { ...state.profile, photos: action.photos } as ProfileType,
 			};
 		case SET_IS_FETCHING:
 			return {
@@ -67,45 +63,73 @@ const profileReducer = (state = initialState, action) => {
 
 export default profileReducer;
 
-export const addPost = (postText) => ({
+type AddPostActionType = {
+	type: typeof ADD_POST;
+	postText: string;
+};
+export const addPost = (postText: string): AddPostActionType => ({
 	type: ADD_POST,
 	postText,
 });
-export const deletePost = (postId) => ({
+
+type DeletePostActionType = {
+	type: typeof DELETE_POST;
+	postId: number;
+};
+export const deletePost = (postId: number): DeletePostActionType => ({
 	type: DELETE_POST,
 	postId,
 });
 
-export const setProfile = (profile) => ({
+type SetProfileActionType = {
+	type: typeof SET_PROFILE;
+	profile: ProfileType;
+};
+export const setProfile = (profile: ProfileType): SetProfileActionType => ({
 	type: SET_PROFILE,
 	profile,
 });
-export const setStatus = (status) => ({
+
+type SetStatusActionType = {
+	type: typeof SET_STATUS;
+	status: string;
+};
+export const setStatus = (status: string): SetStatusActionType => ({
 	type: SET_STATUS,
 	status,
 });
-export const updateProfilePhotos = (photos) => ({
+
+type UpdateProfilePhotosActionType = {
+	type: typeof UPDATE_PROFILE_PHOTOS;
+	photos: PhotosType;
+};
+export const updateProfilePhotos = (photos: PhotosType): UpdateProfilePhotosActionType => ({
 	type: UPDATE_PROFILE_PHOTOS,
 	photos,
 });
-export const setIsFetching = (isFetching) => ({
+
+type SetIsFetchingActionType = {
+	type: typeof SET_IS_FETCHING;
+	isFetching: boolean;
+};
+export const setIsFetching = (isFetching: boolean): SetIsFetchingActionType => ({
 	type: SET_IS_FETCHING,
 	isFetching,
 });
 
-export const loadProfile = (userId) => async (dispatch) => {
+export const loadProfile = (userId: number) => async (dispatch: any) => {
 	dispatch(setIsFetching(true));
 	const data = await profileApi.loadProfile(userId);
 	dispatch(setProfile(data));
 	dispatch(setIsFetching(false));
 };
 
-export const getStatus = (userId) => async (dispatch) => {
+export const getStatus = (userId: number) => async (dispatch: any) => {
 	const data = await profileApi.getStatus(userId);
 	dispatch(setStatus(data));
 };
 
-export const updateStatus = (status) => async (dispatch) => {
+export const updateStatus = (status: string) => async (dispatch: any) => {
 	const data = await profileApi.updateStatus(status);
 	if (data.resultCode === 0) {
 		dispatch(setStatus(status));
@@ -114,7 +138,7 @@ export const updateStatus = (status) => async (dispatch) => {
 	}
 };
 
-export const updateAvatar = (avatar) => async (dispatch, getState) => {
+export const updateAvatar = (avatar: string) => async (dispatch: any, getState: any) => {
 	const data = await profileApi.updateAvatar(avatar);
 	if (data.resultCode === 0) {
 		dispatch(updateProfilePhotos(data.data.photos));
@@ -124,7 +148,7 @@ export const updateAvatar = (avatar) => async (dispatch, getState) => {
 	}
 };
 
-export const updateProfile = (profile) => async (dispatch) => {
+export const updateProfile = (profile: ProfileType) => async (dispatch: any) => {
 	const data = await profileApi.updateProfile(profile);
 	if (data.resultCode === 0) {
 		dispatch(loadProfile(profile.userId));
