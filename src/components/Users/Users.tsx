@@ -1,8 +1,16 @@
 import s from './Users.module.css';
 import UserContainer from './User/UserContainer';
 import Pagination from '../Pagination/Pagination';
+import { UserType } from '../../types/types';
 
-const Users = ({ users, currentPage, totalUsersCount, pageSize, setCurrentPage }) => {
+type PropsType = {
+	users: Array<UserType>;
+	currentPage: number;
+	totalUsersCount: number;
+	pageSize: number;
+};
+
+const Users: React.FC<PropsType> = ({ users, currentPage, totalUsersCount, pageSize }) => {
 	const userElements = users.map((user) => <UserContainer user={user} key={user.id} />);
 	return (
 		<div className={s.container}>
@@ -10,7 +18,6 @@ const Users = ({ users, currentPage, totalUsersCount, pageSize, setCurrentPage }
 			<Pagination
 				currentPage={currentPage}
 				totalPagesCount={Math.ceil(totalUsersCount / pageSize)}
-				setCurrentPage={setCurrentPage}
 				maxVisiblePagesCount={9}
 				basePath={'users?page='}
 			/>

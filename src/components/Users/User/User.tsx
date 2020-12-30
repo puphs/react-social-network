@@ -2,8 +2,23 @@ import s from './User.module.css';
 import userPhoto from '../../../assets/images/user-photo.png';
 import { NavLink } from 'react-router-dom';
 import cn from 'classnames';
+import { UserType } from '../../../types/types';
 
-const User = ({ user, followUser, unfollowUser, followingInProgressUsers, isAuth }) => {
+type PropsType = {
+	user: UserType;
+	followUser: (userId: number) => void;
+	unfollowUser: (userId: number) => void;
+	followingInProgressUsers: Set<number>;
+	isAuth: boolean;
+};
+
+const User: React.FC<PropsType> = ({
+	user,
+	followUser,
+	unfollowUser,
+	followingInProgressUsers,
+	isAuth,
+}) => {
 	const userProfileLink = '/profile/' + user.id;
 	const onFollowBtnClick = () => {
 		if (user.followed) {

@@ -1,7 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { FocusEvent, KeyboardEvent, useEffect, useState } from 'react';
 import s from './ProfileStatus.module.css';
 
-const ProfileStatusWithHooks = (props) => {
+type PropsType = {
+	status: string;
+	isMyProfile: boolean;
+	updateStatus: (status: string) => void;
+};
+
+const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
 	const [editMode, setEditMode] = useState(false);
 	const [status, setStatus] = useState(props.status);
 
@@ -9,7 +15,7 @@ const ProfileStatusWithHooks = (props) => {
 		setStatus(props.status);
 	}, [props.status]);
 
-	const onStatusInputChange = (e) => {
+	const onStatusInputChange = (e: FocusEvent<HTMLInputElement>) => {
 		setStatus(e.target.value);
 	};
 
@@ -17,7 +23,7 @@ const ProfileStatusWithHooks = (props) => {
 		finishEditing();
 	};
 
-	const onStatusInputKeyPress = (e) => {
+	const onStatusInputKeyPress = (e: KeyboardEvent<HTMLInputElement>) => {
 		if (e.key === 'Enter') finishEditing();
 	};
 
