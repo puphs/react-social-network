@@ -1,4 +1,4 @@
-import { profileApi } from '../api/api';
+import { profileApi, ResultCode } from '../api/api';
 import { PhotosType, PostType, ProfileType, ThunkType } from '../types/types';
 import { showAndHideError } from './appReducer';
 import { updateAuthProfilePhotos } from './authReducer';
@@ -133,13 +133,13 @@ export const loadProfile = (userId: number): ThunkType<ActionTypes> => async (di
 };
 
 export const getStatus = (userId: number): ThunkType<ActionTypes> => async (dispatch) => {
-	const data = await profileApi.getStatus(userId);
-	dispatch(setStatus(data));
+	const status = await profileApi.getStatus(userId);
+	dispatch(setStatus(status));
 };
 
 export const updateStatus = (status: string): ThunkType<ActionTypes> => async (dispatch) => {
 	const data = await profileApi.updateStatus(status);
-	if (data.resultCode === 0) {
+	if (data.resultCode === ResultCode.Success) {
 		dispatch(setStatus(status));
 	} else {
 		dispatch(showAndHideError(data.messages[0]));
@@ -148,7 +148,7 @@ export const updateStatus = (status: string): ThunkType<ActionTypes> => async (d
 
 export const updateAvatar = (avatar: string): ThunkType<ActionTypes | any> => async (dispatch) => {
 	const data = await profileApi.updateAvatar(avatar);
-	if (data.resultCode === 0) {
+	if (data.resultCode === ResultCode.Success) {
 		dispatch(updateProfilePhotos(data.data.photos));
 		dispatch(updateAuthProfilePhotos(data.data.photos));
 	} else {
@@ -158,7 +158,7 @@ export const updateAvatar = (avatar: string): ThunkType<ActionTypes | any> => as
 
 export const updateProfile = (profile: ProfileType): ThunkType<ActionTypes> => async (dispatch) => {
 	const data = await profileApi.updateProfile(profile);
-	if (data.resultCode === 0) {
+	if (data.resultCode === ResultCode.Success) {
 		dispatch(loadProfile(profile.userId));
 	} else {
 		dispatch(showAndHideError(data.messages[0]));

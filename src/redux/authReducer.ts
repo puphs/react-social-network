@@ -1,5 +1,5 @@
 import { FormAction, stopSubmit } from 'redux-form';
-import { authApi, profileApi, securityApi } from '../api/api';
+import { authApi, profileApi, ResultCode, ResultCodeCaptcha, securityApi } from '../api/api';
 import { PhotosType, ProfileType, ThunkType } from '../types/types';
 
 const SET_USER_DATA = 'auth/SET_USER_DATA';
@@ -93,7 +93,7 @@ export const setCaptchaUrl = (captchaUrl: string | null): SetCaptchaUrlActionTyp
 
 export const getAuthUserData = (): ThunkType<ActionTypes> => async (dispatch) => {
 	const authData = await authApi.auth();
-	if (authData.resultCode === 0) {
+	if (authData.resultCode === ResultCode.Success) {
 		const { id, email, login } = authData.data;
 		dispatch(setAuthUserData(id, email, login, true));
 
@@ -109,13 +109,13 @@ export const login = (
 	captcha: string
 ): ThunkType<ActionTypes | FormAction> => async (dispatch) => {
 	const data = await authApi.login(email, password, rememberMe, captcha);
-	if (data.resultCode === 0) {
+	if (data.resultCode === ResultCode.Success) {
 		dispatch(getAuthUserData());
 		setCaptchaUrl(null);
 	} else {
 		const errorText = data.messages.length > 0 ? data.messages[0] : 'Error happened';
 		dispatch(stopSubmit('login', { _error: errorText }));
-		if (data.resultCode === 10) {
+		if (data.resultCode === ResultCodeCaptcha.CaptchaIsRequired) {
 			dispatch(loadCaptchaUrl());
 		}
 	}
@@ -123,7 +123,7 @@ export const login = (
 
 export const logout = (): ThunkType<ActionTypes> => async (dispatch) => {
 	const data = await authApi.logout();
-	if (data.resultCode === 0) {
+	if (data.resultCode === ResultCode.Success) {
 		dispatch(setAuthUserData(null, null, null, false));
 	}
 };
