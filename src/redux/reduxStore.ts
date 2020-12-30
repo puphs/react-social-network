@@ -8,7 +8,10 @@ import authReducer from './authReducer';
 import { reducer as formReducer } from 'redux-form';
 import { appReducer } from './appReducer';
 
-let reducers = combineReducers({
+type RootReducerType = typeof rootReducer;
+export type AppStateType = ReturnType<RootReducerType>;
+
+const rootReducer = combineReducers({
 	app: appReducer,
 	profilePage: profileReducer,
 	dialogsPage: dialogsReducer,
@@ -19,9 +22,11 @@ let reducers = combineReducers({
 });
 
 // connect Redux DevTools extension
+// @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)));
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
 
+// @ts-ignore
 window.store = store;
 
 export default store;
