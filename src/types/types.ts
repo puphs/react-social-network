@@ -1,3 +1,7 @@
+import { Action } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { AppStateType } from '../redux/reduxStore';
+
 export type UserType = {
 	id: number;
 	name: string;
@@ -46,3 +50,10 @@ export type MessageType = {
 	id: number;
 	message: string;
 };
+
+export type ThunkType<ActionTypes extends Action> = ThunkAction<
+	Promise<void>,
+	AppStateType,
+	unknown,
+	ActionTypes
+>;
