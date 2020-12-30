@@ -1,6 +1,6 @@
-import { stopSubmit } from 'redux-form';
+import { FormAction, stopSubmit } from 'redux-form';
 import { authApi, profileApi, securityApi } from '../api/api';
-import { PhotosType, ProfileType } from '../types/types';
+import { PhotosType, ProfileType, ThunkType } from '../types/types';
 
 const SET_USER_DATA = 'auth/SET_USER_DATA';
 const SET_AUTH_PROFILE = 'auth/SET_AUTH_PROFILE';
@@ -19,7 +19,13 @@ const initialState = {
 	captchaUrl: null as string | null,
 };
 
-const authReducer = (state = initialState, action: any): InitialStateType => {
+type ActionTypes =
+	| SetAuthProfileActionType
+	| UpdateAuthProfilePhotosActionType
+	| SetCaptchaUrlActionType
+	| SetAuthUserDataActionType;
+
+const authReducer = (state = initialState, action: ActionTypes): InitialStateType => {
 	switch (action.type) {
 		case SET_USER_DATA:
 			return { ...state, ...action.data };
@@ -85,7 +91,7 @@ export const setCaptchaUrl = (captchaUrl: string | null): SetCaptchaUrlActionTyp
 	captchaUrl,
 });
 
-export const getAuthUserData = () => async (dispatch: any) => {
+export const getAuthUserData = (): ThunkType<ActionTypes> => async (dispatch) => {
 	const authData = await authApi.auth();
 	if (authData.resultCode === 0) {
 		const { id, email, login } = authData.data;
@@ -101,7 +107,7 @@ export const login = (
 	password: string,
 	rememberMe: boolean,
 	captcha: string
-) => async (dispatch: any) => {
+): ThunkType<ActionTypes | FormAction> => async (dispatch) => {
 	const data = await authApi.login(email, password, rememberMe, captcha);
 	if (data.resultCode === 0) {
 		dispatch(getAuthUserData());
@@ -115,14 +121,14 @@ export const login = (
 	}
 };
 
-export const logout = () => async (dispatch: any) => {
+export const logout = (): ThunkType<ActionTypes> => async (dispatch) => {
 	const data = await authApi.logout();
 	if (data.resultCode === 0) {
 		dispatch(setAuthUserData(null, null, null, false));
 	}
 };
 
-export const loadCaptchaUrl = () => async (dispatch: any) => {
+export const loadCaptchaUrl = (): ThunkType<ActionTypes> => async (dispatch) => {
 	const data = await securityApi.getCaptchaUrl();
 	dispatch(setCaptchaUrl(data.url));
 };
