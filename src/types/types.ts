@@ -24,7 +24,8 @@ export type ProfileContactsType = {
 };
 
 export type PhotosType = {
-	photos: Array<string>;
+	small: string;
+	large: string;
 };
 
 export type ProfileType = {
