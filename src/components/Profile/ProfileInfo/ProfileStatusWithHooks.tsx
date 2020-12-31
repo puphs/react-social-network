@@ -1,6 +1,6 @@
 import React, { FocusEvent, KeyboardEvent, useEffect, useState } from 'react';
 import s from './ProfileStatus.module.css';
-
+import cn from 'classnames';
 type PropsType = {
 	status: string;
 	isMyProfile: boolean;
@@ -49,7 +49,9 @@ const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
 				/>
 			) : (
 				<>
-					<div className={s.status}>{props.status || ''}</div>
+					<div className={cn(s.status, props.status === '' && s.status_empty)}>
+						{props.status || 'Write something...'}
+					</div>
 					{props.isMyProfile && <button className={s.editBtn} onClick={onEditBtnClick}></button>}
 				</>
 			)}

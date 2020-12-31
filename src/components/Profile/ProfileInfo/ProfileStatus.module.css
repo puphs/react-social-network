@@ -11,6 +11,10 @@
 }
 
 .status {
+	color: var(--color-text);
+}
+
+.status_empty {
 	color: var(--color-text-dark);
 }
 
