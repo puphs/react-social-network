@@ -3,7 +3,7 @@ import Users from './Users';
 import React, { memo } from 'react';
 import Preloader from '../Preloader/Preloader';
 
-import { setCurrentPage, loadUsers } from '../../redux/usersReducer';
+import { actions, loadUsers } from '../../redux/usersReducer';
 import { compose } from 'redux';
 import {
 	getCurrentPage,
@@ -88,9 +88,10 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => {
 		isFetching: getIsFetching(state),
 	};
 };
+
 export default compose(
 	connect<MapStatePropsType, MapDispatchPropsType, OwnPropsType, AppStateType>(mapStateToProps, {
-		setCurrentPage,
+		setCurrentPage: actions.setCurrentPage,
 		loadUsers,
 	}),
 	withRouter,

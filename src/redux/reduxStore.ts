@@ -21,6 +21,12 @@ const rootReducer = combineReducers({
 	form: formReducer,
 });
 
+export type PropertiesTypes<T> = T extends { [key: string]: infer U } ? U : never;
+
+export type InferActionsTypes<
+	T extends { [key: string]: (...args: Array<any>) => any }
+> = ReturnType<PropertiesTypes<T>>;
+
 // connect Redux DevTools extension
 // @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

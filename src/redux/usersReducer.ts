@@ -1,8 +1,7 @@
 import { Dispatch } from 'react';
-import { ThunkAction } from 'redux-thunk';
 import { usersApi } from '../api/api';
 import { ThunkType, UserType } from '../types/types';
-import { AppStateType } from './reduxStore';
+import { InferActionsTypes } from './reduxStore';
 
 const SET_FOLLOW_USER = 'users/SET_FOLLOW_USER';
 const SET_USERS = 'users/SET_USERS';
@@ -24,13 +23,7 @@ const initialState = {
 	followingInProgressUsers: new Set() as Set<number>,
 };
 
-type ActionTypes =
-	| SetFollowUserActionType
-	| SetUsersActionType
-	| SetTotalUsersCountActionType
-	| SetIsFetchingActionType
-	| SetFollowingInProgressUserActionType
-	| SetCurrentPageActionType;
+type ActionTypes = InferActionsTypes<typeof actions>;
 
 const usersReducer = (state = initialState, action: ActionTypes): InitialStateType => {
 	switch (action.type) {
@@ -81,77 +74,56 @@ const usersReducer = (state = initialState, action: ActionTypes): InitialStateTy
 
 export default usersReducer;
 
-type SetFollowUserActionType = {
-	type: typeof SET_FOLLOW_USER;
-	id: number;
-	follow: boolean;
-};
-export const setFollowUser = (userId: number, follow: boolean): SetFollowUserActionType => ({
-	type: SET_FOLLOW_USER,
-	id: userId,
-	follow,
-});
+export const actions = {
+	setFollowUser: (userId: number, follow: boolean) =>
+		({
+			type: SET_FOLLOW_USER,
+			id: userId,
+			follow,
+		} as const),
 
-type SetUsersActionType = {
-	type: typeof SET_USERS;
-	users: Array<UserType>;
-};
-export const setUsers = (users: Array<UserType>): SetUsersActionType => ({
-	type: SET_USERS,
-	users,
-});
+	setUsers: (users: Array<UserType>) =>
+		({
+			type: SET_USERS,
+			users,
+		} as const),
 
-type SetCurrentPageActionType = {
-	type: typeof SET_CURRENT_PAGE;
-	page: number;
-};
-export const setCurrentPage = (page: number): SetCurrentPageActionType => ({
-	type: SET_CURRENT_PAGE,
-	page,
-});
+	setCurrentPage: (page: number) =>
+		({
+			type: SET_CURRENT_PAGE,
+			page,
+		} as const),
 
-type SetTotalUsersCountActionType = {
-	type: typeof SET_TOTAL_USERS_COUNT_CREATOR;
-	count: number;
-};
-export const setTotalUsersCount = (count: number): SetTotalUsersCountActionType => ({
-	type: SET_TOTAL_USERS_COUNT_CREATOR,
-	count,
-});
+	setTotalUsersCount: (count: number) =>
+		({
+			type: SET_TOTAL_USERS_COUNT_CREATOR,
+			count,
+		} as const),
 
-type SetIsFetchingActionType = {
-	type: typeof SET_IS_FETCHING;
-	isFetching: boolean;
-};
-export const setIsFetching = (isFetching: boolean): SetIsFetchingActionType => ({
-	type: SET_IS_FETCHING,
-	isFetching,
-});
+	setIsFetching: (isFetching: boolean) =>
+		({
+			type: SET_IS_FETCHING,
+			isFetching,
+		} as const),
 
-type SetFollowingInProgressUserActionType = {
-	type: typeof SET_FOLLOWING_IN_PROGRESS_USER;
-	userId: number;
-	isFollowingInProgress: boolean;
+	setFollowingInProgressUser: (userId: number, isFollowingInProgress: boolean) =>
+		({
+			type: SET_FOLLOWING_IN_PROGRESS_USER,
+			userId,
+			isFollowingInProgress,
+		} as const),
 };
-export const setFollowingInProgressUser = (
-	userId: number,
-	isFollowingInProgress: boolean
-): SetFollowingInProgressUserActionType => ({
-	type: SET_FOLLOWING_IN_PROGRESS_USER,
-	userId,
-	isFollowingInProgress,
-});
 
 type DispatchType = Dispatch<ActionTypes>;
 
 export const loadUsers = (page: number, pageSize: number): ThunkType<ActionTypes> => async (
 	dispatch
 ) => {
-	dispatch(setIsFetching(true));
+	dispatch(actions.setIsFetching(true));
 	const data = await usersApi.loadUsers(page, pageSize);
-	dispatch(setIsFetching(false));
-	dispatch(setUsers(data.items));
-	dispatch(setTotalUsersCount(data.totalCount));
+	dispatch(actions.setIsFetching(false));
+	dispatch(actions.setUsers(data.items));
+	dispatch(actions.setTotalUsersCount(data.totalCount));
 };
 
 export const followUser = (userId: number): ThunkType<ActionTypes> => async (dispatch) => {
@@ -163,14 +135,14 @@ export const unfollowUser = (userId: number): ThunkType<ActionTypes> => async (d
 };
 
 const _followUnfollowUser = async (dispatch: DispatchType, userId: number, follow: boolean) => {
-	dispatch(setFollowingInProgressUser(userId, true));
+	dispatch(actions.setFollowingInProgressUser(userId, true));
 
 	if (follow) {
 		await usersApi.followUser(userId);
 	} else {
 		await usersApi.unfollowUser(userId);
 	}
-	dispatch(setFollowUser(userId, follow));
+	dispatch(actions.setFollowUser(userId, follow));
 
-	dispatch(setFollowingInProgressUser(userId, false));
+	dispatch(actions.setFollowingInProgressUser(userId, false));
 };
