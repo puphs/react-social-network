@@ -1,5 +1,5 @@
 import { Dispatch } from 'react';
-import { usersApi } from '../api/api';
+import usersApi from '../api/usersApi';
 import { ThunkType, UserType } from '../types/types';
 import { InferActionsTypes } from './reduxStore';
 

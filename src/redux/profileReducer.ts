@@ -1,4 +1,5 @@
-import { profileApi, ResultCode } from '../api/api';
+import { ResultCode } from '../api/api';
+import profileApi from '../api/profileApi';
 import { PhotosType, PostType, ProfileType, ThunkType } from '../types/types';
 import { showAndHideError } from './appReducer';
 import { updateAuthProfilePhotos } from './authReducer';

@@ -1,4 +1,4 @@
-import { dialogsApi } from '../api/api';
+import dialogsApi from '../api/dialogsApi';
 import { DialogType, MessageType, ThunkType } from '../types/types';
 
 const ADD_MESSAGE = 'dialogs/ADD_MESSAGE';

@@ -1,5 +1,8 @@
 import { FormAction, stopSubmit } from 'redux-form';
-import { authApi, profileApi, ResultCode, ResultCodeCaptcha, securityApi } from '../api/api';
+import { ResultCode, ResultCodeCaptcha } from '../api/api';
+import authApi from '../api/authApi';
+import profileApi from '../api/profileApi';
+import securityApi from '../api/securityApi';
 import { PhotosType, ProfileType, ThunkType } from '../types/types';
 
 const SET_USER_DATA = 'auth/SET_USER_DATA';
