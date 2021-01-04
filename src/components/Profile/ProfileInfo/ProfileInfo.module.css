@@ -1,6 +1,7 @@
-.profileInfo {
+.mainInfo {
 	display: flex;
 	flex-direction: column;
+	flex-basis: 100%;
 }
 
 .avatarAndMainInfo {
