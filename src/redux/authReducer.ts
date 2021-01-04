@@ -4,6 +4,7 @@ import authApi from '../api/authApi';
 import profileApi from '../api/profileApi';
 import securityApi from '../api/securityApi';
 import { PhotosType, ProfileType, ThunkType } from '../types/types';
+import { InferActionsTypes } from './reduxStore';
 
 const SET_USER_DATA = 'auth/SET_USER_DATA';
 const SET_AUTH_PROFILE = 'auth/SET_AUTH_PROFILE';
@@ -22,11 +23,7 @@ const initialState = {
 	captchaUrl: null as string | null,
 };
 
-type ActionTypes =
-	| SetAuthProfileActionType
-	| UpdateAuthProfilePhotosActionType
-	| SetCaptchaUrlActionType
-	| SetAuthUserDataActionType;
+type ActionTypes = InferActionsTypes<typeof actions>;
 
 const authReducer = (state = initialState, action: ActionTypes): InitialStateType => {
 	switch (action.type) {
@@ -48,60 +45,43 @@ const authReducer = (state = initialState, action: ActionTypes): InitialStateTyp
 
 export default authReducer;
 
-type SetAuthUserDataActionType = {
-	type: typeof SET_USER_DATA;
-	data: {
-		id: number | null;
-		email: string | null;
-		login: string | null;
-		isAuth: boolean;
-	};
-};
-export const setAuthUserData = (
-	id: number | null,
-	email: string | null,
-	login: string | null,
-	isAuth: boolean
-): SetAuthUserDataActionType => ({
-	type: SET_USER_DATA,
-	data: { id, email, login, isAuth },
-});
+export const actions = {
+	setAuthUserData: (
+		id: number | null,
+		email: string | null,
+		login: string | null,
+		isAuth: boolean
+	) =>
+		({
+			type: SET_USER_DATA,
+			data: { id, email, login, isAuth },
+		} as const),
+	setAuthProfile: (authProfile: ProfileType) =>
+		({
+			type: SET_AUTH_PROFILE,
+			authProfile,
+		} as const),
+	updateAuthProfilePhotos: (photos: PhotosType) =>
+		({
+			type: UPDATE_AUTH_PROFILE_PHOTOTS,
+			photos,
+		} as const),
 
-type SetAuthProfileActionType = {
-	type: typeof SET_AUTH_PROFILE;
-	authProfile: ProfileType;
+	setCaptchaUrl: (captchaUrl: string | null) =>
+		({
+			type: SET_CAPTCHA_URL,
+			captchaUrl,
+		} as const),
 };
-export const setAuthProfile = (authProfile: ProfileType): SetAuthProfileActionType => ({
-	type: SET_AUTH_PROFILE,
-	authProfile,
-});
-
-type UpdateAuthProfilePhotosActionType = {
-	type: typeof UPDATE_AUTH_PROFILE_PHOTOTS;
-	photos: PhotosType;
-};
-export const updateAuthProfilePhotos = (photos: PhotosType): UpdateAuthProfilePhotosActionType => ({
-	type: UPDATE_AUTH_PROFILE_PHOTOTS,
-	photos,
-});
-
-type SetCaptchaUrlActionType = {
-	type: typeof SET_CAPTCHA_URL;
-	captchaUrl: string | null;
-};
-export const setCaptchaUrl = (captchaUrl: string | null): SetCaptchaUrlActionType => ({
-	type: SET_CAPTCHA_URL,
-	captchaUrl,
-});
 
 export const getAuthUserData = (): ThunkType<ActionTypes> => async (dispatch) => {
 	const authData = await authApi.auth();
 	if (authData.resultCode === ResultCode.Success) {
 		const { id, email, login } = authData.data;
-		dispatch(setAuthUserData(id, email, login, true));
+		dispatch(actions.setAuthUserData(id, email, login, true));
 
 		const profileData = await profileApi.loadProfile(id);
-		dispatch(setAuthProfile(profileData));
+		dispatch(actions.setAuthProfile(profileData));
 	}
 };
 
@@ -114,7 +94,7 @@ export const login = (
 	const data = await authApi.login(email, password, rememberMe, captcha);
 	if (data.resultCode === ResultCode.Success) {
 		dispatch(getAuthUserData());
-		setCaptchaUrl(null);
+		actions.setCaptchaUrl(null);
 	} else {
 		const errorText = data.messages.length > 0 ? data.messages[0] : 'Error happened';
 		dispatch(stopSubmit('login', { _error: errorText }));
@@ -127,11 +107,11 @@ export const login = (
 export const logout = (): ThunkType<ActionTypes> => async (dispatch) => {
 	const data = await authApi.logout();
 	if (data.resultCode === ResultCode.Success) {
-		dispatch(setAuthUserData(null, null, null, false));
+		dispatch(actions.setAuthUserData(null, null, null, false));
 	}
 };
 
 export const loadCaptchaUrl = (): ThunkType<ActionTypes> => async (dispatch) => {
 	const data = await securityApi.getCaptchaUrl();
-	dispatch(setCaptchaUrl(data.url));
+	dispatch(actions.setCaptchaUrl(data.url));
 };

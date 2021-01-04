@@ -1,10 +1,5 @@
 import React from 'react';
-import {
-	addMessage,
-	loadDialogs,
-	setCurrentDialog,
-	startChatting,
-} from '../../redux/dialogsReducer';
+import { actions } from '../../redux/dialogsReducer';
 import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
 import { withAuthRedirect } from '../hoc/withAuthRedirect';
@@ -54,8 +49,8 @@ const mapStateToProps = (state) => {
 
 export default compose(
 	connect(mapStateToProps, {
-		addMessage,
-		setCurrentDialog,
+		addMessage: actions.addMessage,
+		setCurrentDialog: actions.setCurrentDialog,
 		// loadDialogs,
 		// startChatting,
 	}),

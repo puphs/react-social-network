@@ -1,5 +1,5 @@
 import React from 'react';
-import { addPost } from '../../../redux/profileReducer';
+import { actions } from '../../../redux/profileReducer';
 import MyPosts from './MyPosts';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -17,7 +17,7 @@ const mapStateToProps = (state) => {
 
 export default compose(
 	connect(mapStateToProps, {
-		addPost,
+		addPost: actions.addPost,
 	}),
 	React.memo
 )(MyPostsContainer);

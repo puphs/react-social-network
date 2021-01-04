@@ -1,5 +1,6 @@
 import { ThunkType } from '../types/types';
 import { getAuthUserData } from './authReducer';
+import { InferActionsTypes } from './reduxStore';
 
 const SET_INITIALIZED = 'app/SET_INITIALIZED';
 const SHOW_ERROR = 'app/SHOW_ERROR';
@@ -13,7 +14,7 @@ const initialState = {
 	errorText: null as string | null,
 };
 
-type ActionTypes = SetInitializedActionType | ShowErrorType | HideErrorType;
+type ActionTypes = InferActionsTypes<typeof actions>;
 
 export const appReducer = (state = initialState, action: ActionTypes): InitialStateType => {
 	switch (action.type) {
@@ -38,37 +39,30 @@ export const appReducer = (state = initialState, action: ActionTypes): InitialSt
 	}
 };
 
-type SetInitializedActionType = {
-	type: typeof SET_INITIALIZED;
+export const actions = {
+	setInitialized: () =>
+		({
+			type: SET_INITIALIZED,
+		} as const),
+	showError: (errorText: string) =>
+		({
+			type: SHOW_ERROR,
+			errorText,
+		} as const),
+	hideError: () =>
+		({
+			type: HIDE_ERROR,
+		} as const),
 };
-export const setInitialized = (): SetInitializedActionType => ({
-	type: SET_INITIALIZED,
-});
-
-type ShowErrorType = {
-	type: typeof SHOW_ERROR;
-	errorText: string;
-};
-export const showError = (errorText: string): ShowErrorType => ({
-	type: SHOW_ERROR,
-	errorText,
-});
-
-type HideErrorType = {
-	type: typeof HIDE_ERROR;
-};
-export const hideError = (): HideErrorType => ({
-	type: HIDE_ERROR,
-});
 
 export const initialize = (): ThunkType<ActionTypes> => async (dispatch) => {
 	await Promise.all([dispatch(getAuthUserData())]);
-	dispatch(setInitialized());
+	dispatch(actions.setInitialized());
 };
 
 export const showAndHideError = (errorText: string): ThunkType<ActionTypes> => async (dispatch) => {
-	dispatch(showError(errorText));
+	dispatch(actions.showError(errorText));
 	setTimeout(() => {
-		dispatch(hideError());
+		dispatch(actions.hideError());
 	}, 2500);
 };

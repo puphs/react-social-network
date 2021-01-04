@@ -2,7 +2,8 @@ import { ResultCode } from '../api/api';
 import profileApi from '../api/profileApi';
 import { PhotosType, PostType, ProfileType, ThunkType } from '../types/types';
 import { showAndHideError } from './appReducer';
-import { updateAuthProfilePhotos } from './authReducer';
+import { actions as authActions } from './authReducer';
+import { InferActionsTypes } from './reduxStore';
 
 const ADD_POST = 'profile/ADD_POST';
 const DELETE_POST = 'profile/DELETE_POST';
@@ -20,13 +21,7 @@ const initialState = {
 	isFetching: false as boolean,
 };
 
-type ActionTypes =
-	| SetIsFetchingActionType
-	| UpdateProfilePhotosActionType
-	| SetStatusActionType
-	| SetProfileActionType
-	| DeletePostActionType
-	| AddPostActionType;
+type ActionTypes = InferActionsTypes<typeof actions>;
 
 const profileReducer = (state = initialState, action: ActionTypes): InitialStateType => {
 	switch (action.type) {
@@ -72,76 +67,60 @@ const profileReducer = (state = initialState, action: ActionTypes): InitialState
 
 export default profileReducer;
 
-type AddPostActionType = {
-	type: typeof ADD_POST;
-	postText: string;
-};
-export const addPost = (postText: string): AddPostActionType => ({
-	type: ADD_POST,
-	postText,
-});
+export const actions = {
+	addPost: (postText: string) =>
+		({
+			type: ADD_POST,
+			postText,
+		} as const),
 
-type DeletePostActionType = {
-	type: typeof DELETE_POST;
-	postId: number;
-};
-export const deletePost = (postId: number): DeletePostActionType => ({
-	type: DELETE_POST,
-	postId,
-});
+	deletePost: (postId: number) =>
+		({
+			type: DELETE_POST,
+			postId,
+		} as const),
 
-type SetProfileActionType = {
-	type: typeof SET_PROFILE;
-	profile: ProfileType;
-};
-export const setProfile = (profile: ProfileType): SetProfileActionType => ({
-	type: SET_PROFILE,
-	profile,
-});
+	setProfile: (profile: ProfileType) =>
+		({
+			type: SET_PROFILE,
+			profile,
+		} as const),
 
-type SetStatusActionType = {
-	type: typeof SET_STATUS;
-	status: string;
-};
-export const setStatus = (status: string): SetStatusActionType => ({
-	type: SET_STATUS,
-	status,
-});
+	setStatus: (status: string) =>
+		({
+			type: SET_STATUS,
+			status,
+		} as const),
 
-type UpdateProfilePhotosActionType = {
-	type: typeof UPDATE_PROFILE_PHOTOS;
-	photos: PhotosType;
-};
-export const updateProfilePhotos = (photos: PhotosType): UpdateProfilePhotosActionType => ({
-	type: UPDATE_PROFILE_PHOTOS,
-	photos,
-});
+	updateProfilePhotos: (photos: PhotosType) =>
+		({
+			type: UPDATE_PROFILE_PHOTOS,
+			photos,
+		} as const),
 
-type SetIsFetchingActionType = {
-	type: typeof SET_IS_FETCHING;
-	isFetching: boolean;
+	setIsFetching: (isFetching: boolean) =>
+		({
+			type: SET_IS_FETCHING,
+			isFetching,
+		} as const),
 };
-export const setIsFetching = (isFetching: boolean): SetIsFetchingActionType => ({
-	type: SET_IS_FETCHING,
-	isFetching,
-});
 
 export const loadProfile = (userId: number): ThunkType<ActionTypes> => async (dispatch) => {
-	dispatch(setIsFetching(true));
+	dispatch(actions.setIsFetching(true));
 	const data = await profileApi.loadProfile(userId);
-	dispatch(setProfile(data));
-	dispatch(setIsFetching(false));
+	dispatch(actions.setProfile(data));
+	dispatch(actions.setIsFetching(false));
 };
 
 export const getStatus = (userId: number): ThunkType<ActionTypes> => async (dispatch) => {
 	const status = await profileApi.getStatus(userId);
-	dispatch(setStatus(status));
+	dispatch(actions.setStatus(status));
 };
 
 export const updateStatus = (status: string): ThunkType<ActionTypes> => async (dispatch) => {
 	const data = await profileApi.updateStatus(status);
 	if (data.resultCode === ResultCode.Success) {
-		dispatch(setStatus(status));
+		dispatch(actions.setStatus(status));
 	} else {
 		dispatch(showAndHideError(data.messages[0]));
 	}
@@ -150,8 +129,8 @@ export const updateStatus = (status: string): ThunkType<ActionTypes> => async (d
 export const updateAvatar = (avatar: string): ThunkType<ActionTypes | any> => async (dispatch) => {
 	const data = await profileApi.updateAvatar(avatar);
 	if (data.resultCode === ResultCode.Success) {
-		dispatch(updateProfilePhotos(data.data.photos));
-		dispatch(updateAuthProfilePhotos(data.data.photos));
+		dispatch(actions.updateProfilePhotos(data.data.photos));
+		dispatch(authActions.updateAuthProfilePhotos(data.data.photos));
 	} else {
 		dispatch(showAndHideError(data.messages[0]));
 	}

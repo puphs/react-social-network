@@ -1,5 +1,6 @@
 import dialogsApi from '../api/dialogsApi';
 import { DialogType, MessageType, ThunkType } from '../types/types';
+import { InferActionsTypes } from './reduxStore';
 
 const ADD_MESSAGE = 'dialogs/ADD_MESSAGE';
 const SET_CURRENT_DIALOG = 'dialogs/SET_CURRENT_DIALOG';
@@ -21,7 +22,7 @@ const initialState = {
 	currentDialog: 1 as number,
 };
 
-type ActionTypes = SetDialogsActionType | SetCurrentDialogActionType | AddMessageActionType;
+type ActionTypes = InferActionsTypes<typeof actions>;
 
 const dialogsReducer = (state = initialState, action: ActionTypes): InitialStateType => {
 	switch (action.type) {
@@ -51,37 +52,30 @@ const dialogsReducer = (state = initialState, action: ActionTypes): InitialState
 
 export default dialogsReducer;
 
-type AddMessageActionType = {
-	type: typeof ADD_MESSAGE;
-	message: string;
-};
-export const addMessage = (message: string): AddMessageActionType => ({
-	type: ADD_MESSAGE,
-	message,
-});
+export const actions = {
+	addMessage: (message: string) =>
+		({
+			type: ADD_MESSAGE,
+			message,
+		} as const),
 
-type SetCurrentDialogActionType = {
-	type: typeof SET_CURRENT_DIALOG;
-	dialog: number;
-};
-export const setCurrentDialog = (dialog: number): SetCurrentDialogActionType => ({
-	type: SET_CURRENT_DIALOG,
-	dialog,
-});
+	setCurrentDialog: (dialog: number) =>
+		({
+			type: SET_CURRENT_DIALOG,
+			dialog,
+		} as const),
 
-type SetDialogsActionType = {
-	type: typeof SET_DIALOGS;
-	dialogs: Array<DialogType>;
+	setDialogs: (dialogs: Array<DialogType>) =>
+		({
+			type: SET_DIALOGS,
+			dialogs,
+		} as const),
 };
-export const setDialogs = (dialogs: Array<DialogType>): SetDialogsActionType => ({
-	type: SET_DIALOGS,
-	dialogs,
-});
 
 export const loadDialogs = (): ThunkType<ActionTypes> => async (dispatch) => {
 	const data = await dialogsApi.loadDialogs();
 	if (data.resultCode === 0) {
-		dispatch(setDialogs(data.dialogs));
+		dispatch(actions.setDialogs(data.dialogs));
 	}
 };
 
