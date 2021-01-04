@@ -50,7 +50,7 @@ const ProfileStatusWithHooks: React.FC<PropsType> = (props) => {
 			) : (
 				<>
 					<div className={cn(s.status, props.status === '' && s.status_empty)}>
-						{props.status || 'Write something...'}
+						{props.status || (props.isMyProfile && 'Write something...') || ''}
 					</div>
 					{props.isMyProfile && <button className={s.editBtn} onClick={onEditBtnClick}></button>}
 				</>
