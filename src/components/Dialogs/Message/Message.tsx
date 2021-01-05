@@ -1,7 +1,12 @@
 import s from './Message.module.css';
 import cn from 'classnames';
 
-const Message = ({ message, messageFromRight }) => {
+type Props = {
+	message: string;
+	messageFromRight?: boolean;
+};
+
+const Message: React.FC<Props> = ({ message, messageFromRight }) => {
 	let messageRight = messageFromRight && s.message_right;
 	if (messageFromRight) messageRight = s.message_right;
 	return (

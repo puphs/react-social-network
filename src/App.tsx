@@ -8,7 +8,7 @@ import ProfileContainer from './components/Profile/ProfileContainer';
 import { connect, Provider } from 'react-redux';
 import { initialize, showAndHideError } from './redux/appReducer';
 import Preloader from './components/Preloader/Preloader';
-import store from './redux/reduxStore';
+import store, { AppStateType } from './redux/reduxStore';
 import { withSuspense } from './components/hoc/withSuspense';
 import ErrorNotification from './components/ErrorNotification/ErrorNotification';
 import Login from './components/Login/Login';
@@ -18,7 +18,14 @@ const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsCo
 const News = React.lazy(() => import('./components/News/News'));
 const Music = React.lazy(() => import('./components/Music/Music'));
 const Settings = React.lazy(() => import('./components/Settings/Settings'));
-class App extends React.Component {
+
+type MapStatePropType = ReturnType<typeof mapStateToProps>;
+type MapDispatchPropType = {
+	initialize: () => void;
+	showAndHideError: (errorText: string) => void;
+};
+
+class App extends React.Component<MapStatePropType & MapDispatchPropType> {
 	componentDidMount() {
 		this.props.initialize();
 	}
@@ -46,7 +53,7 @@ class App extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
 	initialized: state.app.initialized,
 });
 const AppContainer = connect(mapStateToProps, { initialize, showAndHideError })(App);
