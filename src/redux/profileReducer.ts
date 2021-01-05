@@ -12,14 +12,14 @@ const SET_STATUS = 'profile/SET_STATUS';
 const UPDATE_PROFILE_PHOTOS = 'profile/UPDATE_PROFILE_PHOTOS';
 const SET_IS_FETCHING = 'profile/SET_IS_FETCHING';
 
-export type InitialStateType = typeof initialState;
-
 const initialState = {
 	posts: [{ id: 1, message: 'Hello, my friend', likesCount: 32 }] as Array<PostType>,
 	profile: null as ProfileType | null,
 	status: '' as string,
 	isFetching: false as boolean,
 };
+
+type InitialStateType = typeof initialState;
 
 type ActionTypes = InferActionsTypes<typeof actions>;
 

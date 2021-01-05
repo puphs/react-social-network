@@ -6,13 +6,13 @@ const SET_INITIALIZED = 'app/SET_INITIALIZED';
 const SHOW_ERROR = 'app/SHOW_ERROR';
 const HIDE_ERROR = 'app/HIDE_ERROR';
 
-export type InitialStateType = typeof initialState;
-
 const initialState = {
 	initialized: false as boolean,
 	errorShown: false as boolean,
 	errorText: null as string | null,
 };
+
+type InitialStateType = typeof initialState;
 
 type ActionTypes = InferActionsTypes<typeof actions>;
 

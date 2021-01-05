@@ -11,8 +11,6 @@ const SET_AUTH_PROFILE = 'auth/SET_AUTH_PROFILE';
 const UPDATE_AUTH_PROFILE_PHOTOTS = 'auth/UPDATE_AUTH_PROFILE_PHOTOTS';
 const SET_CAPTCHA_URL = 'auth/SET_CAPTCHA_URL';
 
-export type InitialStateType = typeof initialState;
-
 const initialState = {
 	id: null as number | null,
 	email: null as string | null,
@@ -22,6 +20,8 @@ const initialState = {
 	isAuth: false as boolean,
 	captchaUrl: null as string | null,
 };
+
+type InitialStateType = typeof initialState;
 
 type ActionTypes = InferActionsTypes<typeof actions>;
 

@@ -10,8 +10,6 @@ const SET_TOTAL_USERS_COUNT_CREATOR = 'users/SET_TOTAL_USERS_COUNT_CREATOR';
 const SET_IS_FETCHING = 'users/SET_IS_FETCHING';
 const SET_FOLLOWING_IN_PROGRESS_USER = 'users/SET_FOLLOWING_IN_PROGRESS_USER';
 
-type InitialStateType = typeof initialState;
-
 const initialState = {
 	users: [] as Array<UserType>,
 	pageSize: 3 as number,
@@ -22,6 +20,7 @@ const initialState = {
 	// set of ids of users we are following at the moment
 	followingInProgressUsers: new Set() as Set<number>,
 };
+type InitialStateType = typeof initialState;
 
 type ActionTypes = InferActionsTypes<typeof actions>;
 

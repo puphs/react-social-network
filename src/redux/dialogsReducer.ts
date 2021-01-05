@@ -6,8 +6,6 @@ const ADD_MESSAGE = 'dialogs/ADD_MESSAGE';
 const SET_CURRENT_DIALOG = 'dialogs/SET_CURRENT_DIALOG';
 const SET_DIALOGS = 'dialogs/SET_DIALOGS';
 
-export type InitialStateType = typeof initialState;
-
 const initialState = {
 	dialogs: [
 		{ id: 1, name: 'Dima' },
@@ -21,6 +19,8 @@ const initialState = {
 	] as Array<MessageType>,
 	currentDialog: 1 as number,
 };
+
+type InitialStateType = typeof initialState;
 
 type ActionTypes = InferActionsTypes<typeof actions>;
 
