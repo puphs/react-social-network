@@ -4,9 +4,21 @@ import Dialogs from './Dialogs';
 import { connect } from 'react-redux';
 import { withAuthRedirect } from '../hoc/withAuthRedirect';
 import { compose } from 'redux';
-import { Redirect, withRouter } from 'react-router-dom';
+import { Redirect, RouteComponentProps, withRouter } from 'react-router-dom';
+import { AppStateType } from '../../redux/reduxStore';
 
-class DialogsContainer extends React.Component {
+type MapStatePropsType = ReturnType<typeof mapStateToProps>;
+type MapDispatchPropsType = {
+	addMessage: (message: string) => void;
+	setCurrentDialog: (dialog: number) => void;
+};
+
+type LocationParamsProps = {
+	dialog: string;
+};
+class DialogsContainer extends React.Component<
+	MapStatePropsType & MapDispatchPropsType & RouteComponentProps<LocationParamsProps>
+> {
 	componentDidMount() {
 		// this.props.loadDialogs();
 
@@ -21,13 +33,13 @@ class DialogsContainer extends React.Component {
 		}
 	}
 
-	getDialogFromParamsOrNull = () => {
+	getDialogFromParamsOrNull = (): number | null => {
 		let dialog = parseInt(this.props.match.params.dialog);
 		if (isNaN(dialog)) return null;
 		return dialog;
 	};
 
-	setCurrentDialog = (dialog) => {
+	setCurrentDialog = (dialog: number) => {
 		this.props.setCurrentDialog(dialog);
 		// this.props.startChatting(dialog);
 	};
@@ -39,7 +51,7 @@ class DialogsContainer extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state: AppStateType) => {
 	return {
 		dialogs: state.dialogsPage.dialogs,
 		messages: state.dialogsPage.messages,
@@ -47,7 +59,7 @@ const mapStateToProps = (state) => {
 	};
 };
 
-export default compose(
+export default compose<React.ComponentType>(
 	connect(mapStateToProps, {
 		addMessage: actions.addMessage,
 		setCurrentDialog: actions.setCurrentDialog,
