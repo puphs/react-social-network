@@ -1,8 +1,18 @@
 import s from './Profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
+import { ProfileType } from '../../types/types';
 
-const Profile = (props) => {
+type PropsTypes = {
+	profile: ProfileType | null;
+	status: string;
+	updateStatus: (status: string) => void;
+	updateAvatar: (avatar: File) => void;
+	updateProfile: (profile: ProfileType) => void;
+	isMyProfile: boolean;
+};
+
+const Profile: React.FC<PropsTypes> = (props) => {
 	return (
 		<main className={s.profile}>
 			<ProfileInfo

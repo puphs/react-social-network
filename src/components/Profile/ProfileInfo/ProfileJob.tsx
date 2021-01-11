@@ -1,7 +1,15 @@
 import s from './ProfileJob.module.css';
 import cn from 'classnames';
+import { ProfileType } from '../../../types/types';
+import { MouseEvent } from 'react';
 
-const ProfileJob = ({ profile, onEditBtnClick, isMyProfile }) => {
+type PropsType = {
+	profile: ProfileType;
+	onEditBtnClick: (e: MouseEvent<HTMLButtonElement>) => void;
+	isMyProfile: boolean;
+};
+
+const ProfileJob: React.FC<PropsType> = ({ profile, onEditBtnClick, isMyProfile }) => {
 	return (
 		<div className={s.job}>
 			<div className={s.jobQuestions}>

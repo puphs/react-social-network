@@ -8,14 +8,33 @@ import {
 	updateProfile,
 } from '../../redux/profileReducer';
 import Profile from './Profile';
-import { withRouter } from 'react-router-dom';
+import { RouteComponentProps, withRouter } from 'react-router-dom';
 import { withAuthRedirect } from '../hoc/withAuthRedirect';
 import { compose } from 'redux';
+import { AppStateType } from '../../redux/reduxStore';
+import { ProfileType } from '../../types/types';
 import Preloader from '../Preloader/Preloader';
 
-class ProfileContainer extends React.Component {
+type MapStatePropsType = ReturnType<typeof mapStateToProps>;
+type MapDispatchPropsType = {
+	loadProfile: (userId: number) => void;
+	getStatus: (userId: number) => void;
+	updateStatus: (status: string) => void;
+	updateAvatar: (avatar: File) => void;
+	updateProfile: (profile: ProfileType) => void;
+};
+
+type LocationParamsProps = {
+	userId: string;
+};
+
+type PropsType = MapStatePropsType &
+	MapDispatchPropsType &
+	RouteComponentProps<LocationParamsProps>;
+
+class ProfileContainer extends React.Component<PropsType> {
 	updateProfile = () => {
-		const userId = this.props.match.params.userId ?? this.props.authorizedUserId;
+		const userId = parseInt(this.props.match.params.userId) ?? this.props.authorizedUserId;
 		this.props.loadProfile(userId);
 		this.props.getStatus(userId);
 	};
@@ -24,7 +43,7 @@ class ProfileContainer extends React.Component {
 		this.updateProfile();
 	}
 
-	componentDidUpdate(prevProps, prevState) {
+	componentDidUpdate(prevProps: PropsType) {
 		if (prevProps.match.params.userId !== this.props.match.params.userId) {
 			this.updateProfile();
 		}
@@ -45,7 +64,7 @@ class ProfileContainer extends React.Component {
 	}
 }
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: AppStateType) => ({
 	profile: state.profilePage.profile,
 	status: state.profilePage.status,
 	authorizedUserId: state.auth.id,

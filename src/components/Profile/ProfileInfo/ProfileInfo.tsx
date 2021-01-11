@@ -1,12 +1,23 @@
 import s from './ProfileInfo.module.css';
 import userPhoto from '../../../assets/images/user-photo.png';
 import Preloader from '../../Preloader/Preloader';
-import ProfileStatusWithHooks from './ProfileStatusWithHooks';
+import ProfileStatus from './ProfileStatus';
 import ProfileJob from './ProfileJob';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import ProfileJobForm from './ProfileJobForm';
+import { ProfileType } from '../../../types/types';
+import { ProfileJobFormValuesType } from './ProfileJobForm';
 
-const ProfileInfo = ({
+type PropsTypes = {
+	profile: ProfileType | null;
+	status: string;
+	updateStatus: (status: string) => void;
+	updateAvatar: (avatar: File) => void;
+	updateProfile: (profile: ProfileType) => void;
+	isMyProfile: boolean;
+};
+
+const ProfileInfo: React.FC<PropsTypes> = ({
 	profile,
 	status,
 	updateStatus,
@@ -22,17 +33,19 @@ const ProfileInfo = ({
 		setEditMode(true);
 	};
 
-	const onProfileJobFormSubmit = (formData) => {
+	const onProfileJobFormSubmit = (formData: ProfileJobFormValuesType) => {
 		setEditMode(false);
+		const { aboutMe, lookingForAJob, lookingForAJobDescription } = { ...formData };
 		updateProfile({
 			...profile,
-			...formData,
-			lookingForAJob: formData.lookingForAJob ?? false,
+			aboutMe,
+			lookingForAJob,
+			lookingForAJobDescription,
 		});
 	};
 
-	const onAvatarUpload = (e) => {
-		if (e.target.files.length) {
+	const onAvatarUpload = (e: ChangeEvent<HTMLInputElement>) => {
+		if (e.target.files?.length) {
 			updateAvatar(e.target.files[0]);
 		}
 	};
@@ -41,7 +54,7 @@ const ProfileInfo = ({
 		<div className={s.profileInfo}>
 			<div className={s.avatarAndMainInfo}>
 				<div className={s.avatarContainer}>
-					<img className={s.avatar} src={profile?.photos?.large ?? userPhoto} />
+					<img className={s.avatar} src={profile?.photos?.large ?? userPhoto} alt={'avatar'} />
 					{isMyProfile && (
 						<div className={s.avatarUpload}>
 							<input className={s.avatarUploadInput} type="file" onChange={onAvatarUpload} />
@@ -50,12 +63,7 @@ const ProfileInfo = ({
 				</div>
 				<div className={s.mainInfo}>
 					<div className={s.name}>{profile?.fullName}</div>
-					<ProfileStatusWithHooks
-						status={status}
-						updateStatus={updateStatus}
-						updateAvatar={updateAvatar}
-						isMyProfile={isMyProfile}
-					/>
+					<ProfileStatus status={status} updateStatus={updateStatus} isMyProfile={isMyProfile} />
 				</div>
 			</div>
 			<div className={s.job}>

@@ -1,10 +1,18 @@
-import { Field, reduxForm } from 'redux-form';
+import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { required } from '../../../utils/validators/validators';
 import { TextArea } from '../../FormControls/FormControls';
 import s from './ProfileJob.module.css';
 import cn from 'classnames';
 
-const ProfileJobForm = ({ handleSubmit }) => {
+type PropsType = InjectedFormProps<ProfileJobFormValuesType>;
+
+export type ProfileJobFormValuesType = {
+	aboutMe: string;
+	lookingForAJob: boolean;
+	lookingForAJobDescription: string;
+};
+
+const ProfileJobForm: React.FC<PropsType> = ({ handleSubmit }) => {
 	return (
 		<form className={s.job} onSubmit={handleSubmit}>
 			<div className={s.jobQuestions}>
@@ -45,4 +53,4 @@ const ProfileJobForm = ({ handleSubmit }) => {
 	);
 };
 
-export default reduxForm({ form: 'profileJob' })(ProfileJobForm);
+export default reduxForm<ProfileJobFormValuesType>({ form: 'profileJob' })(ProfileJobForm);
