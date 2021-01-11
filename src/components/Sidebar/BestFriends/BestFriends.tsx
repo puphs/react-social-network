@@ -1,10 +1,10 @@
 import s from './BestFriends.module.css';
-import userPhoto from '../../assets/images/user-photo.png';
+import userPhoto from '../../../assets/images/user-photo.png';
 
-const BestFriendItem = (props) => {
+const BestFriendItem: React.FC = () => {
 	return (
 		<div className={s.item}>
-			<img className={s.avatar} src={userPhoto}></img>
+			<img className={s.avatar} src={userPhoto} alt={'user'}></img>
 		</div>
 	);
 };

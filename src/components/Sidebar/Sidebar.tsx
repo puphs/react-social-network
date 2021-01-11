@@ -3,7 +3,7 @@ import s from './Sidebar.module.css';
 import Navbar from './Navbar/Navbar';
 import BestFriends from './BestFriends/BestFriends';
 
-const Sidebar = () => {
+const Sidebar: React.FC = () => {
 	return (
 		<div className={s.sidebar}>
 			<Navbar />
