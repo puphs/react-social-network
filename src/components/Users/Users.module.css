@@ -1,3 +1,36 @@
 .container {
 	padding: 32px;
 }
+
+.searchForm {
+	display: flex;
+	align-items: center;
+}
+
+.searchInput {
+	font-size: 16px;
+	line-height: 19px;
+	padding: 0 8px;
+	/* max-width: 450px; */
+	flex-grow: 1;
+	color: #ffffff;
+	border-radius: 6px;
+	height: 38px;
+	background-color: var(--color-primary-light);
+	border: none;
+}
+
+.friendsOnlyInput {
+	margin-left: 16px;
+	border: 32px;
+}
+
+.friendsOnlyLabel {
+	margin-left: 4px;
+	font-size: 16px;
+	line-height: 19px;
+}
+
+.users {
+	margin-top: 24px;
+}
