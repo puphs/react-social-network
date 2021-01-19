@@ -20,7 +20,7 @@ const initialState = {
 	// set of ids of users we are following at the moment
 	followingInProgressUsers: new Set() as Set<number>,
 };
-type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
 
 type ActionTypes = InferActionsTypes<typeof actions>;
 
@@ -126,11 +126,11 @@ export const loadUsers = (page: number, pageSize: number): ThunkType<ActionTypes
 };
 
 export const followUser = (userId: number): ThunkType<ActionTypes> => async (dispatch) => {
-	_followUnfollowUser(dispatch, userId, true);
+	await _followUnfollowUser(dispatch, userId, true);
 };
 
 export const unfollowUser = (userId: number): ThunkType<ActionTypes> => async (dispatch) => {
-	_followUnfollowUser(dispatch, userId, false);
+	await _followUnfollowUser(dispatch, userId, false);
 };
 
 const _followUnfollowUser = async (dispatch: DispatchType, userId: number, follow: boolean) => {

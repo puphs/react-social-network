@@ -19,7 +19,7 @@ const initialState = {
 	isFetching: false as boolean,
 };
 
-type InitialStateType = typeof initialState;
+export type InitialStateType = typeof initialState;
 
 type ActionTypes = InferActionsTypes<typeof actions>;
 
