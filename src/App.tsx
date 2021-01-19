@@ -2,7 +2,7 @@ import React from 'react';
 import { HashRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header';
-import Sidebar from './Sidebar/Sidebar';
+import Sidebar from './components/Sidebar/Sidebar';
 import UsersContainer from './components/Users/UsersContainer';
 import ProfileContainer from './components/Profile/ProfileContainer';
 import { connect, Provider } from 'react-redux';
@@ -12,6 +12,7 @@ import store, { AppStateType } from './redux/reduxStore';
 import { withSuspense } from './components/hoc/withSuspense';
 import ErrorNotification from './components/ErrorNotification/ErrorNotification';
 import Login from './components/Login/Login';
+import Dialogs from './components/Dialogs/Dialogs';
 
 // lazy loading
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
@@ -24,6 +25,8 @@ type MapDispatchPropType = {
 	initialize: () => void;
 	showAndHideError: (errorText: string) => void;
 };
+
+const SuspendedDialogsContainer = withSuspense(DialogsContainer);
 
 class App extends React.Component<MapStatePropType & MapDispatchPropType> {
 	componentDidMount() {
@@ -38,10 +41,10 @@ class App extends React.Component<MapStatePropType & MapDispatchPropType> {
 				<ErrorNotification />
 				<div className="content">
 					<Switch>
-						<Route path="/profile/:userId?" render={() => <ProfileContainer />} />
-						<Route path="/dialogs/:dialog?" render={() => withSuspense(DialogsContainer)} />
-						<Route path="/news" render={() => withSuspense(News)} />
-						<Route path="/music" render={() => withSuspense(Music)} />
+						<Route path="/profile/:userId?" render={withSuspense(ProfileContainer)} />
+						<Route path="/dialogs/:dialog?" render={() => <SuspendedDialogsContainer />} />
+						<Route path="/news" render={withSuspense(News)} />
+						<Route path="/music" render={withSuspense(Music)} />
 						<Route path="/settings" render={() => withSuspense(Settings)} />
 						<Route path="/users:page?" render={() => <UsersContainer />} />
 						<Route path="/login" render={() => <Login />} />

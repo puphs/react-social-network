@@ -18,7 +18,7 @@ const profileApi = {
 			axiosInstance.put(`profile/status`, { status: status || '' })
 		);
 	},
-	updateAvatar(avatarFile: string) {
+	updateAvatar(avatarFile: File) {
 		const formData = new FormData();
 		formData.append('image', avatarFile);
 		return getData<AvatarResponseType>(

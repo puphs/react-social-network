@@ -34,7 +34,8 @@ type PropsType = MapStatePropsType &
 
 class ProfileContainer extends React.Component<PropsType> {
 	updateProfile = () => {
-		const userId = parseInt(this.props.match.params.userId) ?? this.props.authorizedUserId;
+		const userIdOrNaN = parseInt(this.props.match.params.userId);
+		const userId = isNaN(userIdOrNaN) ? this.props.authorizedUserId : userIdOrNaN;
 		this.props.loadProfile(userId);
 		this.props.getStatus(userId);
 	};
@@ -67,7 +68,7 @@ class ProfileContainer extends React.Component<PropsType> {
 const mapStateToProps = (state: AppStateType) => ({
 	profile: state.profilePage.profile,
 	status: state.profilePage.status,
-	authorizedUserId: state.auth.id,
+	authorizedUserId: state.auth.id as number, // we can't access Profile without athorization
 	isFetching: state.profilePage.isFetching,
 });
 

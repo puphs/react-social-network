@@ -6,7 +6,7 @@ const Post = (props) => {
 	return (
 		<div className={cn(s.post, 'roundBorderContainer')}>
 			<div className={s.avatar}>
-				<img className={s.avatarImg} src={props.profile.photos.small || userPhoto} />
+				<img className={s.avatarImg} src={props.profile.photos.small || userPhoto} alt={'avatar'} />
 				<div className={s.likes}>{props.likesCount || 0} likes</div>
 			</div>
 			<div className={s.text}>{props.message}</div>

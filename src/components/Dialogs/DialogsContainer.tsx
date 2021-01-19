@@ -45,7 +45,7 @@ class DialogsContainer extends React.Component<
 	};
 
 	render() {
-		if (this.props.match.params.dialog == undefined)
+		if (this.props.match.params.dialog === undefined)
 			return <Redirect to={`/dialogs/${this.props.currentDialog}`} />;
 		return <Dialogs {...this.props} />;
 	}

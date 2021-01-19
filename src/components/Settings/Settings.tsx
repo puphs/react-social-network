@@ -1,6 +1,6 @@
 import s from './Settings.module.css';
 
-const Settings = (props) => {
+const Settings: React.FC = () => {
 	return <main className={s.settings}>Settings</main>;
 };
 

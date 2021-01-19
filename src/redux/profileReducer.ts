@@ -126,7 +126,7 @@ export const updateStatus = (status: string): ThunkType<ActionTypes> => async (d
 	}
 };
 
-export const updateAvatar = (avatar: string): ThunkType<ActionTypes | any> => async (dispatch) => {
+export const updateAvatar = (avatar: File): ThunkType<ActionTypes | any> => async (dispatch) => {
 	const data = await profileApi.updateAvatar(avatar);
 	if (data.resultCode === ResultCode.Success) {
 		dispatch(actions.updateProfilePhotos(data.data.photos));
