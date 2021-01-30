@@ -12,7 +12,7 @@ import store, { AppStateType } from './redux/reduxStore';
 import { withSuspense } from './components/hoc/withSuspense';
 import ErrorNotification from './components/ErrorNotification/ErrorNotification';
 import Login from './components/Login/Login';
-import Dialogs from './components/Dialogs/Dialogs';
+import Users from './components/Users/Users';
 
 // lazy loading
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/DialogsContainer'));
@@ -46,7 +46,7 @@ class App extends React.Component<MapStatePropType & MapDispatchPropType> {
 						<Route path="/news" render={withSuspense(News)} />
 						<Route path="/music" render={withSuspense(Music)} />
 						<Route path="/settings" render={() => withSuspense(Settings)} />
-						<Route path="/users:page?" render={() => <UsersContainer />} />
+						<Route path="/users:page?" render={() => <Users />} />
 						<Route path="/login" render={() => <Login />} />
 						<Redirect from="/" to="/profile" />
 					</Switch>
