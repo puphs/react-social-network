@@ -38,17 +38,20 @@ const Pagination: React.FC<PropsType> = ({
 	);
 	let pages = [firstPage];
 	let dotsIndexes = new Set();
-	if (fromPage !== firstPage + 1) {
-		dotsIndexes.add(1);
-	}
-	for (let i = fromPage; i <= toPage; i++) {
-		pages.push(i);
-	}
-	if (toPage !== lastPage - 1) {
-		dotsIndexes.add(toPage);
-	}
-	pages.push(lastPage);
 
+	if (fromPage < toPage) {
+		if (fromPage !== firstPage + 1) {
+			dotsIndexes.add(1);
+		}
+
+		for (let i = fromPage; i <= toPage; i++) {
+			pages.push(i);
+		}
+		if (toPage !== lastPage - 1) {
+			dotsIndexes.add(toPage);
+		}
+		pages.push(lastPage);
+	}
 	const pagesElements = pages.map((page) => {
 		const dots = <div className={s.dots}>...</div>;
 
