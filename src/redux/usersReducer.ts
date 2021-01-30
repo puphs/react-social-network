@@ -6,15 +6,21 @@ import { InferActionsTypes } from './reduxStore';
 const SET_FOLLOW_USER = 'users/SET_FOLLOW_USER';
 const SET_USERS = 'users/SET_USERS';
 const SET_CURRENT_PAGE = 'users/SET_CURRENT_PAGE';
-const SET_TOTAL_USERS_COUNT_CREATOR = 'users/SET_TOTAL_USERS_COUNT_CREATOR';
+const SET_TOTAL_USERS_COUNT = 'users/SET_TOTAL_USERS_COUNT_CREATOR';
 const SET_IS_FETCHING = 'users/SET_IS_FETCHING';
 const SET_FOLLOWING_IN_PROGRESS_USER = 'users/SET_FOLLOWING_IN_PROGRESS_USER';
+const SET_USERS_FILTER = 'users/SET_USERS_FILTER';
 
+export type UsersFilterType = {
+	searchQuery: string;
+	friend: boolean | null;
+};
 const initialState = {
 	users: [] as Array<UserType>,
 	pageSize: 3 as number,
 	totalUsersCount: 0 as number,
 	currentPage: 1 as number,
+	usersFilter: { searchQuery: '', friend: null } as UsersFilterType,
 
 	isFetching: false as boolean,
 	// set of ids of users we are following at the moment
@@ -47,7 +53,7 @@ const usersReducer = (state = initialState, action: ActionTypes): InitialStateTy
 				...state,
 				currentPage: action.page,
 			};
-		case SET_TOTAL_USERS_COUNT_CREATOR:
+		case SET_TOTAL_USERS_COUNT:
 			return {
 				...state,
 				totalUsersCount: action.count,
@@ -66,6 +72,8 @@ const usersReducer = (state = initialState, action: ActionTypes): InitialStateTy
 				...state,
 				followingInProgressUsers,
 			};
+		case SET_USERS_FILTER:
+			return { ...state, usersFilter: action.usersFilter };
 		default:
 			return state;
 	}
@@ -95,7 +103,7 @@ export const actions = {
 
 	setTotalUsersCount: (count: number) =>
 		({
-			type: SET_TOTAL_USERS_COUNT_CREATOR,
+			type: SET_TOTAL_USERS_COUNT,
 			count,
 		} as const),
 
@@ -111,15 +119,23 @@ export const actions = {
 			userId,
 			isFollowingInProgress,
 		} as const),
+
+	setUsersFilter: (usersFilter: UsersFilterType) =>
+		({
+			type: SET_USERS_FILTER,
+			usersFilter,
+		} as const),
 };
 
 type DispatchType = Dispatch<ActionTypes>;
 
-export const loadUsers = (page: number, pageSize: number): ThunkType<ActionTypes> => async (
-	dispatch
-) => {
+export const loadUsers = (
+	page: number,
+	pageSize: number,
+	filter: UsersFilterType
+): ThunkType<ActionTypes> => async (dispatch) => {
 	dispatch(actions.setIsFetching(true));
-	const data = await usersApi.loadUsers(page, pageSize);
+	const data = await usersApi.loadUsers(page, pageSize, filter.searchQuery, filter.friend);
 	dispatch(actions.setIsFetching(false));
 	dispatch(actions.setUsers(data.items));
 	dispatch(actions.setTotalUsersCount(data.totalCount));
