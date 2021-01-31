@@ -1,7 +1,6 @@
-import s from './Users.module.css';
+import s from './UsersPage.module.css';
 import UserContainer from './User/UserContainer';
-import Pagination from '../Pagination/Pagination';
-import { UserType } from '../../types/types';
+import Pagination from '../../components/Pagination/Pagination';
 import { Field, Form, Formik, FormikHelpers } from 'formik';
 import { actions, loadUsers, UsersFilterType } from '../../redux/usersReducer';
 import { useDispatch, useSelector } from 'react-redux';
@@ -15,9 +14,9 @@ import {
 } from '../../redux/usersSelectors';
 import { useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
-import Preloader from '../Preloader/Preloader';
+import Preloader from '../../components/Preloader/Preloader';
 
-const Users = () => {
+const UsersPage = () => {
 	const users = useSelector(getUsers);
 	const currentPage = useSelector(getCurrentPage);
 	const totalUsersCount = useSelector(getTotalUsersCount);
@@ -144,4 +143,4 @@ const UsersFilterForm: React.FC<UsersFilterFormPropsType> = ({
 	);
 };
 
-export default Users;
+export default UsersPage;

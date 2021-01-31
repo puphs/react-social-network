@@ -1,6 +1,6 @@
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { required } from '../../../utils/validators/validators';
-import { TextArea } from '../../FormControls/FormControls';
+import { TextArea } from '../../../components/FormControls/FormControls';
 import s from './ProfileJob.module.css';
 import cn from 'classnames';
 

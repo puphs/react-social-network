@@ -4,7 +4,7 @@ import s from './MyPosts.module.css';
 import Post from './Post/Post';
 import { maxLengthCreator, required } from '../../../utils/validators/validators';
 import cn from 'classnames';
-import withFormReset from '../../hoc/withFormReset';
+import withFormReset from '../../../components/hoc/withFormReset';
 import { PostType, ProfileType } from '../../../types/types';
 
 const maxLength10 = maxLengthCreator(10);

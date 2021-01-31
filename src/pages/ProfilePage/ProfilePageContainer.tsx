@@ -7,13 +7,13 @@ import {
 	updateAvatar,
 	updateProfile,
 } from '../../redux/profileReducer';
-import Profile from './Profile';
+import ProfilePage from './ProfilePage';
 import { RouteComponentProps, withRouter } from 'react-router-dom';
-import { withAuthRedirect } from '../hoc/withAuthRedirect';
+import { withAuthRedirect } from '../../components/hoc/withAuthRedirect';
 import { compose } from 'redux';
 import { AppStateType } from '../../redux/reduxStore';
 import { ProfileType } from '../../types/types';
-import Preloader from '../Preloader/Preloader';
+import Preloader from '../../components/Preloader/Preloader';
 
 type MapStatePropsType = ReturnType<typeof mapStateToProps>;
 type MapDispatchPropsType = {
@@ -53,7 +53,7 @@ class ProfileContainer extends React.Component<PropsType> {
 	render() {
 		if (this.props.isFetching) return <Preloader />;
 		return (
-			<Profile
+			<ProfilePage
 				profile={this.props.profile}
 				status={this.props.status}
 				updateStatus={this.props.updateStatus}

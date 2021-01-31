@@ -1,7 +1,7 @@
 import { Redirect } from 'react-router-dom';
 import { Field, InjectedFormProps, reduxForm } from 'redux-form';
 import { required } from '../../utils/validators/validators';
-import { Input } from '../FormControls/FormControls';
+import { Input } from '../../components/FormControls/FormControls';
 import s from './Login.module.css';
 import cn from 'classnames';
 import { connect } from 'react-redux';
@@ -93,7 +93,7 @@ type MapDispatchPropsType = {
 
 type PropsType = MapStatePropsType & MapDispatchPropsType;
 
-const Login: React.FC<PropsType> = ({ login, isAuth, captchaUrl }) => {
+const LoginPage: React.FC<PropsType> = ({ login, isAuth, captchaUrl }) => {
 	const onSubmit = (formData: LoginFormValuesType) => {
 		const { email, password, rememberMe, captcha } = formData;
 		login(email, password, rememberMe, captcha);
@@ -114,4 +114,4 @@ const mapStateToProps = (state: AppStateType): MapStatePropsType => ({
 	captchaUrl: state.auth.captchaUrl,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { login })(LoginPage);

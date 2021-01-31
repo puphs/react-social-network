@@ -1,8 +1,8 @@
 import React from 'react';
 import { actions } from '../../redux/dialogsReducer';
-import Dialogs from './Dialogs';
+import DialogsPage from './DialogsPage';
 import { connect } from 'react-redux';
-import { withAuthRedirect } from '../hoc/withAuthRedirect';
+import { withAuthRedirect } from '../../components/hoc/withAuthRedirect';
 import { compose } from 'redux';
 import { Redirect, RouteComponentProps, withRouter } from 'react-router-dom';
 import { AppStateType } from '../../redux/reduxStore';
@@ -47,7 +47,7 @@ class DialogsContainer extends React.Component<
 	render() {
 		if (this.props.match.params.dialog === undefined)
 			return <Redirect to={`/dialogs/${this.props.currentDialog}`} />;
-		return <Dialogs {...this.props} />;
+		return <DialogsPage {...this.props} />;
 	}
 }
 

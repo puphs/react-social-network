@@ -1,6 +1,6 @@
 import s from './ProfileInfo.module.css';
 import userPhoto from '../../../assets/images/user-photo.png';
-import Preloader from '../../Preloader/Preloader';
+import Preloader from '../../../components/Preloader/Preloader';
 import ProfileStatus from './ProfileStatus';
 import ProfileJob from './ProfileJob';
 import { ChangeEvent, useState } from 'react';

@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
-import Users from './Users';
+import Users from './UsersPage';
 import React, { memo } from 'react';
-import Preloader from '../Preloader/Preloader';
+import Preloader from '../../components/Preloader/Preloader';
 
 import { actions, loadUsers, UsersFilterType } from '../../redux/usersReducer';
 import { compose } from 'redux';

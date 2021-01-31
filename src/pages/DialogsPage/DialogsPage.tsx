@@ -1,19 +1,23 @@
-import React from 'react';
-import s from './Dialogs.module.css';
+import React, { useEffect, useState } from 'react';
+import s from './DialogsPage.module.css';
 import DialogItem from './DialogItem/DialogItem';
 import Message from './Message/Message';
 import { Field, InjectedFormProps } from 'redux-form';
 import cn from 'classnames';
-import withFormReset from '../hoc/withFormReset';
+import withFormReset from '../../components/hoc/withFormReset';
 import { DialogType, MessageType } from '../../types/types';
 
 type AddMessageFormValuesType = {
 	messageText: string;
 };
 
-const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormValuesType>> = ({
-	handleSubmit,
-}) => {
+type AddMessageFormProps = {
+	IsButtonDisabled: boolean;
+};
+
+const AddMessageForm: React.FC<
+	AddMessageFormProps & InjectedFormProps<AddMessageFormValuesType>
+> = ({ handleSubmit }) => {
 	return (
 		<form onSubmit={handleSubmit}>
 			<Field
@@ -23,7 +27,7 @@ const AddMessageForm: React.FC<InjectedFormProps<AddMessageFormValuesType>> = ({
 				component={'textarea'}
 			/>
 
-			<button className={cn(s.sendBtn, 'btnBase')} name={'addMessageButton'}>
+			<button className={cn(s.sendBtn, 'btnBase')} name={'addMessageButton'} disabled={true}>
 				send
 			</button>
 		</form>
@@ -36,24 +40,37 @@ type PropsType = {
 	addMessage: (messageText: string) => void;
 };
 
-const Dialogs: React.FC<PropsType> = ({ dialogs, messages, addMessage }) => {
+const ws = new WebSocket('wss://social-network.samuraijs.com/handlers/ChatHandler.ashx');
+
+const DialogsPage: React.FC<PropsType> = ({ dialogs, addMessage }) => {
+	const [messages, setMessages] = useState<Array<MessageType>>([]);
+
+	useEffect(() => {
+		ws.addEventListener('message', (e: MessageEvent) => {
+			const newMessages = JSON.parse(e.data) as Array<MessageType>;
+			setMessages((oldMessages) => [...oldMessages, ...newMessages]);
+		});
+		return () => {};
+	}, []);
+
 	let dialogElements = dialogs.map((data) => (
 		<DialogItem key={data.id} name={data.name} id={data.id} />
 	));
-	let messageElements = messages.map((data) => <Message key={data.id} message={data.message} />);
+	let messageElements = messages.map((message) => <Message message={message} />);
 
 	const shouldResetForm = (formData: AddMessageFormValuesType) => {
 		return formData.messageText !== '' && formData.messageText.trim() !== '';
 	};
 
 	const onMessageSubmit = (formData: AddMessageFormValuesType) => {
-		if (formData.messageText && formData.messageText.trim()) addMessage(formData.messageText);
+		// if (formData.messageText && formData.messageText.trim()) addMessage(formData.messageText);
+		ws.send(formData.messageText);
 	};
 
 	return (
 		<main className={s.dialogs}>
 			<div className={s.dialogItems}>{dialogElements}</div>
-			<div className={s.dialogContainer}>
+			<div className={s.messagesContainer}>
 				<div className={s.messages}>{messageElements}</div>
 				{withFormReset<AddMessageFormValuesType>(
 					AddMessageForm,
@@ -66,4 +83,4 @@ const Dialogs: React.FC<PropsType> = ({ dialogs, messages, addMessage }) => {
 	);
 };
 
-export default Dialogs;
+export default DialogsPage;

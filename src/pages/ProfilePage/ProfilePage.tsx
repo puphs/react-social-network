@@ -1,4 +1,4 @@
-import s from './Profile.module.css';
+import s from './ProfilePage.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 import MyPostsContainer from './MyPosts/MyPostsContainer';
 import { ProfileType } from '../../types/types';
@@ -12,7 +12,7 @@ type PropsTypes = {
 	isMyProfile: boolean;
 };
 
-const Profile: React.FC<PropsTypes> = (props) => {
+const ProfilePage: React.FC<PropsTypes> = (props) => {
 	return (
 		<main className={s.profile}>
 			<ProfileInfo
@@ -28,4 +28,4 @@ const Profile: React.FC<PropsTypes> = (props) => {
 	);
 };
 
-export default Profile;
+export default ProfilePage;
