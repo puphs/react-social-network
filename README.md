@@ -13,9 +13,7 @@ This learning project is a social network built with React library. Not all func
 
 # Used libraries
 * [React](https://reactjs.org) (also: [React Redux](https://react-redux.js.org))
-* [Redux](https://redux.js.org) (also: [Redux Form](https://redux-form.com/8.3.0), [Redux Thunk](https://github.com/reduxjs/redux-thunk)
-* [classnames](https://github.com/JedWatson/classnames)
-* [axios](https://github.com/axios/axios)
+* [Redux](https://redux.js.org) (also: [Redux Form](https://redux-form.com/8.3.0), [Redux Thunk](https://github.com/reduxjs/redux-thunk))
 
 # Used API
 * [SamuraiJS Social Network](https://docs.google.com/document/d/1ZSXmTzkgq_Kj1VbWuq8fTv_DPD95GFDvPZgqFeIYGoM)
