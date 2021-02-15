@@ -1,6 +1,10 @@
 # react-social-network
 ![Social network preview](https://i.ibb.co/bQmsk3G/react-social-network.jpg)
 
+# Try it
+You can test it at [Github Pages](https://puphs.github.io/react-social-network/#/) (Not all functionality will work without an account)<br/>
+You can write me **puphs.dev@gmail.com** to get credentials to account on social network
+
 # About
 This learning project is a social network built with React library. Not all functionality is implemented yet.
 
@@ -17,7 +21,3 @@ This learning project is a social network built with React library. Not all func
 
 # Used API
 * [SamuraiJS Social Network](https://docs.google.com/document/d/1ZSXmTzkgq_Kj1VbWuq8fTv_DPD95GFDvPZgqFeIYGoM)
-
-# How you can try it
-You can test it at [Github Pages](https://puphs.github.io/react-social-network/#/) (Not all functionality will work without an account)<br/>
-You can write me **puphs.dev@gmail.com** to get credentials to account on social network
